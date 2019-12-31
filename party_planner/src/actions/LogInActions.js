@@ -1,6 +1,0 @@
-export const GET_DATA_START = "GET_DATA_START";
-export const GET_DATA_SUCCESS = "GET_DATA_SUCCESS";
-export const GET_DATA_FAIL = "GET_DATA_FAIL";
-export const CREATE_ACCOUNT = "CREATE_ACCOUNT";
-export const UPDATE_ACCOUNT = "UPDATE_ACCOUNT";
-export const DELETE_ACCOUNT = "DELETE_ACCOUNT";

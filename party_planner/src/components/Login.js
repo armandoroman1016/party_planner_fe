@@ -3,10 +3,9 @@ import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
 import { connect } from 'react-redux'
-import { handleSuccessfulLogin } from '../actions'
-import { Button } from 'semantic-ui-react';
-import { getEvents } from '../actions/index'
-
+import { handleSuccessfulLogin } from '../actions/LogInActions'
+import { getEvents } from '../actions/eventActions'
+import { Button } from 'semantic-ui-react'
 
 function Login(props) {
  const {touched} = props

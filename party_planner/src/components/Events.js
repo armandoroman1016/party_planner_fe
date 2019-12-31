@@ -12,9 +12,16 @@ import { TimelineMax, Power4, Bounce } from 'gsap';
 
 const Events = ({ history, match, events }) => {
 
-  const authObjects = events.filter(event => {
-    return event.user_id == match.params.id;
-  })
+  let authObjects = []
+
+  useEffect(() =>{
+    if(events){
+      authObjects = events.filter(event => {
+        return event.user_id == match.params.id;
+      })
+    }
+  },[events])
+
 
   let eventsHeader = useRef(null)
   let eventCards = useRef(null)
@@ -94,4 +101,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, {})(Events)
+export default Events;

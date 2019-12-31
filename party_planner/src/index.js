@@ -2,19 +2,22 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import { Provider } from 'react-redux'
 import { BrowserRouter as Router} from 'react-router-dom'
-import { PersistGate } from 'redux-persist/lib/integration/react';
-import { persistor, store } from './configureStore';
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunk from 'redux-thunk'
+import { globalReducer } from './reducers'
+import * as serviceWorker from './serviceWorker';
 
 //redux 
+
+const store = createStore(globalReducer, applyMiddleware(thunk));
+console.log('here',App)
 
 ReactDOM.render(
     <Provider store={store}>
         <Router>
-            <PersistGate loading={null} persistor = {persistor}>
                 <App />
-            </PersistGate>
         </Router>
     </Provider>, 
     document.getElementById('root'));
@@ -23,3 +26,4 @@ ReactDOM.render(
 // unregister() to register() below. Note this comes with some pitfalls.
 // Learn more about service workers: https://bit.ly/CRA-PWA
 
+serviceWorker.unregister();

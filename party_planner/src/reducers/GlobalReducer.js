@@ -47,7 +47,14 @@ const initialState = {
     userId: null,
     isLoading:false,
     error: '',
-    events: [],
+    events: [
+        {
+            guests: 8,
+            theme: 'Cowboy',
+            date: '2019-09-12',
+            budget: 500,
+        }
+    ],
     hasToken: false,
     shoppingListItems : [],
     todoItems: [],

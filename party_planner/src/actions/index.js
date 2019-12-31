@@ -22,7 +22,7 @@ export {
 export { 
     handleSuccessfulLogin,
     LOGIN_SUCCESS
- } from './RegisterActions'
+ } from './LogInActions'
 
 export {
   DELETING_EVENT,

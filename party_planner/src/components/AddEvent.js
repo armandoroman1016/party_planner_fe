@@ -121,11 +121,10 @@ const AddEvent = props => {
 }
 
 const FormikAddEvent = withFormik({
-  mapPropsToValues({ name, guests, budget, theme, date }) {
+  mapPropsToValues({ name, guests, theme, date }) {
     return {
       name: name || '',
       guests: guests || '',
-      budget: budget || '',
       theme: theme || '',
       date: date || '',
       // handleModalClose: handleModalClose
@@ -135,7 +134,6 @@ const FormikAddEvent = withFormik({
   validationSchema: Yup.object().shape({
     name: Yup.string().required("Event name is required!"),
     guests: Yup.number().required("# of event guests are required!"),
-    budget: Yup.number().required("Event budget is required!"),
     theme: Yup.string().required("Event theme is required!"),
     date: Yup.string().required("Event date is required!")
   }),
