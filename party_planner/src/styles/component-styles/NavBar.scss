@@ -1,0 +1,58 @@
+.ui.menu:first-child {
+  height: 7rem;
+  top: 0;
+  background: white;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  padding: 0 1rem;
+  box-shadow: none;
+  border: none;
+  
+
+  @include desktop {
+    padding: 0 5%;
+  }
+  
+  .header.item {
+    border: none;
+    font-size: 2.4rem;
+    padding: 0;
+    margin-right: 5%;
+    width: 100%;
+    color: $neutral-darkBlue;
+  }
+
+  .item{
+    border: none;
+    padding: 0;
+    @include desktop {
+      font-size: 1.4rem;
+    }
+  }
+
+  #email-letter {
+    background: $neutral-darkBlue;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
+    color: #fff;
+    margin-left: 1.2rem;
+    @include desktop {
+      margin-left: 40px;
+    }
+  }
+
+}//.ui.menu:first-child
+
+.ui.menu .item::before{
+  background: none;
+}
+
+.ui.menu:not(.vertical) .right.item, .ui.menu:not(.vertical) .right.menu{
+  align-items: center;
+}
+
+.ui.menu{
+  margin: 0;
+}

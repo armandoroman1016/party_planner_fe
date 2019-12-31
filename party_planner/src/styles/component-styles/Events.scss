@@ -1,0 +1,132 @@
+.events-content{
+  h2{
+    margin: 0;
+
+    @include desktop{
+      padding-left: 4rem;
+      font-size: 3.5rem;
+      text-align: left;
+      margin-left: 75px;
+      text-decoration-line: underline;
+      padding-top: 20px;
+    }
+  }
+  .no-events{
+    text-align: center;
+    margin: 3rem 0;
+    height:100%;
+    font-size:1.8rem;
+  }
+
+  .new-event{
+    color: #fff;
+    display: flex;
+    width: 100vw;
+    height: 7.7rem;
+    justify-content: space-between;
+    align-items: center;
+    background: #898A9E;
+
+    h2{
+      margin-left: 5.53%;
+      font-family: 'Crete Round', 'Times New Roman', Times, serif;
+      font-weight: 100;
+      font-size: 2.2rem
+    }
+
+    i.icon{
+      padding-right: 3.8rem;
+      font-size:2.67rem;
+      transform: translateY(20%);
+      color: #fff;
+    }
+  }
+  
+  .new-event.add{
+    justify-content: flex-end;
+    i.icon{
+      margin-left: 1.2rem;
+    }
+  }
+  
+
+}//.events-container
+  
+.ui.modal.transition.visible.active.modalContainer {
+  width: 350px;
+
+  .content {
+    margin: 0;
+    background: rgb(219, 226, 238);
+  }
+
+  .description.add-event-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    .form-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      width: 100%;
+      justify-content: center;
+
+      .arrow.left.icon.first-page{
+        text-align: left;
+        margin-right: auto;
+        font-size: 1.5rem;
+        cursor: pointer;
+
+        &:hover {
+          transform: scale(1.1)
+        }
+      }
+
+      .arrow.right.icon.second-page {
+        text-align: right;
+        margin-left: auto;
+        font-size: 1.5rem;
+        cursor: pointer;
+
+        &:hover {
+          transform: scale(1.1)
+        }
+      }
+    }
+
+    .form-inputs {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: left;
+
+      .add-event-label {
+        width: 100%;
+        text-align: left;
+        font-weight: bold;
+      }
+
+      .ui.input {
+        width: 275px;
+        padding: 1rem 0;
+
+        input {
+          padding: 1rem;
+        }
+      }
+      .ui.button.add-event-btn {
+        margin-top: 1rem;
+        width: 175px;
+        color: rgb(104, 75, 246);
+        background: none;
+        border: 2px solid rgb(104, 75, 246);
+        border-radius: 7px;
+      }
+    }
+  }
+}
+.hide{
+  display: none;
+}

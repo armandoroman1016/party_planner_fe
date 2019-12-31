@@ -1,0 +1,90 @@
+.add-event{
+    height: 100%;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    h2{
+        width: 100%;
+        height: 7.7rem;
+        padding: 2.4rem 1.2rem;
+        
+        font-family: 'Crete Round', 'Times New Roman', Times, serif;
+        background: #898A9E;
+        color: #fff;
+        font-size: 2.2rem;
+        font-weight: 500;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        .field{
+            padding: 1.6rem 1.2rem;
+            display: flex;
+            flex-direction: column;
+            
+            label{
+                font-size:1.4rem;
+                color: rgba(70, 76, 86, 0.55);
+                font-weight: bold;
+            }
+
+            input{
+                height:3rem;
+                border: none;
+                border-bottom: 1px solid rgba(153, 157, 162, 0.3);
+            }
+
+        }
+
+        .time{
+            :nth-child(2){
+                
+                select{
+                    color: rgba(70, 76, 86, 0.55);
+                    border: none;
+                    font-family: 'Heebo', 'Times New Roman', Times, serif;
+                    padding: .2rem .4rem;
+                    margin-top: .5rem;
+                    margin-right: 2rem;
+                }
+            }
+        }
+
+        #bg-color{
+            :nth-child(2){
+                display: flex;
+                flex-wrap: wrap;
+                align-content: space-evenly;
+                justify-content: space-evenly;
+                width: 85%;
+                height: 100%;
+                margin-top:1.6rem;
+                margin: 0 auto;
+                .bgcolor{
+                    width: 15%;
+                    margin: 5%;
+                    height: 4.5rem;
+                    border: 1px solid rgba(0, 0, 0, 0.1);
+                    border-radius: 8px;
+                    cursor: 'pointer';
+                }
+            }
+        }
+        button{
+            width: 90%;
+            border: none;
+            background: #5078B5;
+            border-radius: 15px;
+            height: 5rem;
+            font-family: 'Heebo', 'Times New Roman', Times, serif;
+            font-style: normal;
+            font-weight: bold;
+            font-size: 1.8rem;
+            color: #fff;
+            margin: 1.8rem auto;
+        }
+    }
+}
