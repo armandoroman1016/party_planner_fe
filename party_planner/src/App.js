@@ -21,7 +21,7 @@ import Footer from './components/Footer'
 
 
 function App() {
-  console.log(App)
+ 
   return (
     
       <div className="App">

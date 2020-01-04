@@ -12,7 +12,7 @@ import * as serviceWorker from './serviceWorker';
 //redux 
 
 const store = createStore(globalReducer, applyMiddleware(thunk));
-console.log('here',App)
+// console.log('here',App)
 
 ReactDOM.render(
     <Provider store={store}>

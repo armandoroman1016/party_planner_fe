@@ -1,8 +1,12 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, withFormik } from "formik";
 import * as Yup from 'yup'
+import { axiosWithAuth } from "../utils/AxiosWithAuth";
 
 const EventFormShape = props => {
+
+  const {touched, errors, values} = props
+  // const {errors} = props
 
   const hours = [];
 
@@ -28,12 +32,13 @@ const EventFormShape = props => {
         <Form>
 
             <div id = 'event-name' className = 'field'>
-                <label htmlFor="eventName">EVENT NAME</label>
+                <label htmlFor="eventName">EVENT NAME *</label>
                 <Field name="eventName" type="text" />
+                <p>{touched.eventName && errors.eventName}</p>
             </div>
 
             <div id = 'date' className = 'field'>
-                <label htmlFor = 'date'>DATE</label>
+                <label htmlFor = 'date'>DATE *</label>
                 <div className="ui icon input">
                   <Field placeholder="dd/mm/yyyy" name="date" type="date" />
                   <i
@@ -41,10 +46,11 @@ const EventFormShape = props => {
                     className="calendar alternate outline icon"
                   ></i>
                 </div>
+                <p>{touched.date && errors.date}</p>
             </div>
             
             <div className = 'time field' >
-                <label>START TIME</label>
+                <label>START TIME *</label>
                 <div>
 
                   <Field name="startHour" as="select">
@@ -81,6 +87,7 @@ const EventFormShape = props => {
                       : null}
                   </Field>                
                 </div>
+                {(touched.startHour && errors.startHour) || (touched.startMin && errors.startMin) || (touched.startAmPm && errors.startAmPm)}
             </div>
           
             <div className = 'time field' >
@@ -123,22 +130,22 @@ const EventFormShape = props => {
             </div>
             
             <div id = 'location' className = 'field'> 
-                <label htmlFor = 'eventLocation'>LOCATION</label>
+                <label htmlFor = 'eventLocation'>LOCATION *</label>
                 <Field name = 'eventLocation' type = 'text'/>
             </div>
                       
             <div id = 'budget' className = 'field'>
-                <label htmlFor = 'budget'>BUDGET</label>
+                <label htmlFor = 'budget'>BUDGET *</label>
                 <Field name = 'budget' type = 'text' placeholder = '$'/>  
             </div>
          
             <div className = 'guests field'>
-                <label htmlFor = 'adultGuest'>NUMBER OF GUESTS - ADULT</label>
+                <label htmlFor = 'adultGuest'>NUMBER OF GUESTS - ADULT *</label>
                 <Field name = 'adultGuest' type = 'text'/>
             </div>
 
             <div className = 'guests field'> 
-                <label htmlFor = 'childGuest'>NUMBER OF GUESTS - CHILD</label>
+                <label htmlFor = 'childGuest'>NUMBER OF GUESTS - CHILD *</label>
                 <Field name = 'childGuest' type = 'text'/>
             </div>
             
@@ -146,6 +153,18 @@ const EventFormShape = props => {
                 <label htmlFor = 'theme'>THEME</label>
                 <Field name = 'theme' type = 'text'/>
             </div>
+
+            <div id = 'publicity' className = 'field'>
+              <label className="checkbox-container">
+                <Field
+                type="checkbox"
+                name="publicity"
+                checked={values.publicity}
+                />
+              PUBLIC * 
+              {/* <span className="checkmark" /> */}
+              </label>
+          </div>
 
             <div id = 'bg-color' className = 'field'>
                 <label htmlFor = 'color'>CHOOSE A BACKGROUND COLOR</label>
@@ -155,9 +174,7 @@ const EventFormShape = props => {
                         : null}
                 </div>
             </div>
-         
-
-          <button type = 'submit'>ADD EVENT</button>
+          <button type = 'submit' style = {{cursor: 'pointer'}}>ADD EVENT</button>
         </Form>
       
     </div>
@@ -178,7 +195,8 @@ const EventForm = withFormik({
         budget, 
         adultGuest, 
         childGuest,
-        theme
+        theme,
+        publicity
     }){
         return {
             eventName: eventName || '',
@@ -193,18 +211,20 @@ const EventForm = withFormik({
             budget: budget || '',
             adultGuest: adultGuest || '',
             childGuest: childGuest || '',
-            theme: theme || ''
+            theme: theme || '',
+            publicity: publicity || false
         };
     },
 
     validationSchema: Yup.object().shape({
         eventName: Yup.string().required('Event name is required'),
-        date: Yup.date().required('Event date is required'),
-        startHour: Yup.number().required('Select a starting hour'),
-        startAmPm: Yup.string().required('AM or PM is required'),
+        date: Yup.string().required('Event date is required'),
+        startHour: Yup.string().required('Start time is required'),
+        startMin: Yup.string().required('Start time is required'),
+        startAmPm: Yup.string().required('Start time is required'),
         endHour: Yup.number('Invalid Selection'), 
-        endAmPm: Yup.string().required('AM or PM is required'),
-        location: Yup.string().required('Event location is required'),
+        endAmPm: Yup.string(),
+        eventLocation: Yup.string().required('Event location is required'),
         budget: Yup.number('Budget must be a number').required('Your budget is required'),
         adultGuest: Yup.number('Guest count must be a number'),
         childGuest: Yup.number('Guest count must be a number'),
@@ -212,8 +232,43 @@ const EventForm = withFormik({
     }),
 
     handleSubmit(values, props){
-        console.log(values)
-        console.log('here')
+
+        const { 
+          eventName,
+          eventLocation,
+          date,
+          startHour,
+          startMin,
+          startAmPm,
+          endHour,
+          endMin,
+          endAmPm,
+          budget,
+          adultGuest,
+          childGuest,
+          theme,
+          publicity
+         } = values
+
+        const packet = {
+          name: eventName,
+          date: date,
+          startTime: `${startHour} : ${startMin} ${startAmPm}`,
+          endTime: !endMin || !endHour || !endAmPm ? null : `${endHour} : ${endMin} ${endAmPm}`,
+          budget: budget,
+          location: eventLocation,
+          private: publicity,
+          adultGuests: adultGuest,
+          childGuests: childGuest,
+          // backgroundColor: backgroundColor,  
+          // themeId: theme
+        }
+
+        axiosWithAuth()
+          .post('http://localhost:5000/api/events/41198682-498f-4551-8be5-e4899d551915/add', packet)
+          .then( res => console.log(res))
+          .catch( err => console.log(err))
+        
     }
 
 })(EventFormShape)
