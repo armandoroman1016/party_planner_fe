@@ -17,12 +17,12 @@ export const UPDATE_EVENT_FAILURE = "UPDATE_EVENT_FAILURE"
 
 // get full list of events
 
-export const getEvents = () => {
+export const getEvents = (userId) => {
   return dispatch => {
     dispatch({ type: GET_EVENTS_START })
     axiosWithAuth()
-      .get('https://bw-party-planner.herokuapp.com/api/party')
-      .then(res => dispatch({ type: GET_EVENTS_SUCCESS, payload: res.data }))
+      .get(`http://localhost:5000/api/events/${userId}`)
+      .then(res => dispatch({ type: GET_EVENTS_SUCCESS, payload: res.data.events }))
       .catch(err => dispatch({ type: GET_EVENTS_ERROR, payload: err.response }))
   }
 }

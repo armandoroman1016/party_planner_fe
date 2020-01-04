@@ -59,7 +59,7 @@ const FormikLogin = withFormik({
          localStorage.setItem("emailDisplay", values.email.charAt(0));
          localStorage.setItem("user_id", res.data.user.id);
          localStorage.setItem("token", res.data.token);
-         props.props.getEvents();
+         props.props.getEvents(res.data.user.id);
          props.props.history.push(`/dashboard/${res.data.user.id}`);
        })
        .catch(error => {
