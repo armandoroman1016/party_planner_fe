@@ -11,7 +11,7 @@ function Login(props) {
  const {touched} = props
  const {errors} = props
  return(
-   <>
+   <div>
    <h1>Login</h1>
    <Form className="form">
         <div className='ui input'>
@@ -34,7 +34,7 @@ function Login(props) {
          <br />
          {props.status && <h3 style={{color: 'red'}}>Try again</h3>}
    </Form>
-   </>
+   </div>
  )
 }
 const FormikLogin = withFormik({
@@ -46,22 +46,21 @@ const FormikLogin = withFormik({
      };
    },
    validationSchema: Yup.object().shape({
-     email: Yup.string().required("Username is required"),
-     password: Yup.string().min(8).required("Password is ALSO required")
+     email: Yup.string().required("Required"),
+     password: Yup.string().min(8).required("Required")
    }),
    //save token to local storage
    handleSubmit(values, props) {
      const propsToSubmit = {"email": values.email, "password": values.password}
-     localStorage.setItem("emailDisplay", values.email.charAt(0));
-     const url = "https://bw-party-planner.herokuapp.com/api/auth/login";
+     const url = "http://localhost:5000/api/auth/login";
      axios
      .post(url, propsToSubmit)
-       .then(results => {
-         localStorage.setItem("user_id", results.data.id);
-         localStorage.setItem("token", results.data.token);
+     .then(res => {
+         localStorage.setItem("emailDisplay", values.email.charAt(0));
+         localStorage.setItem("user_id", res.data.user.id);
+         localStorage.setItem("token", res.data.token);
          props.props.getEvents();
-         props.props.handleSuccessfulLogin(results.data.id);
-         props.props.history.push(`/dashboard/${results.data.id}`);
+         props.props.history.push(`/dashboard/${res.data.user.id}`);
        })
        .catch(error => {
          props.setStatus(error.response.data.message)
@@ -73,5 +72,5 @@ const FormikLogin = withFormik({
      state
    }
  }
- export default connect(mapStateToProps,{handleSuccessfulLogin, getEvents})(FormikLogin)
+ export default connect(mapStateToProps,{ getEvents })(FormikLogin)
 

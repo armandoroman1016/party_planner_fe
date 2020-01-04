@@ -11,7 +11,7 @@ import './App.scss';
 // Components
 import NavBar from './components/NavBar'
 import Login from './components/Login';
-import { Register } from './components/Register'
+import Register from './components/Register'
 import Events from './components/Events';
 import EventForm from './components/EventForm'
 
