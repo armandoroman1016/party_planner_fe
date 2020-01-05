@@ -13,21 +13,23 @@ import ProgressBar from './ProgressBar'
 
 const EventOnDashboard = (props) => {
 
+  console.log(props.event)
+
   // const colors = ['#FFF']
   const colors = ['#FFE9F9', '#F2FFE1', '#FFF0E5', '#EEE9FF', '#fff']
   const months = {
-    '01' : 31,
-    '02' : 28,
-    '03' : 31,
-    '04' : 30,
-    '05' : 31,
-    '06' : 30,
-    '07' : 31,
-    '08' : 31,
-    '09' : 30,
-    '10' : 31,
-    '11' : 30,
-    '12' : 31
+    1 : 31,
+    2 : 28,
+    3 : 31,
+    4 : 30,
+    5 : 31,
+    6 : 30,
+    7 : 31,
+    8 : 31,
+    9 : 30,
+    10 : 31,
+    11 : 30,
+    12 : 31
   }
   
   const { event } = props
@@ -40,23 +42,42 @@ const EventOnDashboard = (props) => {
 
     let daysLeft = null
 
-    const yearsLeft = eventDate[0] -  today[0]
-
-    const todaysMonth = today[1]
+    const current = currentDate
+    const todaysMonth = current[1]
     const eventMonth = eventDate[1]
 
-    if (Number(yearsLeft) === 0){
+    
+    const yearsLeft = Number(eventDate[0]) -  Number(today[0])
+    
+
+    if (yearsLeft === 0){
 
       for(let i = Number(todaysMonth); i <= Number(eventMonth); i++){
 
         if(i === Number(todaysMonth)){
-          daysLeft += eventDate[2] - currentDate[2]
+
+          if(i === Number(eventMonth)){
+
+            daysLeft += eventDate[2] - current[2] 
+
+          }else{
+
+            daysLeft += months[i] - Number(current[2])
+
+          }
+
         }
+
         else if(i === Number(eventMonth)){
-          daysLeft += months[i] - Number(eventDate[2])
+
+          daysLeft +=  Number(eventDate[2])
+
         }
+
         else{
+
           daysLeft += months[i]
+
         }
 
       }
@@ -87,7 +108,7 @@ const EventOnDashboard = (props) => {
         <div className = 'event-left_side'>
           <p style = {{background: daysRemainingBackground}}>{remainingDays} Days Until Event</p>
           <h4>{event.name}</h4>
-          <h4>4:00 P.M.</h4>
+          <h4>{event.start_time}</h4>
         </div>
         <div className = 'event-right_side'>
           <img src = { dots } alt = 'settings icon'/>
@@ -100,25 +121,28 @@ const EventOnDashboard = (props) => {
       </div>
       <div className = {show ? 'event-meta' : 'hide event-meta'}>
         <div className = 'event-info-extra'>
-          <div >
-              <h4>THEME</h4>
-              <p>Ugly Christmas Sweater</p>
-          </div>
+          {event.theme ? 
+              <div >
+                <h4>THEME</h4>
+                <p>{event.theme}</p>
+            </div>
+            : null
+        }
           <div>
               <h4>LOCATION</h4>
-              <p>Roman Household</p>
+              <p>{event.location}</p>
           </div>
           <div>
               <h4>ADDRESS</h4>
-              <p>123 Main St.</p>
+              <p>{event.address}</p>
           </div>
           <div>
               <h4>GUEST COUNT</h4>
-              <p>20 Adults, 10 Children</p>
+              <p>{event.adult_guests} Adults, {event.child_guests} Children</p>
           </div>
           <div>
               <h4>BUDGET</h4>
-              <p>$3,000</p>
+              <p>$ {event.budget}</p>
           </div>
         </div>
         <ProgressBar event = {event}/>

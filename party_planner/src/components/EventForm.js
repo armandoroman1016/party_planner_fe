@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Formik, Form, Field, withFormik } from "formik";
 import * as Yup from 'yup'
-import { axiosWithAuth } from "../utils/AxiosWithAuth";
+import { connect } from 'react-redux'
+import { addEvent } from '../actions/AddEventActions'
+
 
 const EventFormShape = props => {
 
@@ -233,6 +235,8 @@ const EventForm = withFormik({
 
     handleSubmit(values, props){
 
+        const { addEvent } = props.props
+
         const { 
           eventName,
           eventLocation,
@@ -264,13 +268,19 @@ const EventForm = withFormik({
           // themeId: theme
         }
 
-        axiosWithAuth()
-          .post('http://localhost:5000/api/events/41198682-498f-4551-8be5-e4899d551915/add', packet)
-          .then( res => console.log(res))
-          .catch( err => console.log(err))
+        console.log('here:', packet)
+        addEvent(packet , localStorage.getItem('user_id'))
         
     }
 
 })(EventFormShape)
 
-export default EventForm;
+const mapStateToProps = (state) => {
+
+  return{
+    state
+  }
+}
+
+
+export default connect(mapStateToProps, {addEvent})(EventForm);
