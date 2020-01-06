@@ -68,7 +68,7 @@ export const addShoppingItem = (eventId, values) => {
   return dispatch => {
     dispatch({type: ADD_SHOPPING_ITEM_START})
       axiosWithAuth()
-      .post(`http://localhost:5000/api/shopping/${eventId}/add`, values)
+      .post(`http://localhost:5000/api/shopping/${eventId}`, values)
       .then( res => dispatch({type: ADD_SHOPPING_ITEM_SUCCESS, payload: res.data}))
       .catch( err => console.log('errOnPostItem', err))
   }

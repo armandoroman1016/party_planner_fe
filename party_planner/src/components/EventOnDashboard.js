@@ -174,7 +174,7 @@ const EventOnDashboard = (props) => {
         <div className = 'lists'>
           <ShoppingList id={event.id} />
           <TodoList id={event.id} />
-          <EntertainmentList id={event.id} />
+          {/* <EntertainmentList id={event.id} /> */}
         </div>
       </div>
       {!show ? 

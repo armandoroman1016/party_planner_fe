@@ -148,8 +148,10 @@
 
     }
     .container-lists {
-        height: 16.4rem;
+        // height: 16.4rem;
+        height: 12rem;
         width: 100%;
+
 
         h4 {
             text-align: left;
@@ -161,13 +163,11 @@
 
             width: 100%;
             display: flex;
-            flex-wrap: wrap;
-            align-content: space-around;
-            justify-content: space-around;
-            margin-bottom: 3rem;
-
+            margin: 0 1.2rem;
+            align-content: space-between;
+            justify-content: space-between;
             .modal-container {
-                width: 40%;
+                width: 45%;
 
                 button {
                     width: 100%;
@@ -186,7 +186,7 @@
     .expand-arrow {
         height: 2rem;
         width: 2rem;
-        margin: 1.2rem auto;
+        margin: .5rem auto;
     
     }
 

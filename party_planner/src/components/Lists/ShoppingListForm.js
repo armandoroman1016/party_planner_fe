@@ -37,14 +37,17 @@ const FormikShoppingForm = withFormik({
         item: Yup.string().required('Item name is required'),
     }),
     handleSubmit(values, props){
-        const { eventId } = props.props
-            const valuesToSubmit = {
-                name: values.item,
-                purchased: false,
-                shopping_list_id: eventId,
-                price: 0
-            }
-            props.props.addShoppingItem(valuesToSubmit)
+        const { eventId, addShoppingItem } = props.props
+        console.log(props)
+
+        const packet = {
+            name: values.item,
+            purchased: 0,
+            notes: 'here are my notes'
+        }
+        
+        addShoppingItem(eventId, packet)
+
         }
 })(ShoppingListForm)
 
