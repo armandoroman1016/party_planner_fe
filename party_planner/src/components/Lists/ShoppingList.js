@@ -10,14 +10,19 @@ import ShoppingItem from './ShoppingItem'
 
 const ShoppingList = props => {
 
+    console.log('shopping_list: ', props)
+
     let itemToUpdate = {}
+
     let dataToSend = {}
-    const { match } = props
-    const { id } = props 
+
+    const { match, id, shoppingListItems} = props
+
     const [ modalPosition, setModalPosition ] = useState(1)
+
     const [ itemToRender, setItemToRender ] = useState([])
     
-    const eventId = id ? id : props.match.params.id 
+    const eventId = id ? id : match.params.id 
     
     useEffect(()=> {
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -34,11 +39,9 @@ const ShoppingList = props => {
     },[itemToRender])
 
     useEffect(() => {
-        props.getShoppingItems()
+        props.getShoppingItems(eventId)
   
     },[])
-
-    const shoppingItems = props.shoppingListItems.filter(item => item.shopping_list_id === eventId && item)
 
     const handleChange = event => {
         dataToSend = {...dataToSend, [event.target.name] : Number(event.target.value)}
@@ -47,27 +50,28 @@ const ShoppingList = props => {
 
     const handleSubmit = event => {
         let placeHolder = []
-        placeHolder.push(dataToSend)
-        
+        placeHolder.push(dataToSend)     
         event.preventDefault()
         props.updateShoppingItems(placeHolder)
         placeHolder.unshift()
         setModalPosition(1)
     }
 
+    const eventShopping = shoppingListItems.filter( item => item.event_id === id)
+
     return(
         <div className = 'modal-container'>
             <Modal className="listModalContainer" trigger={<Button>Shopping List</Button>} closeIcon>
                 <Modal.Content className="list-content">
                     <Header style={{color:'rgb(16, 30, 68)', textAlign: 'center', fontSize: "1.8rem"}}>Shopping List</Header>
-                    {shoppingItems.length && modalPosition === 1?
-                        shoppingItems.map( item => {
+                    {eventShopping.length && modalPosition === 1?
+                        eventShopping.map( item => {
                             return(
                                 <ShoppingItem
                                 key= {item.id}
                                 item = {item} 
                                 setModalPosition = { setModalPosition }
-                                modalPosition = {modalPosition}
+                                modalPosition = { modalPosition }
                                 setItemToRender = { setItemToRender }/>
                             )
                         })

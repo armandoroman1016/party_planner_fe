@@ -7,10 +7,13 @@ import { addShoppingItem } from '../../actions'
 import { Button } from 'semantic-ui-react';
 
 const ShoppingListForm = props => {
+
+    console.log('shopping_list_form: ', props)
+
     const { modalPosition } = props
     const { eventId } = props
     return(
-        <>
+        <div>
         {modalPosition === 1 ?
         <div className = 'list-form-container'>
             <Form className='list-form'>
@@ -20,7 +23,7 @@ const ShoppingListForm = props => {
                     <Button type = 'submit'>Add Item</Button>
             </Form>
         </div> : null}
-        </>
+        </div>
     )
 }
 

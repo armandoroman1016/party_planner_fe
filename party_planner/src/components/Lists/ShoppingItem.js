@@ -8,6 +8,8 @@ import * as Yup from 'yup'
 
 
 const ShoppingItem = props => {
+
+  console.log('shopping_item: ', props)
   const { item } = props;
   const { setModalPosition } = props
   const { modalPosition } = props
