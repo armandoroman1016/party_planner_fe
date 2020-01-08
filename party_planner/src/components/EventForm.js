@@ -7,7 +7,9 @@ import { addEvent } from '../actions/AddEventActions'
 
 const EventFormShape = props => {
 
+  console.log(props)
   const {touched, errors, values} = props
+  console.log('values', values)
   // const {errors} = props
 
   const hours = [];
@@ -31,7 +33,7 @@ const EventFormShape = props => {
   return (
     <div className="add-event">
       <h2>New Event</h2>
-        <Form>
+        <Form selectedcolor = { selectedColor }>
 
             <div id = 'event-name' className = 'field'>
                 <label htmlFor="eventName">EVENT NAME *</label>
@@ -135,6 +137,11 @@ const EventFormShape = props => {
                 <label htmlFor = 'eventLocation'>LOCATION *</label>
                 <Field name = 'eventLocation' type = 'text'/>
             </div>
+
+            <div id = 'address' className = 'field'> 
+              <label htmlFor = 'address'>ADDRESS *</label>
+              <Field name = 'address' type = 'text'/>
+            </div>
                       
             <div id = 'budget' className = 'field'>
                 <label htmlFor = 'budget'>BUDGET *</label>
@@ -163,7 +170,7 @@ const EventFormShape = props => {
                 name="publicity"
                 checked={values.publicity}
                 />
-              PUBLIC * 
+              PUBLIC 
               {/* <span className="checkmark" /> */}
               </label>
           </div>
@@ -172,7 +179,11 @@ const EventFormShape = props => {
                 <label htmlFor = 'color'>CHOOSE A BACKGROUND COLOR</label>
                 <div>
                     {backgroundColors.length ? 
-                        backgroundColors.map(color => <div style = {{background: color }} key = {color} className = 'bgcolor'/>)
+                        backgroundColors.map(color => <div 
+                          style = {{background: color }} 
+                          key = {color} 
+                          className = 'bgcolor' 
+                          onClick = {(e) => handleColorChange(e)}/>)
                         : null}
                 </div>
             </div>
@@ -198,6 +209,7 @@ const EventForm = withFormik({
         adultGuest, 
         childGuest,
         theme,
+        address,
         publicity
     }){
         return {
@@ -206,6 +218,7 @@ const EventForm = withFormik({
             startHour: startHour || '',
             startMin: startMin || '',
             startAmPm: startAmPm || '',
+            address: address || '',
             endHour: endHour || '',
             endMin: endMin || '',
             endAmPm: endAmPm || '',
@@ -226,6 +239,7 @@ const EventForm = withFormik({
         startAmPm: Yup.string().required('Start time is required'),
         endHour: Yup.number('Invalid Selection'), 
         endAmPm: Yup.string(),
+        address: Yup.string().required('Event location is required'),
         eventLocation: Yup.string().required('Event location is required'),
         budget: Yup.number('Budget must be a number').required('Your budget is required'),
         adultGuest: Yup.number('Guest count must be a number'),
@@ -235,8 +249,9 @@ const EventForm = withFormik({
 
     handleSubmit(values, props){
 
-        const { addEvent } = props.props
+        const { addEvent, selectedcolor } = props.props
 
+        console.log('submit props: ',props)
         const { 
           eventName,
           eventLocation,
@@ -251,6 +266,7 @@ const EventForm = withFormik({
           adultGuest,
           childGuest,
           theme,
+          address,
           publicity
          } = values
 
@@ -261,11 +277,12 @@ const EventForm = withFormik({
           endTime: !endMin || !endHour || !endAmPm ? null : `${endHour} : ${endMin} ${endAmPm}`,
           budget: budget,
           location: eventLocation,
+          address: address,
           private: publicity,
-          adultGuests: adultGuest,
-          childGuests: childGuest,
-          // backgroundColor: backgroundColor,  
-          // themeId: theme
+          adultGuests: Number(adultGuest),
+          childGuests: Number(childGuest),
+          backgroundColor: selectedcolor || '#fff',  
+          theme: theme
         }
 
         console.log('here:', packet)

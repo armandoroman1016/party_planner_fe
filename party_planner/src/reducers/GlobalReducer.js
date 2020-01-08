@@ -47,7 +47,7 @@ const initialState = {
     userId: null,
     isLoading:false,
     error: '',
-    events: null,
+    events: [],
     hasToken: false,
     shoppingListItems : [],
     todoItems: [],

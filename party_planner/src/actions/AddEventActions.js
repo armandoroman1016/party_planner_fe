@@ -8,9 +8,9 @@ export const addEvent = (event, userId) => {
   return dispatch => {
     dispatch({ type: ADDING_EVENT});
     axiosWithAuth()
-      .post(`http://localhost:5000/api/events/${userId}/add`, event)
+      .post(`http://localhost:5000/api/events/${userId}`, event)
         .then(res => {
-          dispatch({ type: ADD_EVENT_SUCCESS, payload: res.data })
+          dispatch({ type: ADD_EVENT_SUCCESS, payload: res.data.event })
         })
         .catch(err => {
           dispatch({ type: ADD_EVENT_FAILURE, payload: err.response })

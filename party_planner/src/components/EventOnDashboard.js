@@ -13,7 +13,6 @@ import ProgressBar from './ProgressBar'
 
 const EventOnDashboard = (props) => {
 
-  console.log(props.event)
   // destructuring of event
   const { event } = props
 
@@ -117,7 +116,7 @@ const EventOnDashboard = (props) => {
   // if days remaining are less then or equal to 14 update days remaining background with warning color
   const daysRemainingBackground = remainingDays <= 14 ? '#E3696A' : '#898A9E' 
 
-  const random = colors[Math.floor(Math.random() * colors.length)]
+  const random = event.background_color || colors[Math.floor(Math.random() * colors.length)]
   
   // boolean to toggle the meta data display status
   const [ show, setShow ] = useState(false)
