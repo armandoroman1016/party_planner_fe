@@ -33,7 +33,7 @@ function App() {
           <PrivateRoute path="/create-event" component={EventForm}/>
           <PrivateRoute path="/dashboard/:id" component={Events}/>
         </div>
-         {/*  <Footer /> */}
+         <Footer />
       </div>
       
   );

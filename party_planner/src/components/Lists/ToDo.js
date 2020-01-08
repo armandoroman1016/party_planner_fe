@@ -15,7 +15,7 @@ const TodoList = props => {
     const eventId = id ? id : props.match.params.id 
 
     useEffect(() => {
-        props.getEventTodoList()
+        props.getEventTodoList(eventId)
     },[])
 
     let todoList = props.todoItems.filter(item => {

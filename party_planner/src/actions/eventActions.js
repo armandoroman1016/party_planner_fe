@@ -115,11 +115,11 @@ export const ADD_EVENT_TODO_START = "ADD_EVENT_TODO_START"
 export const ADD_EVENT_TODO_SUCCESS = "ADD_EVENT_TODO_SUCCESS"
 export const ADD_EVENT_TODO_ERROR = "ADD_EVENT_TODO_ERROR"
 
-export const addEventTodo = values => {
+export const addEventTodo = ( eventId, values ) => {
   return dispatch =>{
     dispatch({type: ADD_EVENT_TODO_START})
     axiosWithAuth()
-      .post('https://bw-party-planner.herokuapp.com/api/todo', values)
+      .post(`http://localhost:5000/api/todo/${eventId}`, values)
       .then( res => dispatch({type: ADD_EVENT_TODO_SUCCESS, payload: res.data}))
       .catch( err => dispatch({type: ADD_EVENT_TODO_ERROR, payload: err.response}))
   }
@@ -129,11 +129,11 @@ export const GET_EVENT_TODO_LIST_START = "GET_EVENT_TODO_LIST_START"
 export const GET_EVENT_TODO_LIST_SUCCESS = "GET_EVENT_TODO_LIST_SUCCESS"
 export const GET_EVENT_TODO_LIST_ERROR = "GET_EVENT_TODO_LIST_ERROR"
 
-export const getEventTodoList = () => {
+export const getEventTodoList = (eventId) => {
   return dispatch =>{
     dispatch({type: GET_EVENT_TODO_LIST_START})
     axiosWithAuth()
-      .post('https://bw-party-planner.herokuapp.com/api/todolist')
+      .get(`http://localhost:5000/api/todo/${eventId}`)
       .then( res => dispatch({type: GET_EVENT_TODO_LIST_SUCCESS, payload: res.data}))
       .catch( err => dispatch({type: GET_EVENT_TODO_LIST_ERROR, payload: err.response}))
   }
