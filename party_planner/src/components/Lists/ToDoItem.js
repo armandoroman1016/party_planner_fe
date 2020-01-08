@@ -3,6 +3,8 @@ import { Checkbox } from "semantic-ui-react";
 
 const ToDoItem = props => {
 
+  const { toggleToModified } = props
+  
   const [queueToUpdate, setQueueToUpdate] = useState(false);
 
   const { item } = props;
@@ -10,6 +12,7 @@ const ToDoItem = props => {
   let initialState = item.completed
   
   const updateCompleted = () => {
+    toggleToModified(item)
     initialState = !initialState
     item.completed = initialState
     setQueueToUpdate(!queueToUpdate)

@@ -148,12 +148,13 @@ export const updateToDoList = ( arr ) => {
     let valuesToSubmit = {
       name: arr[i].name,
       completed: arr[i].completed,
-      todo_list_id: arr[i].todo_list_id
+      eventId: arr[i].event_id,
+      notes: arr[i].notes
     }
     return dispatch => {
       dispatch({type: UPDATE_EVENT_TODO_LIST_START})
       axiosWithAuth()
-        .put(`https://bw-party-planner.herokuapp.com/api/todo/${arr[i].id}`, valuesToSubmit)
+        .put(`http://localhost:5000/api/todo/${arr[i].id}`, valuesToSubmit)
         .then( res => dispatch({type: UPDATE_EVENT_TODO_LIST_SUCCESS, payload: res.data}))
         .catch( err => console.log(err))
    } 
