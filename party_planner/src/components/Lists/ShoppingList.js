@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux'
-import { Button, Header, Modal } from 'semantic-ui-react';
+import { Button, Header, Modal, Icon } from 'semantic-ui-react';
 import { getShoppingItems, updateShoppingItems } from '../../actions'
 import FormikShoppingForm from './ShoppingListForm';
 import ShoppingItem from './ShoppingItem'
@@ -10,19 +10,21 @@ import ShoppingItem from './ShoppingItem'
 
 const ShoppingList = props => {
 
-    console.log('shopping_list: ', props)
-
     let itemToUpdate = {}
 
     let dataToSend = {}
 
-    const { match, id, shoppingListItems} = props
+    const { match, id, shoppingListItems, updateShoppingItems } = props
 
     const [ modalPosition, setModalPosition ] = useState(1)
 
     const [ itemToRender, setItemToRender ] = useState([])
+
+    const [ cost, setCost ] = useState(null) 
     
-    const eventId = id ? id : match.params.id 
+    const eventId = id ? id : match.params.id
+
+    console.log('here 25:', itemToRender)
     
     useEffect(()=> {
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,6 +46,7 @@ const ShoppingList = props => {
     },[])
 
     const handleChange = event => {
+
         dataToSend = {...dataToSend, [event.target.name] : Number(event.target.value)}
         
     }
@@ -57,6 +60,33 @@ const ShoppingList = props => {
         setModalPosition(1)
     }
 
+
+    const handleCostChange = (e) =>{
+
+        setCost(e.target.value)
+
+    }
+
+    const updateCost = (e, eventObj) => {
+
+        e.preventDefault()
+
+        console.log(eventObj)
+        const packet = {
+            id: eventObj.id,
+            name: eventObj.name,
+            purchased: true,
+            notes: 'here are my notes',
+            cost: Number(cost),
+            eventId: eventObj.event_id
+        }
+
+        console.log(packet)
+
+        updateShoppingItems([packet])
+
+    } 
+
     const eventShopping = shoppingListItems.filter( item => item.event_id === id)
 
     return(
@@ -64,7 +94,7 @@ const ShoppingList = props => {
             <Modal className="listModalContainer" trigger={<Button>Shopping List</Button>} closeIcon>
                 <Modal.Content className="list-content">
                     <Header style={{color:'rgb(16, 30, 68)', textAlign: 'center', fontSize: "1.8rem"}}>Shopping List</Header>
-                    {eventShopping.length && modalPosition === 1?
+                    { eventShopping.length && modalPosition === 1 ?
                         eventShopping.map( item => {
                             return(
                                 <ShoppingItem
@@ -79,14 +109,19 @@ const ShoppingList = props => {
                         itemToRender.map( item => {
                         return(
                             <form key={item.id} onSubmit = {handleSubmit}>
-                              <h2>{item.name} Cost</h2>
-                              <div className='ui input'><input type = 'text' name = 'price' placeholder= 'Price. . .' onChange={handleChange} value = {dataToSend.price}/></div>
-                              <Button style={{marginTop: '1rem'}}secondary type = 'submit'>Confirm Price</Button>
+                              <div>
+                                <Icon name = 'left arrow' onClick = {() => setModalPosition(1)}/>
+                                <h2>{item.name} Cost</h2>
+                              </div>
+                              <div className='ui input'>
+                                <input type = 'text' name = 'price' placeholder= 'Price. . .' onChange={(e) => handleCostChange(e)} value = {dataToSend.price}/>
+                                </div>
+                              <Button style={{marginTop: '1rem'}}secondary type = 'submit' onClick = {(e) => { updateCost(e, ...itemToRender) }}>Confirm Price</Button>
                             </form>
                       )}) 
                       : 'Your shopping list is currently empty. Click below to add an item.'}
                     <FormikShoppingForm modalPosition = {modalPosition} match = {match} eventId = {eventId}/>
-                    {modalPosition === 1 && <div style={{width: '100%', textAlign: 'center'}}><Button secondary style={{marginTop: '1rem'}} onClick = {handleSubmit}>Update Shopping List</Button></div>}
+                    {/* modalPosition === 1 && <div style={{width: '100%', textAlign: 'center'}}><Button secondary style={{marginTop: '1rem'}} onClick = {handleSubmit}>Update Shopping List</Button></div> */}
                     </Modal.Content>
             </Modal>
         </div>
@@ -98,4 +133,5 @@ const mapStateToProps = state => {
         shoppingListItems : state.shoppingListItems
     }
 }
+
 export default connect(mapStateToProps, { getShoppingItems, updateShoppingItems })(ShoppingList)

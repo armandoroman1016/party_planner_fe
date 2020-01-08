@@ -1,54 +1,81 @@
-    
 import React, { useEffect, useState } from "react";
 import { Checkbox, Button } from "semantic-ui-react";
-import { connect } from 'react-redux'
-import { updateShoppingItems } from '../../actions'
-import { Form, Field, withFormik } from 'formik'
-import * as Yup from 'yup'
-
+import { connect } from "react-redux";
+import { updateShoppingItems } from "../../actions";
+import { Form, Field, withFormik } from "formik";
+import * as Yup from "yup";
 
 const ShoppingItem = props => {
-
-  console.log('shopping_item: ', props)
   const { item } = props;
-  const { setModalPosition } = props
-  const { modalPosition } = props
-  const { setItemToRender } = props
+  const { setModalPosition } = props;
+  const { modalPosition } = props;
+  const { setItemToRender } = props;
 
-  let initialState = item.purchased
+  let initialState = item.purchased;
 
-  let arrItem = []
-  arrItem.push(item)
+  let arrItem = [];
+  arrItem.push(item);
+
+  console.log('here', item);
 
   const updateCompleted = e => {
-    initialState = !initialState
-    item.purchased = initialState
-    let temp = []
-    temp.push(item)
-    props.updateShoppingItems(temp)
-    temp.unshift()
-  }
+    initialState = !initialState;
+    item.purchased = initialState;
+    let temp = [];
+    temp.push(item);
+    props.updateShoppingItems(temp);
+    temp.unshift();
+  };
 
   const toggle = () => {
-    setItemToRender(arrItem)
-    setModalPosition(2)
-  }
-
+    setItemToRender(arrItem);
+    setModalPosition(2);
+  };
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column' }}>
-      {modalPosition === 1 ?
-        item.purchased ?
-          <h3 style={{ textDecorationLine: 'line-through' }}>{modalPosition === 1 ?
-            <Checkbox style={{marginRight: '1rem'}} onClick={updateCompleted} /> :
-            null}{item.name}<Button primary style={{padding: '0.5rem', marginLeft: '0.5rem'}}onClick={toggle}>Edit</Button> </h3>
-          : <h3>{modalPosition === 1 ?
-            <Checkbox style={{marginRight: '1rem'}} onClick={updateCompleted} /> :
-            null}{item.name}<Button primary style={{padding: '0.5rem', marginLeft: '0.5rem'}}onClick={toggle}>Edit</Button></h3>
-        : null}
-      {item.price ?
-        <p>{item.name} cost: ${item.price}</p>
-        : null}
+    <div style={{ display: "flex", flexDirection: "column" }}>
+      {modalPosition === 1 ? (
+        item.purchased ? (
+          <h3 style={{ textDecorationLine: "line-through" }}>
+            {modalPosition === 1 ? (
+              <Checkbox
+                style={{ marginRight: "1rem" }}
+                onClick={updateCompleted}
+              />
+            ) : null}
+            {item.name}
+            <Button
+              primary
+              style={{ padding: "0.5rem", marginLeft: "0.5rem" }}
+              onClick={toggle}
+            >
+              Update Cost
+            </Button>{" "}
+          </h3>
+        ) : (
+          <h3>
+            {modalPosition === 1 ? (
+              <Checkbox
+                style={{ marginRight: "1rem" }}
+                onClick={updateCompleted}
+              />
+            ) : null}
+            {item.name}
+            <Button
+              primary
+              style={{ padding: "0.5rem", marginLeft: "0.5rem" }}
+              onClick={toggle}
+            >
+              Update Cost
+            </Button>
+          </h3>
+        )
+      ) : null}
+      {item.price ? (
+        <p>
+          {item.name} cost: ${item.price}
+        </p>
+      ) : null}
     </div>
   );
 };
@@ -56,22 +83,24 @@ const ShoppingItem = props => {
 const FormikShoppingItem = withFormik({
   mapPropsToValues({ price }) {
     return {
-      price: price || ''
-    }
+      price: price || ""
+    };
   },
   validationSchema: Yup.object().shape({
-    price: Yup.number().required('Price is required')
+    price: Yup.number().required("Price is required")
   }),
   handleSubmit(values, props) {
-    let item = props.props.item
-    const valuesToSubmit = [{ ...props.props.item, price: values.price }]
-    props.props.updateShoppingItems(valuesToSubmit)
-    props.props.setModalPosition(1)
+    let item = props.props.item;
+    const valuesToSubmit = [{ ...props.props.item, price: values.price }];
+    props.props.updateShoppingItems(valuesToSubmit);
+    props.props.setModalPosition(1);
   }
-})(ShoppingItem)
+})(ShoppingItem);
 
 const mapStateToProps = state => {
-  return state
-}
+  return state;
+};
 
-export default connect(mapStateToProps, { updateShoppingItems })(FormikShoppingItem)
+export default connect(mapStateToProps, { updateShoppingItems })(
+  FormikShoppingItem
+);

@@ -93,18 +93,25 @@ export const UPDATE_SHOPPING_ITEM_SUCCESS = "UPDATE_SHOPPING_ITEM_SUCCESS"
 export const UPDATE_SHOPPING_ITEM_ERROR = "UPDATE_SHOPPING_ITEM_ERROR"
 
 export const updateShoppingItems = (arr) => {
-
+  console.log('actions 96: arr', arr)
   for(let i = 0; i < arr.length; i++ ){
+
+    console.log('98 action:', arr[i])
+
     let valuesToSubmit = {
+      id: arr[i].id,
       name: arr[i].name,
+      notes: arr[i].notes,
       purchased: arr[i].purchased,
-      shopping_list_id: arr[i].shopping_list_id,
-      price: arr[i].price
+      cost: arr[i].cost,
+      eventId: arr[i].eventId
     }
+    console.log('106 actions:', valuesToSubmit)
+    
     return dispatch => {
       dispatch({type: UPDATE_SHOPPING_ITEM_START})
       axiosWithAuth()
-        .put(`https://bw-party-planner.herokuapp.com/api/items/${arr[i].id}`, valuesToSubmit)
+        .put(`http://localhost:5000/api/shopping/${arr[i].id}`, valuesToSubmit)
         .then( res => dispatch({type: UPDATE_SHOPPING_ITEM_SUCCESS, payload: res.data}))
         .catch( err => dispatch({type: UPDATE_SHOPPING_ITEM_ERROR, payload: err.response}))
    } 

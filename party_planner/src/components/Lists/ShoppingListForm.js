@@ -12,6 +12,8 @@ const ShoppingListForm = props => {
 
     const { modalPosition } = props
     const { eventId } = props
+
+    console.log('event', eventId)
     return(
         <div>
         {modalPosition === 1 ?
@@ -19,8 +21,8 @@ const ShoppingListForm = props => {
             <Form className='list-form'>
                  <h2>Add Item</h2>
                     {props.touched.item && props.errors.item && <p>{props.errors.item}</p>}
-                    <div className='ui input'><Field type = 'text' name = 'item' placeholder = 'Item. . .'/></div>
-                    <Button type = 'submit'>Add Item</Button>
+                    <div className='ui input'><Field type = 'text' name = 'item' placeholder = 'Item Name'/></div>
+                    <Button type = 'submit'>ADD</Button>
             </Form>
         </div> : null}
         </div>
@@ -43,7 +45,8 @@ const FormikShoppingForm = withFormik({
         const packet = {
             name: values.item,
             purchased: 0,
-            notes: 'here are my notes'
+            notes: 'here are my notes',
+            price: null
         }
         
         addShoppingItem(eventId, packet)
