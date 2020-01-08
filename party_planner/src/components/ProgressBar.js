@@ -28,16 +28,16 @@ const ProgressBar = props => {
 
     const { event } = props 
 
-    const purchasedShopping = props.shoppingListItems.filter( item => item.shopping_list_id === event.id && (item.purchased === true || item.purchased === 1))
-    const purchasedEntertainment = props.entertainmentList.filter( item => item.todo_list_id === event.id)
+    const purchasedShopping = props.shoppingListItems.filter( item => item.event_id === event.id && (item.purchased === true || item.purchased === 1))
+    const purchasedEntertainment = props.entertainmentList.filter( item => item.event_id === event.id)
 
     const totalShopping = purchasedShopping.reduce((acc, item, index) => {
-        acc += item.price;
+        acc += item.cost;
         return acc
     },0)
 
     const totalEntertainment = purchasedEntertainment.reduce((acc, item, index) =>{
-        acc += item.price;
+        acc += item.cost;
         return acc
     },0)
 

@@ -16,15 +16,15 @@ const ShoppingItem = props => {
   let arrItem = [];
   arrItem.push(item);
 
-  console.log('here', item);
 
-  const updateCompleted = e => {
+  const updateCompleted = (e) => {
     initialState = !initialState;
     item.purchased = initialState;
     let temp = [];
     temp.push(item);
     props.updateShoppingItems(temp);
     temp.unshift();
+
   };
 
   const toggle = () => {
@@ -39,6 +39,7 @@ const ShoppingItem = props => {
           <h3 style={{ textDecorationLine: "line-through" }}>
             {modalPosition === 1 ? (
               <Checkbox
+                checked = {item.purchased}
                 style={{ marginRight: "1rem" }}
                 onClick={updateCompleted}
               />
@@ -71,9 +72,9 @@ const ShoppingItem = props => {
           </h3>
         )
       ) : null}
-      {item.price ? (
+      {item.cost ? (
         <p>
-          {item.name} cost: ${item.price}
+          {item.name} cost: ${item.cost}
         </p>
       ) : null}
     </div>

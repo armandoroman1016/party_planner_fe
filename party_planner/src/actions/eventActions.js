@@ -112,7 +112,10 @@ export const updateShoppingItems = (arr) => {
       dispatch({type: UPDATE_SHOPPING_ITEM_START})
       axiosWithAuth()
         .put(`http://localhost:5000/api/shopping/${arr[i].id}`, valuesToSubmit)
-        .then( res => dispatch({type: UPDATE_SHOPPING_ITEM_SUCCESS, payload: res.data}))
+        .then( res =>{ 
+          console.log('here 116:', res)
+          dispatch({type: UPDATE_SHOPPING_ITEM_SUCCESS, payload: res.data})
+        })
         .catch( err => dispatch({type: UPDATE_SHOPPING_ITEM_ERROR, payload: err.response}))
    } 
   }

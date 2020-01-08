@@ -24,8 +24,6 @@ const ShoppingList = props => {
     
     const eventId = id ? id : match.params.id
 
-    console.log('here 25:', itemToRender)
-    
     useEffect(()=> {
         // eslint-disable-next-line react-hooks/exhaustive-deps
         itemToUpdate = {...itemToRender[0]}
@@ -70,8 +68,6 @@ const ShoppingList = props => {
     const updateCost = (e, eventObj) => {
 
         e.preventDefault()
-
-        console.log(eventObj)
         const packet = {
             id: eventObj.id,
             name: eventObj.name,
@@ -80,8 +76,6 @@ const ShoppingList = props => {
             cost: Number(cost),
             eventId: eventObj.event_id
         }
-
-        console.log(packet)
 
         updateShoppingItems([packet])
 
