@@ -81,15 +81,15 @@ const Register = withFormik({
       "email": values.email, 
       "password": values.password 
     }
-    const url = "https://party-planner-be.herokuapp.com/api/auth/register";
+    const url = "https://party-planner-back-end.herokuapp.com/api/auth/register";
     axios
       .post(url, propsToSubmit)
-      .then(results => {
-        console.log(props)
-        localStorage.setItem("user_id", results.data.user.id);
-        localStorage.setItem("token", results.data.token);
+      .then((res) => {
+        console.log('88 :', res.data)
+        localStorage.setItem("user_id", res.data.user.id);
+        localStorage.setItem("token", res.data.token);
         props.props.getEvents();
-        props.props.history.push(`/dashboard/${results.data.user.id}`);
+        props.props.history.push(`/dashboard/${res.data.user.id}`);
       })
       .catch(error => {
         console.log(error)

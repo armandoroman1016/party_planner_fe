@@ -17,12 +17,11 @@ const Events = (props) => {
 
   let params = useParams()
 
-  console.log(props)
   useEffect(() =>{
-    if(!events.length){
+    if(!events ||!events.length){
       getEvents(params.id)
     }
-  })
+  },[])
 
 
   // let eventsHeader = useRef(null)
