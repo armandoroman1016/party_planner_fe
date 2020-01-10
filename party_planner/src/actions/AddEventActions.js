@@ -8,7 +8,7 @@ export const addEvent = (event, userId) => {
   return dispatch => {
     dispatch({ type: ADDING_EVENT});
     axiosWithAuth()
-      .post(`http://localhost:5000/api/events/${userId}`, event)
+      .post(`https://party-planner-be.herokuapp.com/api/events/${userId}`, event)
         .then(res => {
           dispatch({ type: ADD_EVENT_SUCCESS, payload: res.data.event })
         })
