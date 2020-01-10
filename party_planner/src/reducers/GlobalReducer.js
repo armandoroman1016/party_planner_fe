@@ -47,14 +47,7 @@ const initialState = {
     userId: null,
     isLoading:false,
     error: '',
-    events: [
-        {
-            guests: 8,
-            theme: 'Cowboy',
-            date: '2019-09-12',
-            budget: 500,
-        }
-    ],
+    events: [],
     hasToken: false,
     shoppingListItems : [],
     todoItems: [],
@@ -146,7 +139,7 @@ export const globalReducer = (state = initialState, action) => {
           return{
             ...state,
             isLoading: false,
-            shoppingListItems: action.payload
+            shoppingListItems: [...state.shoppingListItems, ...action.payload]
           }
         case GET_SHOPPING_ITEM_ERROR:
           return{
@@ -190,7 +183,7 @@ export const globalReducer = (state = initialState, action) => {
         case GET_EVENT_TODO_LIST_SUCCESS:
           return{
             ...state,
-            todoItems: action.payload,
+            todoItems: [...state.todoItems, ...action.payload],
             isLoading: false
           }
         case GET_EVENT_TODO_LIST_ERROR:

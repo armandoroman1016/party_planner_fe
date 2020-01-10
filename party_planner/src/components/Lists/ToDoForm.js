@@ -29,13 +29,14 @@ const FormikTodoForm = withFormik({
         task: Yup.string().required('Task name is required'),
     }),
     handleSubmit(values, props){
+        const { addEventTodo } = props.props
         const { eventId } = props.props
         const valuesToSubmit = {
             name: values.task,
             completed: false,
-            todo_list_id: eventId,
+            notes: values.notes,
         }
-        props.props.addEventTodo(valuesToSubmit)
+        addEventTodo(eventId, valuesToSubmit)
         props.resetForm();
     }
 })(TodoListForm)

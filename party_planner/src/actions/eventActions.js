@@ -17,12 +17,12 @@ export const UPDATE_EVENT_FAILURE = "UPDATE_EVENT_FAILURE"
 
 // get full list of events
 
-export const getEvents = () => {
+export const getEvents = (userId) => {
   return dispatch => {
     dispatch({ type: GET_EVENTS_START })
     axiosWithAuth()
-      .get('https://bw-party-planner.herokuapp.com/api/party')
-      .then(res => dispatch({ type: GET_EVENTS_SUCCESS, payload: res.data }))
+      .get(`http://localhost:5000/api/events/${userId}`)
+      .then(res => dispatch({ type: GET_EVENTS_SUCCESS, payload: res.data.events }))
       .catch(err => dispatch({ type: GET_EVENTS_ERROR, payload: err.response }))
   }
 }
@@ -58,33 +58,17 @@ export const updateEvent = (event, id, history) => {
   }
 }
 
-//! CRUD FOR SHOPPING LIST
-
-export const CREATE_EVENT_SHOPPING_LIST_START = "CREATE_EVENT_SHOPPING_LIST_START"
-export const CREATE_EVENT_SHOPPING_LIST_SUCCESS = "CREATE_EVENT_SHOPPING_LIST_SUCCESS"
-export const CREATE_EVENT_SHOPPING_LIST_ERROR = "CREATE_EVENT_SHOPPING_LIST_ERROR"
-
-export const createEventShoppingList = values => {
-  return dispatch =>{
-    dispatch({type: CREATE_EVENT_SHOPPING_LIST_START})
-    axiosWithAuth()
-      .post('https://bw-party-planner.herokuapp.com/api/shoppinglist', values)
-      .then( res => console.log(res))
-      .catch( err => console.log(err))
-  }
-}
-
 // ! CRUD for shopping list items
 
 export const ADD_SHOPPING_ITEM_START = "ADD_SHOPPING_ITEM_START"
 export const ADD_SHOPPING_ITEM_SUCCESS = "ADD_SHOPPING_ITEM_SUCCESS"
 export const ADD_SHOPPING_ITEM_ERROR = "ADD_SHOPPING_ITEM_ERROR"
 
-export const addShoppingItem = values => {
+export const addShoppingItem = (eventId, values) => {
   return dispatch => {
     dispatch({type: ADD_SHOPPING_ITEM_START})
       axiosWithAuth()
-      .post('https://bw-party-planner.herokuapp.com/api/items', values)
+      .post(`http://localhost:5000/api/shopping/${eventId}`, values)
       .then( res => dispatch({type: ADD_SHOPPING_ITEM_SUCCESS, payload: res.data}))
       .catch( err => console.log('errOnPostItem', err))
   }
@@ -94,12 +78,12 @@ export const GET_SHOPPING_ITEM_START = "GET_SHOPPING_ITEM_START"
 export const GET_SHOPPING_ITEM_SUCCESS = "GET_SHOPPING_ITEM_SUCCESS"
 export const GET_SHOPPING_ITEM_ERROR = "GET_SHOPPING_ITEM_ERROR"
 
-export const getShoppingItems = () => {
+export const getShoppingItems = (eventId) => {
   return dispatch => {
     dispatch({type: GET_SHOPPING_ITEM_START})
     axiosWithAuth()
-    .get('https://bw-party-planner.herokuapp.com/api/items')
-    .then( res => dispatch({type: GET_SHOPPING_ITEM_SUCCESS, payload: res.data}))
+    .get(`http://localhost:5000/api/shopping/${eventId}`)
+    .then( res => dispatch({type: GET_SHOPPING_ITEM_SUCCESS, payload: res.data.items}))
     .catch( err => dispatch({type: GET_SHOPPING_ITEM_ERROR, payload: err.response}))
   }
 }
@@ -109,36 +93,31 @@ export const UPDATE_SHOPPING_ITEM_SUCCESS = "UPDATE_SHOPPING_ITEM_SUCCESS"
 export const UPDATE_SHOPPING_ITEM_ERROR = "UPDATE_SHOPPING_ITEM_ERROR"
 
 export const updateShoppingItems = (arr) => {
-
+  console.log('actions 96: arr', arr)
   for(let i = 0; i < arr.length; i++ ){
+
+    console.log('98 action:', arr[i])
+
     let valuesToSubmit = {
+      id: arr[i].id,
       name: arr[i].name,
+      notes: arr[i].notes,
       purchased: arr[i].purchased,
-      shopping_list_id: arr[i].shopping_list_id,
-      price: arr[i].price
+      cost: arr[i].cost,
+      eventId: arr[i].eventId
     }
+    console.log('106 actions:', valuesToSubmit)
+    
     return dispatch => {
       dispatch({type: UPDATE_SHOPPING_ITEM_START})
       axiosWithAuth()
-        .put(`https://bw-party-planner.herokuapp.com/api/items/${arr[i].id}`, valuesToSubmit)
-        .then( res => dispatch({type: UPDATE_SHOPPING_ITEM_SUCCESS, payload: res.data}))
+        .put(`http://localhost:5000/api/shopping/${arr[i].id}`, valuesToSubmit)
+        .then( res =>{ 
+          console.log('here 116:', res)
+          dispatch({type: UPDATE_SHOPPING_ITEM_SUCCESS, payload: res.data})
+        })
         .catch( err => dispatch({type: UPDATE_SHOPPING_ITEM_ERROR, payload: err.response}))
    } 
-  }
-}
-
-//!! CRUD FOR TODOLIST 
-export const CREATE_EVENT_TODO_LIST_START = "CREATE_EVENT_TODO_LIST_START"
-export const CREATE_EVENT_TODO_LIST_SUCCESS = "CREATE_EVENT_TODO_LIST_SUCCESS"
-export const CREATE_EVENT_TODO_LIST_ERROR = "CREATE_EVENT_TODO_LIST_ERROR"
-
-export const createEventTodoList = values => {
-  return dispatch =>{
-    dispatch({type: CREATE_EVENT_TODO_LIST_START})
-    axiosWithAuth()
-      .post('https://bw-party-planner.herokuapp.com/api/todolist', values)
-      .then( res => console.log(res))
-      .catch( err => console.log(err))
   }
 }
 
@@ -146,11 +125,11 @@ export const ADD_EVENT_TODO_START = "ADD_EVENT_TODO_START"
 export const ADD_EVENT_TODO_SUCCESS = "ADD_EVENT_TODO_SUCCESS"
 export const ADD_EVENT_TODO_ERROR = "ADD_EVENT_TODO_ERROR"
 
-export const addEventTodo = values => {
+export const addEventTodo = ( eventId, values ) => {
   return dispatch =>{
     dispatch({type: ADD_EVENT_TODO_START})
     axiosWithAuth()
-      .post('https://bw-party-planner.herokuapp.com/api/todo', values)
+      .post(`http://localhost:5000/api/todo/${eventId}`, values)
       .then( res => dispatch({type: ADD_EVENT_TODO_SUCCESS, payload: res.data}))
       .catch( err => dispatch({type: ADD_EVENT_TODO_ERROR, payload: err.response}))
   }
@@ -160,11 +139,11 @@ export const GET_EVENT_TODO_LIST_START = "GET_EVENT_TODO_LIST_START"
 export const GET_EVENT_TODO_LIST_SUCCESS = "GET_EVENT_TODO_LIST_SUCCESS"
 export const GET_EVENT_TODO_LIST_ERROR = "GET_EVENT_TODO_LIST_ERROR"
 
-export const getEventTodoList = () => {
+export const getEventTodoList = (eventId) => {
   return dispatch =>{
     dispatch({type: GET_EVENT_TODO_LIST_START})
     axiosWithAuth()
-      .post('https://bw-party-planner.herokuapp.com/api/todolist')
+      .get(`http://localhost:5000/api/todo/${eventId}`)
       .then( res => dispatch({type: GET_EVENT_TODO_LIST_SUCCESS, payload: res.data}))
       .catch( err => dispatch({type: GET_EVENT_TODO_LIST_ERROR, payload: err.response}))
   }
@@ -179,12 +158,13 @@ export const updateToDoList = ( arr ) => {
     let valuesToSubmit = {
       name: arr[i].name,
       completed: arr[i].completed,
-      todo_list_id: arr[i].todo_list_id
+      eventId: arr[i].event_id,
+      notes: arr[i].notes
     }
     return dispatch => {
       dispatch({type: UPDATE_EVENT_TODO_LIST_START})
       axiosWithAuth()
-        .put(`https://bw-party-planner.herokuapp.com/api/todo/${arr[i].id}`, valuesToSubmit)
+        .put(`http://localhost:5000/api/todo/${arr[i].id}`, valuesToSubmit)
         .then( res => dispatch({type: UPDATE_EVENT_TODO_LIST_SUCCESS, payload: res.data}))
         .catch( err => console.log(err))
    } 
@@ -259,6 +239,3 @@ export const deleteEntertainmentItem = id => {
         .catch( err => dispatch({type: DELETE_ENTERTAINMENT_ITEMS_ERROR, payload: err.response}))
   }
 }
-
-
-
