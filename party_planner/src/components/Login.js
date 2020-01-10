@@ -52,7 +52,7 @@ const FormikLogin = withFormik({
    //save token to local storage
    handleSubmit(values, props) {
      const propsToSubmit = {"email": values.email, "password": values.password}
-     const url = "http://localhost:5000/api/auth/login";
+     const url = "https://party-planner-be.herokuapp.com/api/auth/login";
      axios
      .post(url, propsToSubmit)
      .then(res => {

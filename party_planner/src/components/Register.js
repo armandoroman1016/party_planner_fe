@@ -81,7 +81,7 @@ const Register = withFormik({
       "email": values.email, 
       "password": values.password 
     }
-    const url = "http://localhost:5000/api/auth/register";
+    const url = "https://party-planner-be.herokuapp.com/api/auth/register";
     axios
       .post(url, propsToSubmit)
       .then(results => {
