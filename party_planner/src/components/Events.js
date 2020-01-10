@@ -15,12 +15,11 @@ const Events = (props) => {
 
   const { history, match, events, getEvents } = props
 
-  console.log(props)
   let params = useParams()
 
+  console.log(props)
   useEffect(() =>{
-    if(!events){
-      // console.log(params)
+    if(!events.length){
       getEvents(params.id)
     }
   })
@@ -77,7 +76,7 @@ const Events = (props) => {
         </div>
       <div className = "my-events" >
 
-        {events ? events.map(event => (
+        {events.length ? events.map(event => (
           <div key={event.id} className = 'events-container' >
                 <EventOnDashboard
                 event = {event}
@@ -85,7 +84,7 @@ const Events = (props) => {
           </div>
         )) : <h2 className = 'no-events'>You have no events yet.</h2>}
       </div>
-      {events ?
+      {events.length >= 2 ?
         <div className = 'new-event add'>
           <h2>Add Event</h2>
           <Link to = '/create-event'>

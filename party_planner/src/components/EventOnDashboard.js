@@ -132,7 +132,7 @@ const EventOnDashboard = (props) => {
           <h4>{event.start_time}</h4>
         </div>
         <div className = 'event-right_side'>
-          <img src = { dots } alt = 'settings icon'/>
+          {/* <img src = { dots } alt = 'settings icon'/> */}
           <div className = 'calendar'>
             <p>{calendarDateFormat[0]}</p>
             <span/>

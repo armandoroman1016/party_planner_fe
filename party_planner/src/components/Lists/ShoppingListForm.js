@@ -8,12 +8,10 @@ import { Button } from 'semantic-ui-react';
 
 const ShoppingListForm = props => {
 
-    console.log('shopping_list_form: ', props)
 
     const { modalPosition } = props
     const { eventId } = props
 
-    console.log('event', eventId)
     return(
         <div>
         {modalPosition === 1 ?
@@ -40,7 +38,6 @@ const FormikShoppingForm = withFormik({
     }),
     handleSubmit(values, props){
         const { eventId, addShoppingItem } = props.props
-        console.log(props)
 
         const packet = {
             name: values.item,

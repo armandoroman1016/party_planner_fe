@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Formik, Form, Field, withFormik } from "formik";
+import { Form, Field, withFormik } from "formik";
 import * as Yup from 'yup'
 import { connect } from 'react-redux'
 import { addEvent } from '../actions/AddEventActions'
@@ -7,11 +7,10 @@ import { addEvent } from '../actions/AddEventActions'
 
 const EventFormShape = props => {
 
-  console.log(props)
-  const {touched, errors, values} = props
-  console.log('values', values)
-  // const {errors} = props
-
+  
+  const {touched, errors, values, setValues} = props
+  console.log(values)
+  
   const hours = [];
 
   const mins = [0, 15, 30, 45];
@@ -22,17 +21,24 @@ const EventFormShape = props => {
     hours.push(i);
   }
 
-  const backgroundColors = ['#FFE9F9', '#E4F1FF', '#F2FFE0', '#DEFFFF', '#FFF0E5', '#EEE9FF', '#FEFFE5', '#FFF']
+  const backgroundColors = ['#FFF', '#FFE9F9', '#E4F1FF', '#F2FFE0', '#DEFFFF', '#FFF0E5', '#EEE9FF', '#FEFFE5']
 
-  let [selectedColor, setSelectedColor] = useState(backgroundColors[0])
+  const [selectedColor, setSelectedColor] = useState(backgroundColors[0])
 
-  const handleColorChange = (e) => {
-    setSelectedColor(e.target.value)
+  const handleColorChange = (color) => {
+    setSelectedColor(color)
+
+    setValues({
+      ...values, 
+      bgColor: color
+    })
+
   }
 
   return (
     <div className="add-event">
       <h2>New Event</h2>
+        
         <Form selectedcolor = { selectedColor }>
 
             <div id = 'event-name' className = 'field'>
@@ -44,7 +50,7 @@ const EventFormShape = props => {
             <div id = 'date' className = 'field'>
                 <label htmlFor = 'date'>DATE *</label>
                 <div className="ui icon input">
-                  <Field placeholder="dd/mm/yyyy" name="date" type="date" />
+                  <Field placeholder="DD/MM/YYYY" name="date" type="date" />
                   <i
                     aria-hidden="true"
                     className="calendar alternate outline icon"
@@ -58,6 +64,7 @@ const EventFormShape = props => {
                 <div>
 
                   <Field name="startHour" as="select">
+                    <option value = 'hr'>HR</option>
                     {hours.length
                       ? hours.map(hour => {
                           return (
@@ -69,10 +76,11 @@ const EventFormShape = props => {
                       : null}
                   </Field>
                   <Field name="startMin" as="select">
+                    <option value = 'min'>MIN</option>
                     {mins.length
                       ? mins.map(min => {
                           return (
-                            <option value={min} key={min}>
+                            <option value={min === 0 ? "00" : min} key={min}>
                               {min === 0 ? "00" : min}
                             </option>
                           );
@@ -80,6 +88,7 @@ const EventFormShape = props => {
                       : null}
                   </Field>
                   <Field name="startAmPm" as="select">
+                    <option value = 'startAm/Pm'>AM / PM</option>
                     {ampm.length
                       ? ampm.map(el => {
                           return (
@@ -98,6 +107,8 @@ const EventFormShape = props => {
                 <label htmlFor="time">END TIME</label>
                 <div>
                   <Field name="endHour" as="select">
+                    <option value = 'endHr'>HR</option>
+
                     {hours.length
                       ? hours.map(hour => {
                           return (
@@ -109,10 +120,11 @@ const EventFormShape = props => {
                       : null}
                   </Field>
                   <Field name="endMin" as="select">
+                    <option value = 'endMin'>MIN</option>
                     {mins.length
                       ? mins.map(min => {
                           return (
-                            <option value={min} key={min}>
+                            <option value={min === 0 ? "00" : min} key={min}>
                               {min === 0 ? "00" : min}
                             </option>
                           );
@@ -120,6 +132,7 @@ const EventFormShape = props => {
                       : null}
                   </Field>
                   <Field name="endAmPm" as="select">
+                  <option value = 'endAm/Pm'>AM / PM</option>
                     {ampm.length
                       ? ampm.map(el => {
                           return (
@@ -135,12 +148,12 @@ const EventFormShape = props => {
             
             <div id = 'location' className = 'field'> 
                 <label htmlFor = 'eventLocation'>LOCATION *</label>
-                <Field name = 'eventLocation' type = 'text'/>
+                <Field name = 'eventLocation' type = 'text' placeholder = 'Ex: Johnson Family Residence'/>
             </div>
 
             <div id = 'address' className = 'field'> 
               <label htmlFor = 'address'>ADDRESS *</label>
-              <Field name = 'address' type = 'text'/>
+              <Field name = 'address' type = 'text' placeholder = 'Ex: 123 Main St, Springfield, IL'/>
             </div>
                       
             <div id = 'budget' className = 'field'>
@@ -164,15 +177,15 @@ const EventFormShape = props => {
             </div>
 
             <div id = 'publicity' className = 'field'>
-              <label className="checkbox-container">
-                <Field
-                type="checkbox"
-                name="publicity"
-                checked={values.publicity}
-                />
-              PUBLIC 
+            <Field
+            type="checkbox"
+            name="publicity"
+            checked={values.publicity}
+            />
+            <label className="checkbox-container">
+            PUBLIC 
+            </label>
               {/* <span className="checkmark" /> */}
-              </label>
           </div>
 
             <div id = 'bg-color' className = 'field'>
@@ -180,10 +193,10 @@ const EventFormShape = props => {
                 <div>
                     {backgroundColors.length ? 
                         backgroundColors.map(color => <div 
-                          style = {{background: color }} 
+                          style = {{background: color , border: selectedColor === color ? `1px solid 	#00FA9A` : 'none'}} 
                           key = {color} 
                           className = 'bgcolor' 
-                          onClick = {(e) => handleColorChange(e)}/>)
+                          onClick = {(e, c) => handleColorChange(color)}/>)
                         : null}
                 </div>
             </div>
@@ -251,7 +264,9 @@ const EventForm = withFormik({
 
         const { addEvent, selectedcolor } = props.props
 
-        console.log('submit props: ',props)
+        console.log(props)
+        console.log('vals: ', values)
+
         const { 
           eventName,
           eventLocation,
@@ -267,7 +282,8 @@ const EventForm = withFormik({
           childGuest,
           theme,
           address,
-          publicity
+          publicity,
+          bgColor
          } = values
 
         const packet = {
@@ -281,11 +297,10 @@ const EventForm = withFormik({
           private: publicity,
           adultGuests: Number(adultGuest),
           childGuests: Number(childGuest),
-          backgroundColor: selectedcolor || '#fff',  
+          backgroundColor: bgColor || '#fff',  
           theme: theme
         }
 
-        console.log('here:', packet)
         addEvent(packet , localStorage.getItem('user_id'))
         
     }
