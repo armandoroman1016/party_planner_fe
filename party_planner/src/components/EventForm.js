@@ -3,10 +3,11 @@ import { Form, Field, withFormik } from "formik";
 import * as Yup from 'yup'
 import { connect } from 'react-redux'
 import { addEvent } from '../actions/AddEventActions'
-
+import MapsContainer from './MapsContainer'
 
 const EventFormShape = props => {
 
+  console.log(props)
   
   const {touched, errors, values, setValues} = props
   console.log(values)
@@ -153,7 +154,8 @@ const EventFormShape = props => {
 
             <div id = 'address' className = 'field'> 
               <label htmlFor = 'address'>ADDRESS *</label>
-              <Field name = 'address' type = 'text' placeholder = 'Ex: 123 Main St, Springfield, IL'/>
+              <MapsContainer />
+              {/* <Field name = 'address' type = 'text' placeholder = 'Ex: 123 Main St, Springfield, IL'/> */}
             </div>
                       
             <div id = 'budget' className = 'field'>

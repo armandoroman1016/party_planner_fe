@@ -15,8 +15,6 @@ import Register from './components/Register'
 import Events from './components/Events';
 import EventForm from './components/EventForm'
 
-
-
 import Footer from './components/Footer'
 
 

@@ -9,7 +9,7 @@ const NavBar = props => {
 
     <Menu>
       <NavLink to={`/dashboard/${localStorage.getItem('user_id')}`}>
-        <Menu.Item header name="Party Planner"/>
+        <Menu.Item header name="Celebratr"/>
       </NavLink>
       
       <Menu.Menu position= 'right'>
