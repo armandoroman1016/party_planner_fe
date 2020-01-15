@@ -5,7 +5,7 @@ export const ADD_EVENT_SUCCESS = "ADD_EVENT_SUCCESS";
 export const ADD_EVENT_FAILURE = "ADD_EVENT_FAILURE";
 
 export const addEvent = (event, userId) => {
-  return dispatch => {
+  return async dispatch => {
     dispatch({ type: ADDING_EVENT});
     axiosWithAuth()
       .post(`https://party-planner-back-end.herokuapp.com/api/events/${userId}`, event)

@@ -5,27 +5,56 @@ import { NavLink } from 'react-router-dom'
 
 const NavBar = props => {
 
+  const { pathname } = props.location
+
   return (
 
     <Menu>
       <NavLink to={`/dashboard/${localStorage.getItem('user_id')}`}>
-        <Menu.Item header name="Party Planner"/>
+        <Menu.Item header name="Celebratr"/>
       </NavLink>
       
       <Menu.Menu position= 'right'>
-        <NavLink to="/login"
+
+        {pathname === "/login" ?
+            <NavLink to="/register"
               id= 'login-logout'   
               className='item'     
               onClick={()=>{
-              localStorage.removeItem("token");
-              localStorage.removeItem('user_id');
-              localStorage.removeItem("emailDisplay");
-              localStorage.removeItem('persist:globalReducer')
-            }}
-        ><h3>{props.location.pathname === "/login" || props.location.pathname === "/register" ? "Login" : "Log Out"}</h3>
-        </NavLink>
+                localStorage.removeItem("token");
+                localStorage.removeItem('user_id');
+                localStorage.removeItem("emailDisplay");
+                localStorage.removeItem('persist:globalReducer')
+              }}><h3>Register</h3></NavLink>
+            : null
+        }
 
-        {!localStorage.getItem('token') && <NavLink style={{marginLeft: '1rem'}}to='/register'><Menu.Item name='Register'/></NavLink>}
+        {pathname === "/register" ?
+        <NavLink to="/login"
+          id= 'login-logout'   
+          className='item'     
+          onClick={()=>{
+            localStorage.removeItem("token");
+            localStorage.removeItem('user_id');
+            localStorage.removeItem("emailDisplay");
+            localStorage.removeItem('persist:globalReducer')
+          }}><h3>Login</h3></NavLink>
+        : null
+    }
+
+    {pathname !== '/login' && pathname !== '/register' ?
+    <NavLink to="/login"
+      id= 'login-logout'   
+      className='item'     
+      onClick={()=>{
+      localStorage.removeItem("token");
+      localStorage.removeItem('user_id');
+      localStorage.removeItem("emailDisplay");
+      localStorage.removeItem('persist:globalReducer')
+    }}><h3>logout</h3></NavLink>
+      : null
+    }
+
 
       </Menu.Menu>
     </Menu>

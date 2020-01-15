@@ -6,14 +6,24 @@ import { addEventTodo } from '../../actions'
 
 import { Button } from 'semantic-ui-react';
 
+// Another way to import. This is recommended to reduce bundle size
+import ClipLoader from "react-spinners/ClipLoader";
+
 const TodoListForm = props => {
-    const { eventId } = props
+
+    const { eventId, loading } = props
+
     return(
         <div className = 'list-form-container'>
             <Form className='list-form'>
             {props.touched.task && props.errors.task && <p>{props.errors.task}</p>}
                 <div style={{marginTop: '1rem'}}className='ui input'><Field type = 'text' name = 'task' placeholder = 'Add task'/></div>
-                <Button type = 'submit'>Add Task</Button>
+                <Button type = 'submit'>{loading ?
+                    <ClipLoader
+                    size={15}
+                    //size={"150px"} this also works
+                    color={"#5877E5"}
+                  /> : "Add Task"}</Button>
             </Form>
         </div>
     )
@@ -42,6 +52,8 @@ const FormikTodoForm = withFormik({
 })(TodoListForm)
 
 const mapStateToProps = state => {
-    return state
+    return {
+        loading: state.isLoading
+    }
 }
 export default connect(mapStateToProps, {addEventTodo})(FormikTodoForm);

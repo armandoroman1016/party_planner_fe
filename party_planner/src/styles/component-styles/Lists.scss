@@ -1,10 +1,11 @@
 .ui.modal.transition.visible.active.listModalContainer {
-  width: 350px;
-
+  width: 98vw;
+  
   .list-form {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
+    margin-top: 2rem;
 
     .ui.input {
       margin-bottom: 0.75rem;
@@ -12,16 +13,16 @@
     .ui.button {
       margin-top: 1rem;
       width: 175px;
-      color: rgb(104, 75, 246);
+      color: #5877E5;
       background: none;
-      border: 2px solid rgb(104, 75, 246);
+      border: 2px solid #5877E5;
       border-radius: 7px;
     }
   }
 
   .content.list-content {
     margin: 0;
-    background: rgb(219, 226, 238);
+    background: #ffffff;
 
   
       h3, p {
@@ -36,6 +37,12 @@
         &:hover {
           transform:scale(1.1)
         }
+      }
+
+      .no-items{
+        font-weight: bold;
+        text-align: center;
+        
       }
   }
 }

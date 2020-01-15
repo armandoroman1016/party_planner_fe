@@ -20,7 +20,7 @@
     padding: 0;
     margin-right: 5%;
     width: 100%;
-    color: $neutral-darkBlue;
+    color: #5877E5;
   }
 
   .item{
@@ -55,4 +55,14 @@
 
 .ui.menu{
   margin: 0;
+}
+
+#login-logout{
+  h3{
+    font-family: 'Crete Round', 'Times New Roman', Times, serif;
+    font-size: 1.8rem;
+    font-weight: 100;
+    color: #5877E5;
+
+  }
 }

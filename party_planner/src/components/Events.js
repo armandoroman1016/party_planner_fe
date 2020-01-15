@@ -8,12 +8,14 @@ import EventOnDashboard from './EventOnDashboard';
 
 import { Link } from 'react-router-dom';
 
-import { TimelineMax, Power4, Bounce } from 'gsap';
+import { css } from "@emotion/core";
+// Another way to import. This is recommended to reduce bundle size
+import PropagateLoader from "react-spinners/PropagateLoader";
 
 
 const Events = (props) => {
 
-  const { history, match, events, getEvents } = props
+  const { history, match, events, getEvents, loading } = props
 
   let params = useParams()
 
@@ -23,47 +25,6 @@ const Events = (props) => {
     }
   },[])
 
-
-  // let eventsHeader = useRef(null)
-  // let eventCards = useRef(null)
-
-  // const clearStage = () => {
-  //   const clearTl = new TimelineMax()
-  //     clearTl
-  //       .set(eventsHeader, { autoAlpha: 0})
-  //       .set(eventCards, {autoAlpha: 0, onComplete: show} )
-  //       function show(){
-  //         eventsHeader.classList.remove('hide')
-  //         eventCards.classList.remove('hide')
-  //       }
-  //     return clearTl
-  // }
-
-  // const enterHeader = () => {
-  //   const enterHeader = new TimelineMax()
-  //   enterHeader
-  //       .fromTo(eventCards, 1.2, {autoAlpha: 0, scaleX: 0.1, transformOrigin: 'top center'}, {autoAlpha: 1, scaleX: 1, transformOrigin: 'top center', ease: Bounce.easeOut})
-  //       .fromTo(eventCards, 1.1, {autoAlpha: 0, scaleY: 0.1, transformOrigin: 'top center'}, {autoAlpha: 1, scaleY: 1, transformOrigin: 'top center', ease: Bounce.easeOut}, '-=1.2')
-  //       .fromTo(eventsHeader, 1, {x: 1400, y: -150, autoAlpha: 0, rotation: 0}, {x: 0, y: 0, autoAlpha: 1, rotation: 0, ease: Power4.easeInOut}, '-=.75')
-  //       .add('header-arrived')
-  //       .fromTo(eventsHeader, 1, {rotation: 0, x:0, y: 0, transformOrigin: 'bottom right'}, {rotation: .8, x:0, y: 0,transformOrigin: 'bottom right', ease: Power4.easeInOut}, 'header-arrived')
-  //       .add('header-rotated')
-  //       .fromTo(eventsHeader, .3 ,{ rotation : .8, x: 0, y:0, transformOrigin: 'bottom right'},{rotation: 0, x:0, y: 0, transformOrigin: 'bottom right', ease: Bounce.easeOut}, 'header-rotated += .1')
-  //   return enterHeader
-  // }
-
-  // const go = () => {
-  //   const masterTl = new TimelineMax()
-
-  //     masterTl
-  //       .add(clearStage(), 'clear-scene')
-  //       .add(enterHeader(), 'header-enter-scene')
-  //   return masterTl
-  // }
-
-  // useEffect(()=>{
-  //   go()
-  // },[])
 
   return (
     <div className= 'events-content'>
@@ -81,10 +42,17 @@ const Events = (props) => {
                 event = {event}
               />
           </div>
-        )) : <h2 className = 'no-events'>You have no events yet.</h2>}
+        )) : loading ? 
+        <PropagateLoader
+        // css={overrideSpinner}
+        size={13}
+        //size={"150px"} this also works
+        color={"#5877E5"}
+      />       
+        :  <h2 className = 'no-events'>You have no events yet.</h2> }
       </div>
       {events.length >= 2 ?
-        <div className = 'new-event add'>
+        <div className = 'new-event add no-gradient'>
           <h2>Add Event</h2>
           <Link to = '/create-event'>
             <Icon name = 'add circle'/>
@@ -98,6 +66,7 @@ const Events = (props) => {
 
 const mapStateToProps = state => {
   return{
+    loading: state.isLoading,
     events : state.events
   }
 }

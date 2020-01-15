@@ -5,12 +5,12 @@ import * as Yup from 'yup'
 import { addShoppingItem } from '../../actions'
 
 import { Button } from 'semantic-ui-react';
+import ClipLoader from "react-spinners/ClipLoader";
 
 const ShoppingListForm = props => {
 
 
-    const { modalPosition } = props
-    const { eventId } = props
+    const { modalPosition, eventId, loading } = props
 
     return(
         <div>
@@ -20,7 +20,12 @@ const ShoppingListForm = props => {
                  <h2>Add Item</h2>
                     {props.touched.item && props.errors.item && <p>{props.errors.item}</p>}
                     <div className='ui input'><Field type = 'text' name = 'item' placeholder = 'Item Name'/></div>
-                    <Button type = 'submit'>ADD</Button>
+                    <Button type = 'submit'>{loading ? 
+                        <ClipLoader
+                        size={15}
+                        //size={"150px"} this also works
+                        color={"#5877E5"}
+                      /> : "ADD ITEM"}</Button>
             </Form>
         </div> : null}
         </div>
@@ -52,6 +57,8 @@ const FormikShoppingForm = withFormik({
 })(ShoppingListForm)
 
 const mapStateToProps = state => {
-    return state
+    return {
+        loading: state.isLoading
+    }
 }
 export default connect(mapStateToProps, {addShoppingItem})(FormikShoppingForm);
