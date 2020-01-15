@@ -22,7 +22,7 @@ const NavBar = props => {
               localStorage.removeItem("emailDisplay");
               localStorage.removeItem('persist:globalReducer')
             }}
-        ><h3>{props.location.pathname === "/login" || props.location.pathname === "/register" ? "Login" : "Log Out"}</h3>
+        ><h3>{props.location.pathname === "/login" || props.location.pathname === "/register" ? "login" : "logout"}</h3>
         </NavLink>
 
         {!localStorage.getItem('token') && <NavLink style={{marginLeft: '1rem'}}to='/register'><Menu.Item name='Register'/></NavLink>}

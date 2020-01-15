@@ -63,6 +63,7 @@ const PlacesAutofill = ( props ) => {
                                     className,
                                     style,
                                   })}
+                                  className = 'suggestion-item'
                                 >
                                   <span>{suggestion.description}</span>
                                 </div>

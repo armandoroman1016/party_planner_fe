@@ -4,6 +4,8 @@ import { Button, Header, Modal, Icon } from 'semantic-ui-react';
 import { getShoppingItems, updateShoppingItems } from '../../actions'
 import FormikShoppingForm from './ShoppingListForm';
 import ShoppingItem from './ShoppingItem'
+import ClipLoader from "react-spinners/ClipLoader";
+
 // import * as Yup from 'yup'
 
 
@@ -14,7 +16,7 @@ const ShoppingList = props => {
 
     let dataToSend = {}
 
-    const { match, id, shoppingListItems, updateShoppingItems } = props
+    const { match, id, shoppingListItems, updateShoppingItems, loading } = props
 
     const [ modalPosition, setModalPosition ] = useState(1)
 
@@ -110,7 +112,14 @@ const ShoppingList = props => {
                               <div className='ui input'>
                                 <input type = 'text' name = 'price' placeholder= 'Enter Cost' onChange={(e) => handleCostChange(e)} value = {dataToSend.price}/>
                                 </div>
-                              <Button style={{marginTop: '1rem'}}secondary type = 'submit' onClick = {(e) => { updateCost(e, ...itemToRender) }}>Confirm Price</Button>
+                              <Button style={{margin: '1rem 0 0 2rem', width: '12rem', height: '3rem'}}secondary type = 'submit' onClick = {(e) => { updateCost(e, ...itemToRender) }}>
+                              {loading ? 
+                                    <ClipLoader
+                                        size={15}
+                                        //size={"150px"} this also works
+                                        color={"#5877E5"}
+                                    /> : "Confirm Price"}
+                            </Button>
                             </form>
                       )}) 
                       : <p className = 'no-items'>Your shopping list is currently empty. Click below to add an item.</p>}
@@ -124,7 +133,8 @@ const ShoppingList = props => {
 
 const mapStateToProps = state => {
     return {
-        shoppingListItems : state.shoppingListItems
+        shoppingListItems : state.shoppingListItems,
+        loading: state.isLoading
     }
 }
 

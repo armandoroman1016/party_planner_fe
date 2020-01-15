@@ -1,4 +1,6 @@
-1. test modal functionality
-2. add spinners on asynchronous action buttons
-3. deploy to new domain
+configure HTTPS when domain is pointing at netlify servers
+
+1. add spinners on asynchronous action buttons
+2. deploy to new domain
+3. desKtop responsive MVP
 4. add edit event page
