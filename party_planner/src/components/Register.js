@@ -7,9 +7,11 @@ import { connect } from 'react-redux'
 import { getEvents } from '../actions/eventActions'
 import {Button} from 'semantic-ui-react';
 
+import ClipLoader from "react-spinners/ClipLoader";
+
 function RegisterShape(props) {
 
-  const { touched, errors, status} = props
+  const { touched, errors, status, isSubmitting} = props
 
   return (
     <div>
@@ -47,7 +49,14 @@ function RegisterShape(props) {
           />
         </div>
         <p>{touched.password && errors.password}</p>
-        <Button color="blue">REGISTER</Button>
+        <Button color="blue" style = {{width: '7rem'}}>{
+          !isSubmitting ? 
+          'REGISTER' 
+          : <ClipLoader
+          size={13}
+          //size={"150px"} this also works
+          color={"#fff"}
+        /> }</Button>
         <br />
         {status && <h3 style={{color: 'red'}}>Please try again, error during signup</h3>}
       </Form>
@@ -82,15 +91,19 @@ const Register = withFormik({
       "password": values.password 
     }
     const url = "https://party-planner-back-end.herokuapp.com/api/auth/register";
+    props.setSubmitting(true)
+
     axios
       .post(url, propsToSubmit)
       .then((res) => {
+        props.setSubmitting(false)
         localStorage.setItem("user_id", res.data.user.id);
         localStorage.setItem("token", res.data.token);
         props.props.getEvents();
         props.props.history.push(`/dashboard/${res.data.user.id}`);
       })
       .catch(error => {
+        props.setSubmitting(false)
         console.log(error)
       })
   }

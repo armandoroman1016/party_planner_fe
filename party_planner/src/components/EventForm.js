@@ -295,8 +295,6 @@ const EventForm = withFormik({
 
         const { addEvent, isLoading, history } = props.props
 
-        console.log(props)
-
         const { 
           eventName,
           eventLocation,

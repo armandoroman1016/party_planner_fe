@@ -7,9 +7,13 @@ import { handleSuccessfulLogin } from '../actions/LogInActions'
 import { getEvents } from '../actions/eventActions'
 import { Button } from 'semantic-ui-react'
 
+import { css } from "@emotion/core";
+// Another way to import. This is recommended to reduce bundle size
+import ClipLoader from "react-spinners/ClipLoader";
+
 function Login(props) {
- const {touched} = props
- const {errors} = props
+ const {touched, errors, loading, isSubmitting} = props
+ 
  return(
    <div>
    <h1>Login</h1>
@@ -30,7 +34,14 @@ function Login(props) {
          />
          </div>
          <p>{touched.password && errors.password}</p>
-         <Button color="blue">Log In</Button>
+         <Button color="blue" style = {{width: '7rem'}}>{
+          !isSubmitting ? 
+          'LOGIN' 
+          : <ClipLoader
+          size={13}
+          //size={"150px"} this also works
+          color={"#fff"}
+        /> }</Button>
          <br />
          {props.status && <h3 style={{color: 'red'}}>Try again</h3>}
    </Form>
@@ -53,9 +64,11 @@ const FormikLogin = withFormik({
    handleSubmit(values, props) {
      const propsToSubmit = {"email": values.email, "password": values.password}
      const url = "https://party-planner-back-end.herokuapp.com/api/auth/login";
+     props.setSubmitting(true)
      axios
      .post(url, propsToSubmit)
      .then(res => {
+          props.setSubmitting(false)
          localStorage.setItem("emailDisplay", values.email.charAt(0));
          localStorage.setItem("user_id", res.data.user.id);
          localStorage.setItem("token", res.data.token);
@@ -63,13 +76,15 @@ const FormikLogin = withFormik({
          props.props.history.push(`/dashboard/${res.data.user.id}`);
        })
        .catch(error => {
+         props.setSubmitting(false)
          props.setStatus(error.response.data.message)
        })
    }
  })(Login);
+
  const mapStateToProps = state => {
    return{
-     state
+     loading: state.isLoading
    }
  }
  export default connect(mapStateToProps,{ getEvents })(FormikLogin)
