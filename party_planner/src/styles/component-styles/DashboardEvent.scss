@@ -1,7 +1,7 @@
 .dashboard-event {
     height: 100%;
     position: relative;
-    padding-bottom: .5rem;
+    padding: 3.2rem 0 1rem 0;
     font-family: 'Heebo', 'Times New Roman', Times, serif;
     width: 100vw;
     cursor: pointer;
@@ -14,8 +14,9 @@
     .event-info{
         display: flex;
         width: 100vw;
-        height: 19.2rem;
+        height: 20rem;
         justify-content: space-between;
+        position: relative;
 
         .event-left_side {
             display: flex;
@@ -25,8 +26,7 @@
             width: 45%;
 
             p {
-                color: #ffffff;
-                margin-top: .5rem;
+                color: #575764;
                 width: 100%;
                 padding: .8rem 0;
                 border-radius: 0 20px 20px 0;
@@ -73,7 +73,7 @@
             }
     
             .calendar {
-                transform: translateY(35%);
+                transform: translateY(70%);
                 height: 9rem;
                 border: 1px solid #E3696A;
                 background: #ffffff;
@@ -84,7 +84,7 @@
     
     
                 :nth-child(1) {
-                    color: #6B7078;
+                    color: #E3696A;                    ;
                     font-size: 1.8rem;
                     text-align: center;
                     margin: auto 0;
@@ -107,7 +107,17 @@
                 }
             }
         }
+    .expand-arrow {
+            height: 2rem;
+            width: 2rem;
+            position: absolute;
+            bottom: 1rem;
+            left:0;
+            right:0;
+            transform: translateY(-20%);
+            margin: .5rem auto;  
 
+    }
     }
     .event-meta{
         text-align: left;
@@ -115,8 +125,8 @@
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        margin-top: -1rem;
-       
+        margin-top: -2rem;
+        position: relative;
         
         h4{
             color: rgba(70, 76, 86, 0.55);
@@ -125,9 +135,7 @@
         }
 
         .event-info-extra{
-            border-top:  2px solid rgba(117, 107, 115, 0.4);
-            
-            border-bottom:  2px solid rgba(117, 107, 115, 0.4);
+
             p{
                 font-size: 1.8rem;
                 margin-top: -.5rem;
@@ -143,12 +151,34 @@
             }
 
         }
-        
-        .progress-bar{
-            margin: 2rem 0;
+
+        .expand-arrow {
+            height: 2rem;
+            width: 2rem;
+            position: absolute;
+            bottom: -1rem;
+            left:0;
+            right:0;
+    
+            margin: 0 auto;  
+                 
         }
 
-
+    }
+    .progress-bar-container{
+        border-top: 1px solid #D1CEE1;
+        border-bottom: 1px solid #D1CEE1;
+        padding: 1.6rem 1.2rem;
+        .budget-indicator{
+            font-family: 'Heebo', 'Times New Roman', Times, serif;
+            font-weight: 800;
+            font-size: 12px;
+            display: flex; 
+            justify-content: flex-end;
+            transform: translateY(-155%); 
+            color: #6A6D72; 
+            margin-right: 20px
+        }
     }
     .container-lists {
         // height: 16.4rem;
@@ -187,13 +217,6 @@
         }
     }
 
-    .expand-arrow {
-        height: 2rem;
-        width: 2rem;
-        transform: translateY(-20%);
-        margin: .5rem auto;
-        
-    }
 
     .hide{
         display: none;

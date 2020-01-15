@@ -85,7 +85,6 @@ const Register = withFormik({
     axios
       .post(url, propsToSubmit)
       .then((res) => {
-        console.log('88 :', res.data)
         localStorage.setItem("user_id", res.data.user.id);
         localStorage.setItem("token", res.data.token);
         props.props.getEvents();

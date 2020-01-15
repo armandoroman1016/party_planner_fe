@@ -3,15 +3,24 @@ import { Form, Field, withFormik } from "formik";
 import * as Yup from 'yup'
 import { connect } from 'react-redux'
 import { addEvent } from '../actions/AddEventActions'
-import MapsContainer from './MapsContainer'
+import PlacesAutofill from './GoogleMaps'
+
+import { css } from "@emotion/core";
+// Another way to import. This is recommended to reduce bundle size
+import PropagateLoader from "react-spinners/PropagateLoader";
+
+const overrideSpinner = css`
+  transform-origin: center;
+  margin-bottom: 10px;
+  transform: translateX(50%);
+
+`;
 
 const EventFormShape = props => {
+  
+  const {touched, errors, values, setValues, isLoading} = props
 
-  console.log(props)
-  
-  const {touched, errors, values, setValues} = props
-  console.log(values)
-  
+
   const hours = [];
 
   const mins = [0, 15, 30, 45];
@@ -22,7 +31,7 @@ const EventFormShape = props => {
     hours.push(i);
   }
 
-  const backgroundColors = ['#FFF', '#FFE9F9', '#E4F1FF', '#F2FFE0', '#DEFFFF', '#FFF0E5', '#EEE9FF', '#FEFFE5']
+  const backgroundColors = ['#fff', '#E1FBFE', '#FFFAE2', '#FFF1E8', '#F1FFE6', '#EAFFF4', '#E8EEFF', '#F1EDFF']
 
   const [selectedColor, setSelectedColor] = useState(backgroundColors[0])
 
@@ -32,6 +41,16 @@ const EventFormShape = props => {
     setValues({
       ...values, 
       bgColor: color
+    })
+
+  }
+
+  const setEventLocation = ( loc, latLngObj ) => {
+
+    setValues({
+      ...values,
+      address: loc,
+      latLng: latLngObj
     })
 
   }
@@ -154,7 +173,7 @@ const EventFormShape = props => {
 
             <div id = 'address' className = 'field'> 
               <label htmlFor = 'address'>ADDRESS *</label>
-              <MapsContainer />
+              <PlacesAutofill setEventLocation = { setEventLocation } value = {values.address}/>
               {/* <Field name = 'address' type = 'text' placeholder = 'Ex: 123 Main St, Springfield, IL'/> */}
             </div>
                       
@@ -195,14 +214,24 @@ const EventFormShape = props => {
                 <div>
                     {backgroundColors.length ? 
                         backgroundColors.map(color => <div 
-                          style = {{background: color , border: selectedColor === color ? `1px solid 	#00FA9A` : 'none'}} 
+                          style = {{background: color , 
+                            border: selectedColor === color ? `1.2px solid 	#00FA9A` : '1px solid rgba(34, 60, 68, 0.2)'}} 
                           key = {color} 
                           className = 'bgcolor' 
                           onClick = {(e, c) => handleColorChange(color)}/>)
                         : null}
                 </div>
             </div>
-          <button type = 'submit' style = {{cursor: 'pointer'}}>ADD EVENT</button>
+          
+          <button type = 'submit' style = {{cursor: 'pointer'}}>{
+            !isLoading ? 
+            'ADD EVENT' 
+            : <PropagateLoader
+            css={overrideSpinner}
+            size={13}
+            //size={"150px"} this also works
+            color={"#fff"}
+          /> }</button>
         </Form>
       
     </div>
@@ -264,10 +293,9 @@ const EventForm = withFormik({
 
     handleSubmit(values, props){
 
-        const { addEvent, selectedcolor } = props.props
+        const { addEvent, isLoading, history } = props.props
 
         console.log(props)
-        console.log('vals: ', values)
 
         const { 
           eventName,
@@ -303,7 +331,13 @@ const EventForm = withFormik({
           theme: theme
         }
 
-        addEvent(packet , localStorage.getItem('user_id'))
+        if(!isLoading){
+
+          addEvent(packet , localStorage.getItem('user_id'))
+
+          history.push(`/dashboard/${localStorage.getItem('user_id')}`)
+
+        }
         
     }
 
@@ -312,7 +346,7 @@ const EventForm = withFormik({
 const mapStateToProps = (state) => {
 
   return{
-    state
+    loading: state.isLoading
   }
 }
 

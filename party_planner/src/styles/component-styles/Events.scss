@@ -1,4 +1,7 @@
 .events-content{
+  max-width: 100vw;
+  overflow: hidden;
+
   h2{
     margin: 0;
 
@@ -19,26 +22,27 @@
   }
 
   .new-event{
-    color: #fff;
+    
     display: flex;
     width: 100vw;
     height: 7.7rem;
     justify-content: space-between;
     align-items: center;
-    background: #898A9E;
-
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 62%, rgba(239,239,239,1) 100%);
     h2{
       margin-left: 5.53%;
-      font-family: 'Crete Round', 'Times New Roman', Times, serif;
-      font-weight: 100;
-      font-size: 2.2rem
+      font-family: 'Heebo', 'Times New Roman', Times, serif;
+      font-weight: bold;
+      font-size: 1.8rem;
+      color: #7992EA;
     }
 
     i.icon{
       padding-right: 3.8rem;
       font-size:2.67rem;
       transform: translateY(20%);
-      color: #fff;
+      color:  #6065D1;
     }
   }
   
@@ -129,4 +133,8 @@
 }
 .hide{
   display: none;
+}
+
+.new-event.add.no-gradient{
+  background: #fff;
 }

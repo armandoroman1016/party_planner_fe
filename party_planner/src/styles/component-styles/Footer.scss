@@ -1,8 +1,8 @@
 footer {
     display: flex;
     flex-direction: column;
-    background: #898A9E;
-    color: #ffffff;
+    background: #ffffff;
+    color: #7992EA;
     bottom: 0;
     width: 100%;
 
@@ -12,7 +12,7 @@ footer {
     }
 
     a{
-        color: $primary-gray2;
+        color: #7992EA;
         font-size: 1.2rem;
         height: 30px;
         width: 33%;
@@ -22,7 +22,7 @@ footer {
     }
 
     a:nth-child(-n+2){
-        border-right: 1px solid $primary-gray2;
+        border-right: 1px solid #7992EA;
     }
 
     .footer-content{

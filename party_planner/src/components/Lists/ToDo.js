@@ -38,8 +38,6 @@ const TodoList = props => {
         }
 
     }
-
-    useEffect(() => console.log(modified))
     return(
         <div className = 'modal-container'>
             <Modal className='listModalContainer' trigger={<Button>To Do List</Button>} closeIcon>

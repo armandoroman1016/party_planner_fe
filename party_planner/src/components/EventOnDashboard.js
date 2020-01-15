@@ -114,7 +114,7 @@ const EventOnDashboard = (props) => {
   calendarDateFormat = calendarDateFormat.split(' ')
 
   // if days remaining are less then or equal to 14 update days remaining background with warning color
-  const daysRemainingBackground = remainingDays <= 14 ? '#E3696A' : '#898A9E' 
+  const daysRemainingBackground = remainingDays <= 14 ? '#E3696A' : '#DCDDE4' 
 
   const random = event.background_color || colors[Math.floor(Math.random() * colors.length)]
   
@@ -139,6 +139,15 @@ const EventOnDashboard = (props) => {
             <p>{`${calendarDateFormat[1].toUpperCase()} ${calendarDateFormat[2]}`}</p>
           </div>
         </div>
+        {!show ? 
+          <img 
+            src = { arrow } 
+            alt = 'arrow pointing down' 
+            className = 'expand-arrow' 
+            onClick = {() => toggleMeta(show)}
+          /> 
+        : null
+      }
       </div>
       <div className = {show ? 'event-meta' : 'hide event-meta'}>
         <div className = 'event-info-extra'>
@@ -165,7 +174,15 @@ const EventOnDashboard = (props) => {
               <h4>BUDGET</h4>
               <p>$ {event.budget}</p>
           </div>
+          <img 
+              src = { arrow } 
+              alt = 'arrow pointing down' 
+              className = 'expand-arrow'
+              style = {{transform: 'rotate(180deg)'}}
+              onClick = {() => toggleMeta(show)}/>
         </div>
+      </div>
+      <div className = 'progress-bar-container'>
         <ProgressBar event = {event}/>
       </div>
       <div className = 'container-lists'>
@@ -176,21 +193,6 @@ const EventOnDashboard = (props) => {
           {/* <EntertainmentList id={event.id} /> */}
         </div>
       </div>
-      {!show ? 
-        <img 
-          src = { arrow } 
-          alt = 'arrow pointing down' 
-          className = 'expand-arrow' 
-          onClick = {() => toggleMeta(show)}
-        /> 
-      : <img 
-          src = { arrow } 
-          alt = 'arrow pointing down' 
-          className = 'expand-arrow'
-          style = {{transform: 'rotate(180deg)'}}
-          onClick = {() => toggleMeta(show)}/>
-    }
-
     </div>
   )
 }

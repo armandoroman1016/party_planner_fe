@@ -4,12 +4,12 @@ import styled from 'styled-components'
 
 
 const Track = styled.div`
-    width:96%;
+    width:100%;
     margin-bottom: 15px;
-    height:3.8rem;
+    height:4rem;
     background: transparent;
-    border: 1.2px solid #ACC1AD;
-    border-radius: 10px;
+    border: 1.2px solid #DCDDE4;
+    border-radius: 20px;
     box-shadow: inset 0 0 px #ebf1fa;
     color:#898A9E
 `;
@@ -17,12 +17,10 @@ const Track = styled.div`
 const Thumb = styled.div`
     width: ${props => props.percentage}%;
     height: 100%;
-
-    background-color: #C7DDC8
-    border-radius: 8px;
+    background-color: #DCDDE4
+    border-radius: 20px;
     transition: width 0.5s ease-in-out;
 `
-    // background-color:#39DB80;
     
 const ProgressBar = props => {
 
@@ -53,14 +51,14 @@ const ProgressBar = props => {
 
     return(
         <div className = 'progress-bar'> 
-        <h4>CURRENT BUDGET</h4>
+        <h4>BUDGET STATUS</h4>
             <Track>
                 {currentPercent < 100 ? 
                     <Thumb percentage ={limit(0,currentPercent,100)}/> 
                     : <Thumb percentage = {limit(0,currentPercent,100)} style={{backgroundColor: 'red'}}/>}
                     {currentPercent < 100 ? 
-                        <p style = {{display: 'flex', justifyContent:'flex-end', transform: 'translateY(-135%)', color:'#6B7078', marginRight: '20px'}}>${remainingBudget} Remaining</p>
-                        : <p style = {{display: 'flex', justifyContent:'flex-end', transform: 'translateY(-135%)', color:'#6B7078', marginRight: '20px'}}>${remainingBudget} Over Budget</p>}
+                        <p className = 'budget-indicator'>${remainingBudget} Remaining</p>
+                        : <p className = 'budget-indicator'>${remainingBudget} Over Budget</p>}
             </Track>
         </div>
     )

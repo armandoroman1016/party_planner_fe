@@ -45,10 +45,6 @@ const ReadPartyStatus = props => {
     const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition
     const recognition = new SpeechRecognition();
 
-    recognition.onstart = () => {
-        console.log('voice is activated')
-    }
-
     let transcript = ''
 
     recognition.onresult = (e) => {
