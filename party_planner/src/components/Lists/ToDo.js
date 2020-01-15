@@ -49,7 +49,7 @@ const TodoList = props => {
                                 <ToDoItem key={item.id} item = {item} toggleToModified = { toggleToModified }/>
                             )
                         })
-                        :'Your shopping list is currently empty. Click below to add an item.'
+                        :<p className = 'no-items'>Your todo list is currently empty. Click below to add a task.</p>
                     }
                     <FormikTodoForm match = {match} eventId = {eventId}/>
                     <div style={{width: '100%', textAlign: 'center'}}><Button secondary style={{marginTop: '1rem'}} onClick = {() => props.updateToDoList(todoList)}>Update Changes</Button></div>

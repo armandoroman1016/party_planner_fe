@@ -108,12 +108,12 @@ const ShoppingList = props => {
                                 <h2>{item.name} Cost</h2>
                               </div>
                               <div className='ui input'>
-                                <input type = 'text' name = 'price' placeholder= 'Price. . .' onChange={(e) => handleCostChange(e)} value = {dataToSend.price}/>
+                                <input type = 'text' name = 'price' placeholder= 'Enter Cost' onChange={(e) => handleCostChange(e)} value = {dataToSend.price}/>
                                 </div>
                               <Button style={{marginTop: '1rem'}}secondary type = 'submit' onClick = {(e) => { updateCost(e, ...itemToRender) }}>Confirm Price</Button>
                             </form>
                       )}) 
-                      : 'Your shopping list is currently empty. Click below to add an item.'}
+                      : <p className = 'no-items'>Your shopping list is currently empty. Click below to add an item.</p>}
                     <FormikShoppingForm modalPosition = {modalPosition} match = {match} eventId = {eventId}/>
                     {/* modalPosition === 1 && <div style={{width: '100%', textAlign: 'center'}}><Button secondary style={{marginTop: '1rem'}} onClick = {handleSubmit}>Update Shopping List</Button></div> */}
                     </Modal.Content>

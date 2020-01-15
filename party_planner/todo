@@ -1,6 +1,4 @@
-1. style list modals
-2. test modal functionality
-3. update styles to match current design on dashboard
-4. add spinners on asynchronous action buttons
-5. deploy to new domain
-6. add edit event page
+1. test modal functionality
+2. add spinners on asynchronous action buttons
+3. deploy to new domain
+4. add edit event page

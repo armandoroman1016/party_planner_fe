@@ -123,6 +123,8 @@ const EventOnDashboard = (props) => {
 
   const toggleMeta = (bool) => setShow(!bool)
 
+  const addressSections =  event.address.split(',')
+
   return(
     <div className = 'dashboard-event' style = {{background: random}}>
       <div className = 'event-info'>
@@ -164,7 +166,7 @@ const EventOnDashboard = (props) => {
           </div>
           <div>
               <h4>ADDRESS</h4>
-              <p>{event.address}</p>
+              <p>{addressSections[0]}<br/>{addressSections[1]}, {addressSections[2]}</p>
           </div>
           <div>
               <h4>GUEST COUNT</h4>
@@ -186,7 +188,7 @@ const EventOnDashboard = (props) => {
         <ProgressBar event = {event}/>
       </div>
       <div className = 'container-lists'>
-        <h4>Organize your lists</h4>
+        <h4>ORGANIZE YOUR LISTS</h4>
         <div className = 'lists'>
           <ShoppingList id={event.id} />
           <TodoList id={event.id} />

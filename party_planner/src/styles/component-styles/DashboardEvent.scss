@@ -125,7 +125,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        margin-top: -2rem;
+        margin-top: -3.6rem;
         position: relative;
         
         h4{
@@ -169,26 +169,37 @@
         border-top: 1px solid #D1CEE1;
         border-bottom: 1px solid #D1CEE1;
         padding: 1.6rem 1.2rem;
-        .budget-indicator{
-            font-family: 'Heebo', 'Times New Roman', Times, serif;
-            font-weight: 800;
-            font-size: 12px;
-            display: flex; 
-            justify-content: flex-end;
-            transform: translateY(-155%); 
-            color: #6A6D72; 
-            margin-right: 20px
+        .progress-bar{
+
+            h4{
+                color: #B3B1C2; 
+            }
+            .budget-indicator{
+                font-family: 'Heebo', 'Times New Roman', Times, serif;
+                font-weight: 800;
+                font-size: 12px;
+                display: flex; 
+                justify-content: flex-end;
+                transform: translateY(-155%); 
+                color: #6A6D72; 
+                margin-right: 20px
+            }
+
         }
     }
     .container-lists {
-        // height: 16.4rem;
-        height: 12rem;
+        
+        height: 11rem;
         width: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
 
         h4 {
             text-align: left;
-            margin-left: 1.2rem;
-            font-size: 1.6rem;
+            margin: 1.2rem 0 0 1.2rem;
+            font-size: 1.2rem;
+            color: #B3B1C2;
         }
 
         .lists {
@@ -199,6 +210,7 @@
             align-content: space-between;
             align-items: center;
             justify-content: space-between;
+
             .modal-container {
                 width: 50%;
                 align-self: center;
@@ -207,11 +219,11 @@
                     width: 85%;
                     margin: 1.2rem auto;
                     // padding: 1.2rem 0;
-                    border: 1px solid rgba(30, 56, 93, 0.95);
-                    border-radius: 14px;
+                    border: 1px solid #6A6D72;
+                    border-radius: 20px;
                     background-color: transparent;
                     font-size: 1.6rem;
-                    color: rgba(30, 56, 93, 0.95)
+                    color: #6A6D72;
                 }
             }
         }
