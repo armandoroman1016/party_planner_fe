@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Field, withFormik } from "formik";
+import { useLocation, useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import { connect } from 'react-redux'
 import { addEvent } from '../actions/AddEventActions'
@@ -18,8 +19,59 @@ const overrideSpinner = css`
 
 const EventFormShape = props => {
   
-  const {touched, errors, values, setValues, isLoading} = props
+  const location = useLocation()
+  const params = useParams()
 
+  // if user is on the editing event event id will be defined
+  console.log('location is: ', location)
+  
+  const {touched, errors, values, setValues, isLoading, events } = props
+  const eventId = params.eventId
+
+  const [ editedEvent, setEditedEvent] = useState(null)
+
+  useEffect(() => {
+
+    if(eventId){
+
+      setEditedEvent(events.filter( event => event.id === eventId ))
+
+    }
+
+    if(editedEvent){
+      console.log(editedEvent)
+      fillInEventValues(editedEvent[0])
+    }
+
+  }, [])
+
+  const fillInEventValues = (e) => {
+
+    const startTime = e.start_time.split(' ')
+
+    const endTime = e.end_time ? e.end_time.split(' ') : ''
+
+    setValues({
+      eventName: e.name,
+      date: e.date,
+      startHour: startTime[0],
+      startMin: startTime[2],
+      startAmPm: startTime[3],
+      address: e.address,
+      endHour: endTime.length ? endTime[0] : '',
+      endMin: endTime.length ? endTime[2] : '',
+      endAmPm: endTime.length ? endTime[3] : '',
+      eventLocation : e.location,
+      budget: e.budget,
+      adultGuest: e.adult_guests,
+      childGuest: e.child_guests,
+      theme: e.theme,
+      publicity: e.private
+    })
+
+  }
+  console.log('event', editedEvent)
+  console.log('values', values)
 
   const hours = [];
 
@@ -344,7 +396,8 @@ const EventForm = withFormik({
 const mapStateToProps = (state) => {
 
   return{
-    loading: state.isLoading
+    loading: state.isLoading,
+    events: state.events
   }
 }
 

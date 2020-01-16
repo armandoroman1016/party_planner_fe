@@ -28,6 +28,7 @@ function App() {
           <Route exact path = "/" render={() => localStorage.getItem('token') ? <Redirect to={`/dashboard/${localStorage.getItem('user_id')}`}/> : <Redirect to={`/login`} />} />
           <Route exact path="/login" component={Login}/>
           <Route exact path="/register" component={Register}/>
+          <PrivateRoute path="/events/edit/:eventId" component={EventForm}/>
           <PrivateRoute path="/create-event" component={EventForm}/>
           <PrivateRoute path="/dashboard/:id" component={Events}/>
         </div>
