@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import ShoppingList from './Lists/ShoppingList'
-import EntertainmentList from './Lists/Entertainment'
+import { useHistory } from 'react-router-dom'
 import TodoList from './Lists/ToDo'
 import { Icon } from 'semantic-ui-react'
 import arrow from '../assets/images/arrow.svg'
@@ -15,6 +15,8 @@ const EventOnDashboard = (props) => {
 
   // destructuring of event
   const { event } = props
+
+  const history = useHistory()
 
   // const colors = ['#FFF']
   const colors = ['#FFE9F9', '#F2FFE1', '#FFF0E5', '#EEE9FF', '#fff']
@@ -134,7 +136,7 @@ const EventOnDashboard = (props) => {
           <h4>{event.start_time}</h4>
         </div>
         <div className = 'event-right_side'>
-          {/* <img src = { dots } alt = 'settings icon'/> */}
+          <img src = { dots } alt = 'settings icon' onClick = {() => history.push(`/events/edit/${event.id}`)}/>
           <div className = 'calendar'>
             <p>{calendarDateFormat[0]}</p>
             <span/>
@@ -192,7 +194,6 @@ const EventOnDashboard = (props) => {
         <div className = 'lists'>
           <ShoppingList id={event.id} />
           <TodoList id={event.id} />
-          {/* <EntertainmentList id={event.id} /> */}
         </div>
       </div>
     </div>

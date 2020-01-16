@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Form, Field, withFormik } from "formik";
+import { useLocation, useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import { connect } from 'react-redux'
 import { addEvent } from '../actions/AddEventActions'
@@ -18,8 +19,67 @@ const overrideSpinner = css`
 
 const EventFormShape = props => {
   
-  const {touched, errors, values, setValues, isLoading} = props
+  const location = useLocation()
+  const params = useParams()
 
+  // if user is on the editing event event id will be defined
+  console.log('location is: ', location)
+  
+  const {touched, errors, values, setValues, isLoading, events } = props
+  const eventId = params.eventId
+  
+  
+  const backgroundColors = ['#fff', '#E1FBFE', '#FFFAE2', '#FFF1E8', '#F1FFE6', '#EAFFF4', '#E8EEFF', '#F1EDFF']
+  const [selectedColor, setSelectedColor] = useState(backgroundColors[0])
+
+  const [ editedEvent, setEditedEvent] = useState(null)
+  useEffect(() => {
+
+    if(eventId){
+      setEditedEvent(events.filter( event => event.id === eventId ))
+    }
+
+  }, [])
+
+  const fillInEventValues = (e) => {
+
+    const startTime = e.start_time.split(' ')
+    
+    const endTime = e.end_time ? e.end_time.split(' ') : ''
+
+    setValues({
+      eventName: e.name,
+      date: e.date,
+      startHour: startTime[0],
+      startMin: startTime[2],
+      startAmPm: startTime[3],
+      address: e.address,
+      endHour: endTime.length ? endTime[0] : '',
+      endMin: endTime.length ? endTime[2] : '',
+      endAmPm: endTime.length ? endTime[3] : '',
+      eventLocation : e.location,
+      budget: e.budget,
+      adultGuest: e.adult_guests,
+      childGuest: e.child_guests,
+      theme: e.theme,
+      publicity: e.private,
+      bgColor: e.background_color ? e.background_color : ''
+    });
+
+    if(e.background_color){
+
+      setSelectedColor(e.background_color)
+
+     }
+  }
+
+  useEffect(() => {
+    if(editedEvent){
+      console.log(editedEvent[0])
+      fillInEventValues(editedEvent[0])
+    }
+
+  }, [editedEvent])
 
   const hours = [];
 
@@ -31,9 +91,7 @@ const EventFormShape = props => {
     hours.push(i);
   }
 
-  const backgroundColors = ['#fff', '#E1FBFE', '#FFFAE2', '#FFF1E8', '#F1FFE6', '#EAFFF4', '#E8EEFF', '#F1EDFF']
 
-  const [selectedColor, setSelectedColor] = useState(backgroundColors[0])
 
   const handleColorChange = (color) => {
     setSelectedColor(color)
@@ -54,6 +112,8 @@ const EventFormShape = props => {
     })
 
   }
+
+  const buttonText = eventId ? 'UPDATE EVENT' : 'ADD EVENT'
 
   return (
     <div className="add-event">
@@ -225,7 +285,7 @@ const EventFormShape = props => {
           
           <button type = 'submit' style = {{cursor: 'pointer'}}>{
             !isLoading ? 
-            'ADD EVENT' 
+            buttonText 
             : <PropagateLoader
             css={overrideSpinner}
             size={13}
@@ -344,7 +404,8 @@ const EventForm = withFormik({
 const mapStateToProps = (state) => {
 
   return{
-    loading: state.isLoading
+    loading: state.isLoading,
+    events: state.events
   }
 }
 

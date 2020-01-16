@@ -7,12 +7,10 @@ import { handleSuccessfulLogin } from '../actions/LogInActions'
 import { getEvents } from '../actions/eventActions'
 import { Button } from 'semantic-ui-react'
 
-import { css } from "@emotion/core";
-// Another way to import. This is recommended to reduce bundle size
 import ClipLoader from "react-spinners/ClipLoader";
 
 function Login(props) {
- const {touched, errors, loading, isSubmitting} = props
+ const {touched, errors, isSubmitting} = props
  
  return(
    <div>
