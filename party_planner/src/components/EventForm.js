@@ -4,7 +4,8 @@ import { useLocation, useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import { connect } from 'react-redux'
 import { addEvent } from '../actions/AddEventActions'
-import PlacesAutofill from './GoogleMaps'
+import PlacesAutofill from './PlacesAutocomplete'
+import { getEvents } from '../actions/eventActions'
 
 import { css } from "@emotion/core";
 // Another way to import. This is recommended to reduce bundle size
@@ -23,9 +24,17 @@ const EventFormShape = props => {
   const params = useParams()
 
   // if user is on the editing event event id will be defined
-  console.log('location is: ', location)
+
   
-  const {touched, errors, values, setValues, isLoading, events } = props
+  const {
+    touched, 
+    errors, 
+    values, 
+    setValues, 
+    isLoading, 
+    events,
+    getEvents 
+  } = props
   const eventId = params.eventId
   
   
@@ -33,13 +42,32 @@ const EventFormShape = props => {
   const [selectedColor, setSelectedColor] = useState(backgroundColors[0])
 
   const [ editedEvent, setEditedEvent] = useState(null)
+
+
   useEffect(() => {
 
-    if(eventId){
-      setEditedEvent(events.filter( event => event.id === eventId ))
+    if(eventId && !events.length){
+
+      async function getE(){
+        await getEvents(localStorage.getItem('user_id'))
+      }
+      getE()
+
     }
 
   }, [])
+
+
+  useEffect(() => {
+    
+    if(!isLoading && eventId && events.length){
+
+      setEditedEvent(events.filter( e => e.id === eventId))
+
+   }
+    
+  },[events])
+
 
   const fillInEventValues = (e) => {
 
@@ -73,13 +101,19 @@ const EventFormShape = props => {
      }
   }
 
+
   useEffect(() => {
+
     if(editedEvent){
-      console.log(editedEvent[0])
-      fillInEventValues(editedEvent[0])
+       
+      console.log(...editedEvent)
+      fillInEventValues(...editedEvent)    
+  
     }
 
   }, [editedEvent])
+  
+
 
   const hours = [];
 
@@ -266,7 +300,6 @@ const EventFormShape = props => {
             <label className="checkbox-container">
             PUBLIC 
             </label>
-              {/* <span className="checkmark" /> */}
           </div>
 
             <div id = 'bg-color' className = 'field'>
@@ -289,7 +322,6 @@ const EventFormShape = props => {
             : <PropagateLoader
             css={overrideSpinner}
             size={13}
-            //size={"150px"} this also works
             color={"#fff"}
           /> }</button>
         </Form>
@@ -410,4 +442,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {addEvent})(EventForm);
+export default connect(mapStateToProps, {addEvent, getEvents})(EventForm);

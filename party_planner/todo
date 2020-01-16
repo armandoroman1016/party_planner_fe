@@ -1,3 +1,5 @@
-
-1. desktop responsive MVP
-2. add edit event page
+1. have edit page send post request to api
+2. create event list views
+3. desktop responsive MVP - update with new styles
+4. login/register pages
+5. tests
