@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import ShoppingList from './Lists/ShoppingList'
 import { useHistory } from 'react-router-dom'
-import EntertainmentList from './Lists/Entertainment'
 import TodoList from './Lists/ToDo'
 import { Icon } from 'semantic-ui-react'
 import arrow from '../assets/images/arrow.svg'
@@ -195,7 +194,6 @@ const EventOnDashboard = (props) => {
         <div className = 'lists'>
           <ShoppingList id={event.id} />
           <TodoList id={event.id} />
-          {/* <EntertainmentList id={event.id} /> */}
         </div>
       </div>
     </div>

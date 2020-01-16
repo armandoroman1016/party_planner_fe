@@ -27,20 +27,16 @@ const EventFormShape = props => {
   
   const {touched, errors, values, setValues, isLoading, events } = props
   const eventId = params.eventId
+  
+  
+  const backgroundColors = ['#fff', '#E1FBFE', '#FFFAE2', '#FFF1E8', '#F1FFE6', '#EAFFF4', '#E8EEFF', '#F1EDFF']
+  const [selectedColor, setSelectedColor] = useState(backgroundColors[0])
 
   const [ editedEvent, setEditedEvent] = useState(null)
-
   useEffect(() => {
 
     if(eventId){
-
       setEditedEvent(events.filter( event => event.id === eventId ))
-
-    }
-
-    if(editedEvent){
-      console.log(editedEvent)
-      fillInEventValues(editedEvent[0])
     }
 
   }, [])
@@ -48,7 +44,7 @@ const EventFormShape = props => {
   const fillInEventValues = (e) => {
 
     const startTime = e.start_time.split(' ')
-
+    
     const endTime = e.end_time ? e.end_time.split(' ') : ''
 
     setValues({
@@ -66,12 +62,24 @@ const EventFormShape = props => {
       adultGuest: e.adult_guests,
       childGuest: e.child_guests,
       theme: e.theme,
-      publicity: e.private
-    })
+      publicity: e.private,
+      bgColor: e.background_color ? e.background_color : ''
+    });
 
+    if(e.background_color){
+
+      setSelectedColor(e.background_color)
+
+     }
   }
-  console.log('event', editedEvent)
-  console.log('values', values)
+
+  useEffect(() => {
+    if(editedEvent){
+      console.log(editedEvent[0])
+      fillInEventValues(editedEvent[0])
+    }
+
+  }, [editedEvent])
 
   const hours = [];
 
@@ -83,9 +91,7 @@ const EventFormShape = props => {
     hours.push(i);
   }
 
-  const backgroundColors = ['#fff', '#E1FBFE', '#FFFAE2', '#FFF1E8', '#F1FFE6', '#EAFFF4', '#E8EEFF', '#F1EDFF']
 
-  const [selectedColor, setSelectedColor] = useState(backgroundColors[0])
 
   const handleColorChange = (color) => {
     setSelectedColor(color)
@@ -106,6 +112,8 @@ const EventFormShape = props => {
     })
 
   }
+
+  const buttonText = eventId ? 'UPDATE EVENT' : 'ADD EVENT'
 
   return (
     <div className="add-event">
@@ -277,7 +285,7 @@ const EventFormShape = props => {
           
           <button type = 'submit' style = {{cursor: 'pointer'}}>{
             !isLoading ? 
-            'ADD EVENT' 
+            buttonText 
             : <PropagateLoader
             css={overrideSpinner}
             size={13}
