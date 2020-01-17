@@ -19,9 +19,11 @@ const EventMenu = ( props ) => {
             className = { !open ? '' : 'invisible'}/>
             <div 
             className = { open ? 'event-menu' : 'event-menu invisible'}
-            style = {{ background: backgroundColor ? backgroundColor : "#fff" }}
             >
-                <Icon name = 'close' onClick = {() => setOpen(!open)} />
+                <Icon 
+                name = 'close'
+                circular = {true}
+                onClick = {() => setOpen(!open)} />
                 <div>
                     <Link to = {`/events/edit/${eventId}`}>Edit</Link>
                     <ConfirmDelete eventId = { eventId } handleEventMenu = { setOpen }/>

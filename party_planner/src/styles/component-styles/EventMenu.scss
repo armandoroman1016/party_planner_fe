@@ -6,13 +6,14 @@
         width: 100%
     }
     .event-menu{
-        opacity: 1;
         border: 1px solid rgba( 0, 0, 0, .5);
+        background: #575764;
+        opacity: .95;
         position: absolute;
         top:0;
-        right: 0;       
-        height: 18vh;
-        width: 30vw;
+        right: 1px;       
+        height: 26vh;
+        width: 42%;
         z-index: 10;
         transition: opacity .35s ease-in, 
         height .30s ease-in-out,
@@ -23,23 +24,29 @@
         overflow: hidden;
         i.icon{
             align-self: flex-end;
-            margin: 1rem 1.6rem 1rem 0;
-            height: 1.4rem;
-            width: 1.4rem;
-            color: #6065d1;
+            margin: 2rem 1.6rem 1rem 0;
+            height: 2rem;
+            width: 2rem;
+            color: #F6F9FC;
+    
         }
         :nth-child(2){
             display: flex;
             flex-direction: column;
             height:70%;
-            text-align: right;
-            margin-top: 1.8rem;
+            margin-top: 2rem;
+            align-items: flex-end;
             a, p{
-                color: #6065d1;
+                
+                max-width: fit-content ;
+                text-align: right;
+                color: #F6F9FC;
                 font-size: 1.4rem;
                 font-weight: bold;
                 font-family: 'Heebo', 'Times New Roman', Times, serif;
-                padding: 0 1.6rem .6rem 0;
+                margin-right: 2.2rem ;
+                margin-bottom: 1rem;
+                padding-bottom: .2rem;
             }
             
         }
