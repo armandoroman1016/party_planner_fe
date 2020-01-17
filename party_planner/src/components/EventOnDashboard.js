@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import ShoppingList from './Lists/ShoppingList'
-import { useHistory } from 'react-router-dom'
 import TodoList from './Lists/ToDo'
-import { Icon } from 'semantic-ui-react'
-import arrow from '../assets/images/arrow.svg'
-import dots from '../assets/images/dots.svg'
 
+import arrow from '../assets/images/arrow.svg'
+
+import EventMenu from './EventMenu'
 
 import ProgressBar from './ProgressBar'
 
@@ -16,7 +15,6 @@ const EventOnDashboard = (props) => {
   // destructuring of event
   const { event } = props
 
-  const history = useHistory()
 
   // const colors = ['#FFF']
   const colors = ['#FFE9F9', '#F2FFE1', '#FFF0E5', '#EEE9FF', '#fff']
@@ -136,7 +134,7 @@ const EventOnDashboard = (props) => {
           <h4>{event.start_time}</h4>
         </div>
         <div className = 'event-right_side'>
-          <img src = { dots } alt = 'settings icon' onClick = {() => history.push(`/events/edit/${event.id}`)}/>
+          <EventMenu eventId = {event.id} backgroundColor = {random}/>
           <div className = 'calendar'>
             <p>{calendarDateFormat[0]}</p>
             <span/>

@@ -1,5 +1,6 @@
-1. have edit page send post request to api
+1. add menu for edit event button with route to edit / delete
 2. create event list views
 3. desktop responsive MVP - update with new styles
 4. login/register pages
 5. tests
+6. documentation

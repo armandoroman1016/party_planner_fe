@@ -9,9 +9,9 @@ import thunk from 'redux-thunk'
 import { globalReducer } from './reducers'
 import * as serviceWorker from './serviceWorker';
 //redux 
-import { logger } from 'redux-logger'
+// import { logger } from 'redux-logger'
 
-const store = createStore(globalReducer, applyMiddleware(thunk, logger));
+const store = createStore(globalReducer, applyMiddleware(thunk));
 
 ReactDOM.render(
     <Provider store={store}>

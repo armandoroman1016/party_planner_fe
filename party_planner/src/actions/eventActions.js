@@ -1,5 +1,8 @@
 import { axiosWithAuth } from '../utils/AxiosWithAuth'
 
+
+const URL = process.env.API_URL || 'http://localhost:5000'
+
 export const GET_EVENTS_START = "GET_EVENTS_START"
 export const GET_EVENTS_SUCCESS = "GET_EVENTS_SUCCESS"
 export const GET_EVENTS_ERROR = "GET_EVENTS_ERROR"
@@ -21,7 +24,7 @@ export const getEvents = (userId) => {
   return dispatch => {
     dispatch({ type: GET_EVENTS_START })
     axiosWithAuth()
-      .get(`https://party-planner-back-end.herokuapp.com/api/events/${userId}`)
+      .get(`${URL}/api/events/${userId}`)
       .then(res => dispatch({ type: GET_EVENTS_SUCCESS, payload: res.data.events }))
       .catch(err => dispatch({ type: GET_EVENTS_ERROR, payload: err.response }))
   }
@@ -33,7 +36,7 @@ export const deleteEvent = (event, history) => {
   return dispatch => {
     dispatch({ type: DELETING_EVENT })
     axiosWithAuth()
-      .delete(`https://bw-party-planner.herokuapp.com/api/party/${event.id}`)
+      .delete(`${URL}/api/events/${event.id}`)
       .then(res => {
         dispatch({ type: DELETE_EVENT_SUCCESS, payload: event });
         history.push(`/dashboard/${localStorage.getItem('user_id')}`)
@@ -44,11 +47,11 @@ export const deleteEvent = (event, history) => {
 
 // update event
 
-export const updateEvent = (event, id, history) => {
+export const updateEvent = (event, id) => {
   return dispatch => {
     dispatch({ type: UPDATING_EVENT })
     axiosWithAuth()
-      .put(`https://bw-party-planner.herokuapp.com/api/party/${id}`, event)
+      .put(`${URL}/api/events/${id}`, event)
       .then(res => {
         dispatch({ type: UPDATE_EVENT_SUCCESS, payload: res.data })
       })
@@ -68,7 +71,7 @@ export const addShoppingItem = (eventId, values) => {
   return dispatch => {
     dispatch({type: ADD_SHOPPING_ITEM_START})
       axiosWithAuth()
-      .post(`https://party-planner-back-end.herokuapp.com/api/shopping/${eventId}`, values)
+      .post(`${URL}/api/shopping/${eventId}`, values)
       .then( res => dispatch({type: ADD_SHOPPING_ITEM_SUCCESS, payload: res.data}))
       .catch( err => console.log('errOnPostItem', err))
   }
@@ -82,7 +85,7 @@ export const getShoppingItems = (eventId) => {
   return dispatch => {
     dispatch({type: GET_SHOPPING_ITEM_START})
     axiosWithAuth()
-    .get(`https://party-planner-back-end.herokuapp.com/api/shopping/${eventId}`)
+    .get(`${URL}/api/shopping/${eventId}`)
     .then( res => dispatch({type: GET_SHOPPING_ITEM_SUCCESS, payload: res.data.items}))
     .catch( err => dispatch({type: GET_SHOPPING_ITEM_ERROR, payload: err.response}))
   }
@@ -110,7 +113,7 @@ export const updateShoppingItems = (arr) => {
     return dispatch => {
       dispatch({type: UPDATE_SHOPPING_ITEM_START})
       axiosWithAuth()
-        .put(`https://party-planner-back-end.herokuapp.com/api/shopping/${arr[i].id}`, valuesToSubmit)
+        .put(`${URL}/api/shopping/${arr[i].id}`, valuesToSubmit)
         .then( res =>{ 
           dispatch({type: UPDATE_SHOPPING_ITEM_SUCCESS, payload: res.data})
         })
@@ -127,7 +130,7 @@ export const addEventTodo = ( eventId, values ) => {
   return dispatch =>{
     dispatch({type: ADD_EVENT_TODO_START})
     axiosWithAuth()
-      .post(`https://party-planner-back-end.herokuapp.com/api/todo/${eventId}`, values)
+      .post(`${URL}/api/todo/${eventId}`, values)
       .then( res => dispatch({type: ADD_EVENT_TODO_SUCCESS, payload: res.data}))
       .catch( err => dispatch({type: ADD_EVENT_TODO_ERROR, payload: err.response}))
   }
@@ -141,7 +144,7 @@ export const getEventTodoList = (eventId) => {
   return dispatch =>{
     dispatch({type: GET_EVENT_TODO_LIST_START})
     axiosWithAuth()
-      .get(`https://party-planner-back-end.herokuapp.com/api/todo/${eventId}`)
+      .get(`${URL}/api/todo/${eventId}`)
       .then( res => dispatch({type: GET_EVENT_TODO_LIST_SUCCESS, payload: res.data}))
       .catch( err => dispatch({type: GET_EVENT_TODO_LIST_ERROR, payload: err.response}))
   }
@@ -162,7 +165,7 @@ export const updateToDoList = ( arr ) => {
     return dispatch => {
       dispatch({type: UPDATE_EVENT_TODO_LIST_START})
       axiosWithAuth()
-        .put(`https://party-planner-back-end.herokuapp.com/api/todo/${arr[i].id}`, valuesToSubmit)
+        .put(`${URL}/api/todo/${arr[i].id}`, valuesToSubmit)
         .then( res => dispatch({type: UPDATE_EVENT_TODO_LIST_SUCCESS, payload: res.data}))
         .catch( err => console.log(err))
    } 
@@ -171,69 +174,69 @@ export const updateToDoList = ( arr ) => {
 
 // ! Entertainment CRUD
 
-export const ADD_EVENT_ENTERTAINMENT_START = "ADD_EVENT_ENTERTAINMENT_START"
-export const ADD_EVENT_ENTERTAINMENT_SUCCESS = "ADD_EVENT_ENTERTAINMENT_SUCCESS"
-export const ADD_EVENT_ENTERTAINMENT_ERROR = "ADD_EVENT_ENTERTAINMENT_ERROR"
+// export const ADD_EVENT_ENTERTAINMENT_START = "ADD_EVENT_ENTERTAINMENT_START"
+// export const ADD_EVENT_ENTERTAINMENT_SUCCESS = "ADD_EVENT_ENTERTAINMENT_SUCCESS"
+// export const ADD_EVENT_ENTERTAINMENT_ERROR = "ADD_EVENT_ENTERTAINMENT_ERROR"
 
 
-export const addEntertainment = (values) => {
-  return dispatch => {
-    dispatch({type: ADD_EVENT_ENTERTAINMENT_START})
-    axiosWithAuth()
-      .post('https://bw-party-planner.herokuapp.com/api/entertainment', values)
-      .then( res => dispatch({type:ADD_EVENT_ENTERTAINMENT_SUCCESS, payload: res.data}))
-      .catch( err => dispatch({ type : ADD_EVENT_ENTERTAINMENT_ERROR, payload: err.response}))
-  }
-}
+// export const addEntertainment = (values) => {
+//   return dispatch => {
+//     dispatch({type: ADD_EVENT_ENTERTAINMENT_START})
+//     axiosWithAuth()
+//       .post(`${URL}/api/entertainment`, values)
+//       .then( res => dispatch({type:ADD_EVENT_ENTERTAINMENT_SUCCESS, payload: res.data}))
+//       .catch( err => dispatch({ type : ADD_EVENT_ENTERTAINMENT_ERROR, payload: err.response}))
+//   }
+// }
 
-export const GET_EVENTS_ENTERTAINMENT_START = "GET_EVENT_ENTERTAINMENT_START"
-export const GET_EVENTS_ENTERTAINMENT_SUCCESS = "GET_EVENT_ENTERTAINMENT_SUCCESS"
-export const GET_EVENTS_ENTERTAINMENT_ERROR = "GET_EVENT_ENTERTAINMENT_ERROR"
+// export const GET_EVENTS_ENTERTAINMENT_START = "GET_EVENT_ENTERTAINMENT_START"
+// export const GET_EVENTS_ENTERTAINMENT_SUCCESS = "GET_EVENT_ENTERTAINMENT_SUCCESS"
+// export const GET_EVENTS_ENTERTAINMENT_ERROR = "GET_EVENT_ENTERTAINMENT_ERROR"
 
-export const getEventEntertainment = () => {
-  return dispatch => {
-  dispatch({type: GET_EVENTS_ENTERTAINMENT_START})
-  axiosWithAuth()
-    .get('https://bw-party-planner.herokuapp.com/api/entertainment')
-    .then(res => dispatch({type: GET_EVENTS_ENTERTAINMENT_SUCCESS, payload: res.data}))
-    .catch(err => dispatch({type: GET_EVENTS_ENTERTAINMENT_ERROR, payload: err.response}))
-  }
-}
+// export const getEventEntertainment = () => {
+//   return dispatch => {
+//   dispatch({type: GET_EVENTS_ENTERTAINMENT_START})
+//   axiosWithAuth()
+//     .get(`${URL}/api/entertainment`)
+//     .then(res => dispatch({type: GET_EVENTS_ENTERTAINMENT_SUCCESS, payload: res.data}))
+//     .catch(err => dispatch({type: GET_EVENTS_ENTERTAINMENT_ERROR, payload: err.response}))
+//   }
+// }
 
-export const UPDATE_ENTERTAINMENT_ITEMS_START = "UPDATE_ENTERTAINMENT_ITEM_START"
-export const UPDATE_ENTERTAINMENT_ITEMS_SUCCESS = "UPDATE_ENTERTAINMENT_ITEM_SUCCESS"
-export const UPDATE_ENTERTAINMENT_ITEMS_ERROR = "UPDATE_ENTERTAINMENT_ITEM_ERROR"
+// export const UPDATE_ENTERTAINMENT_ITEMS_START = "UPDATE_ENTERTAINMENT_ITEM_START"
+// export const UPDATE_ENTERTAINMENT_ITEMS_SUCCESS = "UPDATE_ENTERTAINMENT_ITEM_SUCCESS"
+// export const UPDATE_ENTERTAINMENT_ITEMS_ERROR = "UPDATE_ENTERTAINMENT_ITEM_ERROR"
 
-export const updateEntertainmentItems = (arr) => {
+// export const updateEntertainmentItems = (arr) => {
 
-  for(let i = 0; i < arr.length; i++ ){
-    let valuesToSubmit = {
-      name: arr[i].name,
-      completed: arr[i].completed,
-      todo_list_id: arr[i].todo_list_id,
-      price: arr[i].price
-    }
-    return dispatch => {
-      dispatch({type: UPDATE_ENTERTAINMENT_ITEMS_START})
-      axiosWithAuth()
-        .put(`https://bw-party-planner.herokuapp.com/api/entertainment/${arr[i].id}`, JSON.stringify(valuesToSubmit))
-        .then( res => dispatch({type: UPDATE_ENTERTAINMENT_ITEMS_SUCCESS, payload: res.data}))
-        .catch( err => dispatch({type: UPDATE_ENTERTAINMENT_ITEMS_ERROR, payload: err.response}))
-   } 
-  }
+//   for(let i = 0; i < arr.length; i++ ){
+//     let valuesToSubmit = {
+//       name: arr[i].name,
+//       completed: arr[i].completed,
+//       todo_list_id: arr[i].todo_list_id,
+//       price: arr[i].price
+//     }
+//     return dispatch => {
+//       dispatch({type: UPDATE_ENTERTAINMENT_ITEMS_START})
+//       axiosWithAuth()
+//         .put(`${URL}/api/entertainment/${arr[i].id}`, JSON.stringify(valuesToSubmit))
+//         .then( res => dispatch({type: UPDATE_ENTERTAINMENT_ITEMS_SUCCESS, payload: res.data}))
+//         .catch( err => dispatch({type: UPDATE_ENTERTAINMENT_ITEMS_ERROR, payload: err.response}))
+//    } 
+//   }
 
-}
+// }
 
-export const DELETE_ENTERTAINMENT_ITEMS_START = "DELETE_ENTERTAINMENT_ITEM_START"
-export const DELETE_ENTERTAINMENT_ITEMS_SUCCESS = "DELETE_ENTERTAINMENT_ITEM_SUCCESS"
-export const DELETE_ENTERTAINMENT_ITEMS_ERROR = "DELETE_ENTERTAINMENT_ITEM_ERROR"
+// export const DELETE_ENTERTAINMENT_ITEMS_START = "DELETE_ENTERTAINMENT_ITEM_START"
+// export const DELETE_ENTERTAINMENT_ITEMS_SUCCESS = "DELETE_ENTERTAINMENT_ITEM_SUCCESS"
+// export const DELETE_ENTERTAINMENT_ITEMS_ERROR = "DELETE_ENTERTAINMENT_ITEM_ERROR"
 
-export const deleteEntertainmentItem = id => {
-   return dispatch => {
-      dispatch({type: DELETE_ENTERTAINMENT_ITEMS_START})
-      axiosWithAuth()
-        .delete(`https://bw-party-planner.herokuapp.com/api/entertainment/${id}`)
-        .then( res => dispatch({type: DELETE_ENTERTAINMENT_ITEMS_SUCCESS, payload: id}))
-        .catch( err => dispatch({type: DELETE_ENTERTAINMENT_ITEMS_ERROR, payload: err.response}))
-  }
-}
+// export const deleteEntertainmentItem = id => {
+//    return dispatch => {
+//       dispatch({type: DELETE_ENTERTAINMENT_ITEMS_START})
+//       axiosWithAuth()
+//         .delete(`${URL}/api/entertainment/${id}`)
+//         .then( res => dispatch({type: DELETE_ENTERTAINMENT_ITEMS_SUCCESS, payload: id}))
+//         .catch( err => dispatch({type: DELETE_ENTERTAINMENT_ITEMS_ERROR, payload: err.response}))
+//   }
+// }

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Form, Field, withFormik } from "formik";
-import { useLocation, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import * as Yup from 'yup'
 import { connect } from 'react-redux'
 import { addEvent } from '../actions/AddEventActions'
 import PlacesAutofill from './PlacesAutocomplete'
-import { getEvents } from '../actions/eventActions'
+import { getEvents, updateEvent } from '../actions/eventActions'
 
 import { css } from "@emotion/core";
 // Another way to import. This is recommended to reduce bundle size
@@ -20,7 +20,6 @@ const overrideSpinner = css`
 
 const EventFormShape = props => {
   
-  const location = useLocation()
   const params = useParams()
 
   // if user is on the editing event event id will be defined
@@ -106,7 +105,6 @@ const EventFormShape = props => {
 
     if(editedEvent){
        
-      console.log(...editedEvent)
       fillInEventValues(...editedEvent)    
   
     }
@@ -149,6 +147,7 @@ const EventFormShape = props => {
 
   const buttonText = eventId ? 'UPDATE EVENT' : 'ADD EVENT'
 
+  console.log(values)
   return (
     <div className="add-event">
       <h2>New Event</h2>
@@ -385,7 +384,10 @@ const EventForm = withFormik({
 
     handleSubmit(values, props){
 
-        const { addEvent, isLoading, history } = props.props
+
+        const { addEvent, isLoading, history, match, updateEvent } = props.props
+
+        const eventId = match.params.eventId
 
         const { 
           eventName,
@@ -421,14 +423,19 @@ const EventForm = withFormik({
           theme: theme
         }
 
-        if(!isLoading){
+        if(!eventId && !isLoading){
 
           addEvent(packet , localStorage.getItem('user_id'))
+          
+        }else if(eventId && !isLoading){
 
-          history.push(`/dashboard/${localStorage.getItem('user_id')}`)
+          packet.hostId = localStorage.getItem('user_id')
+          
+          updateEvent(packet, eventId)
 
         }
         
+        history.push(`/dashboard/${localStorage.getItem('user_id')}`)
     }
 
 })(EventFormShape)
@@ -442,4 +449,4 @@ const mapStateToProps = (state) => {
 }
 
 
-export default connect(mapStateToProps, {addEvent, getEvents})(EventForm);
+export default connect(mapStateToProps, {addEvent, getEvents, updateEvent})(EventForm);
