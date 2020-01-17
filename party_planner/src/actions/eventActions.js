@@ -1,7 +1,7 @@
 import { axiosWithAuth } from '../utils/AxiosWithAuth'
 
 
-const URL = process.env.API_URL || 'http://localhost:5000'
+const URL = process.env.REACT_APP_API_URL || 'http://localhost:5000'
 
 export const GET_EVENTS_START = "GET_EVENTS_START"
 export const GET_EVENTS_SUCCESS = "GET_EVENTS_SUCCESS"

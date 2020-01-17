@@ -5,7 +5,7 @@ export const ADD_EVENT_SUCCESS = "ADD_EVENT_SUCCESS";
 export const ADD_EVENT_FAILURE = "ADD_EVENT_FAILURE";
 
 
-const URL = process.env.API_URL || 'http://localhost:5000'
+const URL = process.env.REACT_APP_API_URL || 'http://localhost:5000'
 
 export const addEvent = (event, userId) => {
   return async dispatch => {
