@@ -23,24 +23,12 @@ import {
     GET_EVENT_TODO_LIST_ERROR,
     GET_EVENT_TODO_LIST_START,
     GET_EVENT_TODO_LIST_SUCCESS,
-    ADD_EVENT_ENTERTAINMENT_START,
-    ADD_EVENT_ENTERTAINMENT_SUCCESS,
-    ADD_EVENT_ENTERTAINMENT_ERROR,
-    GET_EVENTS_ENTERTAINMENT_START,
-    GET_EVENTS_ENTERTAINMENT_SUCCESS,
-    GET_EVENTS_ENTERTAINMENT_ERROR,
     UPDATE_EVENT_TODO_LIST_START,
     UPDATE_EVENT_TODO_LIST_SUCCESS,
     UPDATE_EVENT_TODO_LIST_ERROR,
     UPDATE_SHOPPING_ITEM_START,
     UPDATE_SHOPPING_ITEM_SUCCESS,
-    UPDATE_SHOPPING_ITEM_ERROR,
-    UPDATE_ENTERTAINMENT_ITEMS_START,
-    UPDATE_ENTERTAINMENT_ITEMS_SUCCESS,
-    UPDATE_ENTERTAINMENT_ITEMS_ERROR,
-    DELETE_ENTERTAINMENT_ITEMS_START,
-    DELETE_ENTERTAINMENT_ITEMS_SUCCESS,
-    DELETE_ENTERTAINMENT_ITEMS_ERROR
+    UPDATE_SHOPPING_ITEM_ERROR
 } from '../actions'
 
 const initialState = {
@@ -105,7 +93,7 @@ export const globalReducer = (state = initialState, action) => {
           return {
             ...state,
             isLoading: false,
-            events: state.events.filter(event => event.id !== action.payload.id)
+            events: state.events.filter( event => event.id !== action.payload )
           }
         case DELETE_EVENT_FAILURE:
           return {
@@ -192,40 +180,6 @@ export const globalReducer = (state = initialState, action) => {
             error: action.payload,
             isLoading:false
           }
-        case GET_EVENTS_ENTERTAINMENT_START:
-          return{
-            ...state,
-            isLoading: true,
-          }
-        case GET_EVENTS_ENTERTAINMENT_SUCCESS:
-          return{
-            ...state,
-            entertainmentList: action.payload,
-            isLoading: false
-          }
-        case GET_EVENTS_ENTERTAINMENT_ERROR:
-          return{
-            ...state,
-            err: action.payload,
-            isLoading: false
-          }
-        case ADD_EVENT_ENTERTAINMENT_START:
-          return{
-            ...state,
-            isLoading: true
-          }
-        case ADD_EVENT_ENTERTAINMENT_SUCCESS:
-          return{
-            ...state,
-            entertainmentList: [...state.entertainmentList, action.payload],
-            isLoading: false
-          }
-        case ADD_EVENT_ENTERTAINMENT_ERROR:
-          return{
-            ...state,
-            err: action.payload,
-            isLoading: true
-          }
         case UPDATE_EVENT_TODO_LIST_START:
           return{
             ...state,
@@ -263,44 +217,6 @@ export const globalReducer = (state = initialState, action) => {
             ...state,
             error: action.payload,
             isLoading: false,
-          }
-        case UPDATE_ENTERTAINMENT_ITEMS_START:
-          return{
-            ...state,
-            isLoading: true
-          }
-        case UPDATE_ENTERTAINMENT_ITEMS_SUCCESS:
-          return{
-            ...state,
-            entertainmentList:state.entertainmentList.filter( item => {
-              if(item.id === action.payload.id){
-                return action.payload
-              }else{
-                return item
-              }
-            }),
-            isLoading:false
-          }
-        case UPDATE_ENTERTAINMENT_ITEMS_ERROR:
-          return{
-            ...state,
-            error: action.payload,
-            isLoading: false
-          }
-        case DELETE_ENTERTAINMENT_ITEMS_START:
-          return{
-            ...state, isLoading: true
-          }
-        case DELETE_ENTERTAINMENT_ITEMS_SUCCESS:
-          return{
-            ...state,
-            entertainmentList: state.entertainmentList.filter( item => item.id !== action.payload),
-            isLoading: false,
-          }
-        case DELETE_ENTERTAINMENT_ITEMS_ERROR:
-          return{
-            ...state,
-            isLoading: false
           }
         default:
             return state;

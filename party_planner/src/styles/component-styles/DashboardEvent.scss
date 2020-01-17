@@ -17,6 +17,7 @@
         height: 20rem;
         justify-content: space-between;
         position: relative;
+        
 
         .event-left_side {
             display: flex;
@@ -26,7 +27,7 @@
             width: 45%;
 
             p {
-                color: #575764;
+                color: #fff;
                 width: 100%;
                 padding: .8rem 0;
                 border-radius: 0 20px 20px 0;
@@ -45,7 +46,7 @@
                 font-family: 'Heebo', 'Times New Roman', Times, serif;
                 ;
                 font-size: 1.8rem;
-                color: #6B7078;
+                color: #575764;
             }
     
             :nth-child(3) {
@@ -54,7 +55,7 @@
                 text-align: left;
                 margin-left: 1.2rem;
                 font-size: 1.8rem;
-                color: #6B7078;
+                color: #575764;
             }
     
         }
@@ -68,20 +69,19 @@
             height: 100%;
             margin-right: 1.2rem;
     
-            img {
-                width: 25%;
-            }
-    
+
             .calendar {
-                transform: translateY(70%);
+                position: absolute;
+                top: 6.2rem;
                 height: 9rem;
                 border: 1px solid #E3696A;
                 background: #ffffff;
                 border-radius: 15px;
-                width: 75%;
+                width: 38%;
                 display: flex;
                 flex-direction: column;
-    
+                box-sizing: border-box;
+                filter: drop-shadow(0px 0px 12px rgba(0, 0, 0, 0.15));
     
                 :nth-child(1) {
                     color: #E3696A;                    ;
@@ -111,10 +111,9 @@
             height: 2rem;
             width: 2rem;
             position: absolute;
-            bottom: 1rem;
+            bottom: 1.2rem;
             left:0;
             right:0;
-            transform: translateY(-20%);
             margin: .5rem auto;  
 
     }
@@ -125,9 +124,15 @@
         display: flex;
         flex-direction: column;
         justify-content: space-around;
-        margin-top: -3.6rem;
         position: relative;
-        
+        height:100%;
+        width: 100vw;
+        opacity: 1;
+        transition: 
+        opacity .35s ease-in-out,
+        height .35s ease-in-out,
+        width .35s ease-in-out;
+
         h4{
             color: rgba(70, 76, 86, 0.55);
             font-size: 1.4rem;
@@ -135,6 +140,7 @@
         }
 
         .event-info-extra{
+            margin-top: -3rem;
 
             p{
                 font-size: 1.8rem;
@@ -150,19 +156,16 @@
                 margin-bottom: 2rem;
             }
 
+            .expand-arrow {
+                display: block;
+                height: 2rem;
+                width: 2rem;
+                bottom: -2rem;
+                margin: 0 auto 1.2rem auto;
+
+            }
         }
 
-        .expand-arrow {
-            height: 2rem;
-            width: 2rem;
-            position: absolute;
-            bottom: -1rem;
-            left:0;
-            right:0;
-    
-            margin: 0 auto;  
-                 
-        }
 
     }
     .progress-bar-container{
@@ -230,8 +233,9 @@
     }
 
 
-    .hide{
-        display: none;
-        
+    .invisible{
+        opacity: 0;
+        height: 0px;
+        width: 0px;
     }
 }

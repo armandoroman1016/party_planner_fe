@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom'
+import { deleteEvent } from '../actions/eventActions'
+import { connect } from 'react-redux'
+import { Button, Confirm } from 'semantic-ui-react';
 
-import { Button, Confirm, Icon } from 'semantic-ui-react';
+const ConfirmDelete = ({ deleteEvent, eventId, handleEventMenu }) => {
 
-const ConfirmDelete = ({ deleteEvent, targetObject, history }) => {
-
+  const history = useHistory()
   const [confirmOpen, setConfirmOpen] = useState(false);
-
+  
   const handleConfirmOpen = () => {
+    handleEventMenu(false)
+    // closes the event settings menu on click
     setConfirmOpen(true);
   }
 
@@ -14,20 +19,30 @@ const ConfirmDelete = ({ deleteEvent, targetObject, history }) => {
     setConfirmOpen(false);
   }
 
+  const handleDel = async (id) => {
+
+    handleConfirmClose()
+    await deleteEvent(id)
+
+  }
+
   return (
-    <>
-      <div>
-        <Icon className="delete-event-icon" onClick={handleConfirmOpen} name='trash alternate' />
+      <div className = 'confirm-delete'>
+        <p onClick={handleConfirmOpen}>Delete Event</p>
         <Confirm
-          content="Are you sure you want to delete this event?"
-          confirmButton={<Button style={{backgroundColor: 'rgb(208, 17, 31)'}}>Delete</Button>}
+          content="Deleting an event is irreversible. Do you want to delete this event?"
+          cancelButton = "Never mind"
+          confirmButton={<Button style={{backgroundColor: '#E3696A'}}>Delete</Button>}
           open={confirmOpen}
           onCancel={handleConfirmClose}
-          onConfirm={() => deleteEvent(targetObject, history)} color="red"
+          onConfirm={() => handleDel(eventId)} 
+          color="red"
+          className = 'confirm'
+          size = 'large'
+          id = 'delete-confirm'
         />
       </div>
-    </>
   )
 }
 
-export default ConfirmDelete
+export default connect(null, { deleteEvent })(ConfirmDelete)

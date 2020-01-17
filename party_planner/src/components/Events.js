@@ -1,6 +1,6 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux'
-import { Button, Icon } from 'semantic-ui-react';
+import {  Icon } from 'semantic-ui-react';
 import { getEvents } from '../actions/eventActions'
 import { useParams } from 'react-router-dom'
 // Event clickable component
@@ -8,22 +8,23 @@ import EventOnDashboard from './EventOnDashboard';
 
 import { Link } from 'react-router-dom';
 
-import { css } from "@emotion/core";
 // Another way to import. This is recommended to reduce bundle size
 import PropagateLoader from "react-spinners/PropagateLoader";
 
 
 const Events = (props) => {
 
-  const { history, match, events, getEvents, loading } = props
+  const { events, getEvents, loading } = props
 
   let params = useParams()
 
   useEffect(() =>{
+
     if(!events ||!events.length){
       getEvents(params.id)
     }
-  },[])
+    
+  },[params.id, getEvents])
 
 
   return (

@@ -47,9 +47,11 @@ html{
 @import './styles/component-styles/Lists.scss';
 @import './styles/component-styles/DashboardEvent.scss';
 @import './styles/component-styles/EventForm.scss';
+@import './styles/component-styles/EventMenu.scss';
+@import './styles/component-styles/DeleteConfirm.scss';
 
 .hide{
-  display: none;
+  display: none ;
 }
 
 
