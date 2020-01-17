@@ -62,7 +62,7 @@ const FormikLogin = withFormik({
    handleSubmit(values, props) {
      const propsToSubmit = {"email": values.email, "password": values.password}
 
-     const URL = process.env.API_URL || 'http://localhost:5000'
+     const URL = process.env.REACT_APP_API_URL || 'http://localhost:5000'
      props.setSubmitting(true)
      axios
      .post(`${URL}/api/auth/login`, propsToSubmit)
