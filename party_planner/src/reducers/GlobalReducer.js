@@ -93,7 +93,7 @@ export const globalReducer = (state = initialState, action) => {
           return {
             ...state,
             isLoading: false,
-            events: state.events.filter(event => event.id !== action.payload.id)
+            events: state.events.filter( event => event.id !== action.payload )
           }
         case DELETE_EVENT_FAILURE:
           return {

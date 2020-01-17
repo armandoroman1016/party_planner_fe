@@ -32,15 +32,12 @@ export const getEvents = (userId) => {
 
 // delete event
 
-export const deleteEvent = (event, history) => {
+export const deleteEvent = (eventId) => {
   return dispatch => {
     dispatch({ type: DELETING_EVENT })
     axiosWithAuth()
-      .delete(`${URL}/api/events/${event.id}`)
-      .then(res => {
-        dispatch({ type: DELETE_EVENT_SUCCESS, payload: event });
-        history.push(`/dashboard/${localStorage.getItem('user_id')}`)
-      })
+      .delete(`${URL}/api/events/${eventId}`)
+      .then(res => dispatch({ type: DELETE_EVENT_SUCCESS, payload: eventId }))
       .catch(err => dispatch({ type: DELETE_EVENT_FAILURE, payload: err.response }))
   }
 }

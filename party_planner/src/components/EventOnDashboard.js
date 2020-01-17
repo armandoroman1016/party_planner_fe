@@ -114,7 +114,7 @@ const EventOnDashboard = (props) => {
   calendarDateFormat = calendarDateFormat.split(' ')
 
   // if days remaining are less then or equal to 14 update days remaining background with warning color
-  const daysRemainingBackground = remainingDays <= 14 ? '#E3696A' : '#DCDDE4' 
+  const daysRemainingBackground = remainingDays <= 14 ? '#E3696A' : '#CAC9D5' 
 
   const random = event.background_color || colors[Math.floor(Math.random() * colors.length)]
   

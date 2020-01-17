@@ -24,7 +24,7 @@ const EventMenu = ( props ) => {
                 <Icon name = 'close' onClick = {() => setOpen(!open)} />
                 <div>
                     <Link to = {`/events/edit/${eventId}`}>Edit</Link>
-                    <ConfirmDelete />
+                    <ConfirmDelete eventId = { eventId }/>
                 </div>
             </div>
         </div>

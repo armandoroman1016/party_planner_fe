@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
+import { useHistory } from 'react-router-dom'
+import { deleteEvent } from '../actions/eventActions'
+import { connect } from 'react-redux'
+import { Button, Confirm } from 'semantic-ui-react';
 
-import { Button, Confirm, Icon } from 'semantic-ui-react';
+const ConfirmDelete = ({ deleteEvent, eventId }) => {
 
-const ConfirmDelete = ({ deleteEvent, targetObject, history }) => {
-
+  const history = useHistory()
   const [confirmOpen, setConfirmOpen] = useState(false);
 
   const handleConfirmOpen = () => {
@@ -14,18 +17,26 @@ const ConfirmDelete = ({ deleteEvent, targetObject, history }) => {
     setConfirmOpen(false);
   }
 
+  const handleDel = async (id) => {
+
+    handleConfirmClose()
+    await deleteEvent(id)
+
+  }
+
   return (
       <div>
         <p onClick={handleConfirmOpen}>Delete Event</p>
         <Confirm
-          content="Are you sure you want to delete this event?"
+          content="Deleting an event is irreversible. Do you want to delete this event?"
           confirmButton={<Button style={{backgroundColor: 'rgb(208, 17, 31)'}}>Delete</Button>}
           open={confirmOpen}
           onCancel={handleConfirmClose}
-          onConfirm={() => deleteEvent(targetObject, history)} color="red"
+          onConfirm={() => handleDel(eventId)} 
+          color="red"
         />
       </div>
   )
 }
 
-export default ConfirmDelete
+export default connect(null, { deleteEvent })(ConfirmDelete)

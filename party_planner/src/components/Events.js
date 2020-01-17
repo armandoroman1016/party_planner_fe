@@ -24,7 +24,7 @@ const Events = (props) => {
       getEvents(params.id)
     }
     
-  },[params.id, events, getEvents])
+  },[params.id, getEvents])
 
 
   return (
