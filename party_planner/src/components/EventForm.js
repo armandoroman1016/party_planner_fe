@@ -146,11 +146,11 @@ const EventFormShape = props => {
   }
 
   const buttonText = eventId ? 'UPDATE EVENT' : 'ADD EVENT'
+  const headerText = editedEvent ? `Update Event - ${editedEvent[0].name}` : 'New Event' 
 
-  console.log(values)
   return (
     <div className="add-event">
-      <h2>New Event</h2>
+      <h2>{headerText}</h2>
         
         <Form selectedcolor = { selectedColor }>
 

@@ -151,7 +151,7 @@ const EventOnDashboard = (props) => {
         : null
       }
       </div>
-      <div className = {show ? 'event-meta' : 'hide event-meta'}>
+      <div className = {show ? 'event-meta' : 'event-meta invisible'}>
         <div className = 'event-info-extra'>
           {event.theme ? 
               <div >
