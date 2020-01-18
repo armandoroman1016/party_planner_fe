@@ -14,7 +14,7 @@ import Login from './components/Login';
 import Register from './components/Register'
 import Events from './components/Events';
 import EventForm from './components/EventForm'
-
+import ListContainer from './components/Lists/EventLists'
 import Footer from './components/Footer'
 
 
@@ -30,6 +30,7 @@ function App() {
           <Route exact path="/register" component={Register}/>
           <PrivateRoute path="/events/edit/:eventId" component={EventForm}/>
           <PrivateRoute path="/create-event" component={EventForm}/>
+          <PrivateRoute path="/shopping/:eventId" component={ListContainer}/>
           <PrivateRoute path="/dashboard/:id" component={Events}/>
         </div>
          <Footer />
