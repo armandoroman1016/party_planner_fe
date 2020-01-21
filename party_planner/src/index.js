@@ -11,7 +11,7 @@ import * as serviceWorker from './serviceWorker';
 //redux 
 import { logger } from 'redux-logger'
 
-const store = createStore(globalReducer, applyMiddleware(thunk, logger));
+const store = createStore(globalReducer, applyMiddleware(thunk,logger));
 
 ReactDOM.render(
     <Provider store={store}>

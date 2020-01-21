@@ -1,20 +1,27 @@
-import React, { useState } from 'react'
-import ShoppingList from './Lists/ShoppingList'
+import React, { useState, useEffect } from 'react'
+import { connect } from 'react-redux'
 import TodoList from './Lists/ToDo'
-
+import { Link } from 'react-router-dom'
 import arrow from '../assets/images/arrow.svg'
-
+import { getShoppingItems} from '../actions'
 import EventMenu from './EventMenu'
-
 import ProgressBar from './ProgressBar'
+import { Button } from 'semantic-ui-react'
+import { useHistory } from 'react-router-dom'
 
 // TODO set max chars on event name creation
 
 const EventOnDashboard = (props) => {
 
   // destructuring of event
-  const { event } = props
+  const { event, getShoppingItems } = props
+  const history = useHistory()
+  
+  useEffect(() => {
 
+    getShoppingItems(event.id)
+
+  },[])
 
   // const colors = ['#FFF']
   const colors = ['#FFE9F9', '#F2FFE1', '#FFF0E5', '#EEE9FF', '#fff']
@@ -121,7 +128,9 @@ const EventOnDashboard = (props) => {
   // boolean to toggle the meta data display status
   const [ show, setShow ] = useState(false)
 
-  const toggleMeta = (bool) => setShow(!bool)
+  const toggleMeta = (bool) => {
+    setShow(!bool)
+  }
 
   const addressSections =  event.address.split(',')
 
@@ -190,7 +199,7 @@ const EventOnDashboard = (props) => {
       <div className = 'container-lists'>
         <h4>ORGANIZE YOUR LISTS</h4>
         <div className = 'lists'>
-          <ShoppingList id={event.id} />
+            <Button onClick = {() => history.push(`/shopping/${event.id}`)}>Shopping List</Button>
           <TodoList id={event.id} />
         </div>
       </div>
@@ -198,4 +207,4 @@ const EventOnDashboard = (props) => {
   )
 }
 
-export default EventOnDashboard;
+export default connect(null, {getShoppingItems} )(EventOnDashboard);
