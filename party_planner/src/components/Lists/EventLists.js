@@ -5,7 +5,7 @@ import EventItem from './EventItem'
 import back from '../../assets/images/back.svg'
 import ProgressBar from '../ProgressBar'
 import { getEvents, getShoppingItems, updateShoppingItems } from '../../actions/eventActions'
-import { Icon } from 'semantic-ui-react'
+import { Icon, Button } from 'semantic-ui-react'
 import FormikShoppingForm from '../Lists/ShoppingListForm'
 
 const ListContainer = props =>{
@@ -44,7 +44,11 @@ const ListContainer = props =>{
 
       useEffect(() => {
 
-        if(!shoppingItems.length){
+        if(!shoppingItems.length && isShoppingRoute){
+            
+            getShoppingItems(eventId)
+
+        }else if(!todoItems.length && isShoppingRoute){
             
             getShoppingItems(eventId)
 
@@ -111,8 +115,6 @@ const ListContainer = props =>{
                     ))}     
                 </div>
             </div>
-            <button onClick = {() => updateCost()} id = 'update-button'>UPDATE LIST</button>
-            { targetEvent.length ? <ProgressBar event = {targetEvent[0]}/> : null}
             <div id = 'form_container'>
                 <p>Add {header} Item</p>
                 { showForm ? 
@@ -120,6 +122,19 @@ const ListContainer = props =>{
                     : <Icon onClick = {() => setShowForm(true)} name = 'add'/>
                 }
                 { showForm && <FormikShoppingForm eventId = {eventId}/>}
+            </div>
+{/*             <button onClick = {() => updateCost()} id = 'update-button'>UPDATE LIST</button>
+ */}            { targetEvent.length ? <ProgressBar event = {targetEvent[0]}/> : null}
+            <div className = 'container-lists'>
+                <h4>ORGANIZE YOUR LISTS</h4>
+                <div className = 'lists'>
+                    <Button 
+                    onClick = {() => history.push(`/shopping/${eventId}`)}
+                    >Shopping List</Button>
+                    <Button 
+                    onClick = {() => history.push(`/todo/${eventId}`)}
+                    >Todo List</Button>
+                </div>
             </div>
          </div>
     )

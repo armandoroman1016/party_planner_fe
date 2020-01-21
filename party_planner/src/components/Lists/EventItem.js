@@ -7,7 +7,7 @@ import FormikShoppingForm from '../Lists/ShoppingListForm'
 const ListItem = (props) => {
     
     const { itemType, item, updateItem } = props
-
+    
     // boolean that will be used for comparison throughout the code of this component
     const isShopping = itemType === 'shopping'
 
@@ -29,6 +29,8 @@ const ListItem = (props) => {
             if(itemType ==='shopping'){
 
                 item.purchased = false
+                updateItem([item])
+
 
             }else if(itemType === 'todo'){
 
@@ -45,6 +47,7 @@ const ListItem = (props) => {
             if(itemType ==='shopping'){
 
                 item.purchased = true
+                updateItem([item])
 
             }else if(itemType === 'todo'){
 
@@ -63,11 +66,12 @@ const ListItem = (props) => {
 
     const updateCost = () => {
 
-        item.cost = cost
+        item.cost = Number(cost)
 
         updateItem([item])
 
         setEdit(false)
+
     }
 
     return (

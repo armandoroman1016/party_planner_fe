@@ -10,16 +10,17 @@ import ClipLoader from "react-spinners/ClipLoader";
 const ShoppingListForm = props => {
 
 
-    const { eventId, loading } = props
+    const { eventId, loading, values } = props
+
+    console.log('values', values)
 
     return(
     
         <div className = 'list-form-container'>
             <Form className='list-form'>
-                 <h2>Create Item</h2>
                 {props.touched.item && props.errors.item && <p>{props.errors.item}</p>}
                 <div className='ui input input-section'>
-                    <label htmlFor = 'name'>Name</label>
+                    <label htmlFor = 'name'>Name *</label>
                     <Field type = 'text' name = 'item' placeholder = 'Name'/>
                 </div>
                 <div className='ui input input-section'>
@@ -40,13 +41,16 @@ const ShoppingListForm = props => {
 }
 
 const FormikShoppingForm = withFormik({
-    mapPropsToValues({item, price}){
+    mapPropsToValues({item, cost}){
         return{
             item: item || '',
+            cost: Number(cost) || ''
         }
     },
     validationSchema: Yup.object().shape({
         item: Yup.string().required('Item name is required'),
+        cost: Yup.number('Must be a number'),
+        
     }),
     handleSubmit(values, props){
         const { eventId, addShoppingItem } = props.props
@@ -54,9 +58,10 @@ const FormikShoppingForm = withFormik({
         const packet = {
             name: values.item,
             purchased: 0,
-            notes: 'here are my notes',
-            price: null
+            notes: null,
+            cost: Number(values.cost) || null
         }
+        console.log('values', packet)
         
         addShoppingItem(eventId, packet)
 
