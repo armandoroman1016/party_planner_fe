@@ -212,7 +212,9 @@ const EventOnDashboard = (props) => {
             <Button 
             onClick = {() => history.push(`/shopping/${event.id}`)}
             >Shopping List</Button>
-          <TodoList id={event.id} />
+            <Button 
+            onClick = {() => history.push(`/todo/${event.id}`)}
+            >Todo List</Button>
         </div>
       </div>
     </div>

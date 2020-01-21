@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux'
 import { Form, Field, withFormik} from 'formik'
 import * as Yup from 'yup'
-import { addShoppingItem } from '../../actions'
+import { addShoppingItem, addEventTodo } from '../../actions'
 
 import { Button } from 'semantic-ui-react';
 import ClipLoader from "react-spinners/ClipLoader";
@@ -10,9 +10,9 @@ import ClipLoader from "react-spinners/ClipLoader";
 const ShoppingListForm = props => {
 
 
-    const { eventId, loading, values } = props
+    const { eventId, loading, values, formType, addEventTodo } = props
 
-    console.log('values', values)
+    
 
     return(
     
@@ -23,12 +23,15 @@ const ShoppingListForm = props => {
                     <label htmlFor = 'name'>Name *</label>
                     <Field type = 'text' name = 'item' placeholder = 'Name'/>
                 </div>
-                <div className='ui input input-section'>
-                    <label htmlFor = 'cost'>Cost</label>
-                    <Field type = 'text' name = 'cost' placeholder = 'Cost'/>
-                </div>
+                {
+                    formType === 'shopping' &&
+                    <div className='ui input input-section'>
+                        <label htmlFor = 'cost'>Cost</label>
+                        <Field type = 'text' name = 'cost' placeholder = 'Cost'/>
+                    </div>
+                }
                   
-                <Button type = 'submit'>{loading ? 
+                <Button type = 'submit' className = { formType !== 'shopping' ? 'todo-form-btn' : null}>{loading ? 
                     <ClipLoader
                     size={15}
                     //size={"150px"} this also works
@@ -53,17 +56,37 @@ const FormikShoppingForm = withFormik({
         
     }),
     handleSubmit(values, props){
-        const { eventId, addShoppingItem } = props.props
+        const { 
+            eventId, 
+            addShoppingItem, 
+            addEventTodo,
+            formType } = props.props
 
-        const packet = {
-            name: values.item,
-            purchased: 0,
-            notes: null,
-            cost: Number(values.cost) || null
+        let packet
+
+        if(formType === 'todo'){
+
+            packet = {
+                name: values.item,
+                completed: false,
+                notes: null,
+            }
+
+            addEventTodo(eventId, packet)
+
+        }else{
+
+            packet = {
+                name: values.item,
+                purchased: 0,
+                notes: null,
+                cost: Number(values.cost) || null
+            }
+
+            addShoppingItem(eventId, packet)
+
         }
-        console.log('values', packet)
         
-        addShoppingItem(eventId, packet)
 
         }
 })(ShoppingListForm)
@@ -73,4 +96,4 @@ const mapStateToProps = state => {
         loading: state.isLoading
     }
 }
-export default connect(mapStateToProps, {addShoppingItem})(FormikShoppingForm);
+export default connect(mapStateToProps, {addShoppingItem, addEventTodo})(FormikShoppingForm);

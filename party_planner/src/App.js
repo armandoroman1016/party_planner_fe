@@ -31,6 +31,7 @@ function App() {
           <PrivateRoute path="/events/edit/:eventId" component={EventForm}/>
           <PrivateRoute path="/create-event" component={EventForm}/>
           <PrivateRoute path="/shopping/:eventId" component={ListContainer}/>
+          <PrivateRoute path="/todo/:eventId" component={ListContainer}/>
           <PrivateRoute path="/dashboard/:id" component={Events}/>
         </div>
          <Footer />
