@@ -127,7 +127,7 @@ export const globalReducer = (state = initialState, action) => {
           return{
             ...state,
             isLoading: false,
-            shoppingListItems: [...state.shoppingListItems, ...action.payload]
+            shoppingListItems: action.payload
           }
         case GET_SHOPPING_ITEM_ERROR:
           return{
@@ -171,7 +171,7 @@ export const globalReducer = (state = initialState, action) => {
         case GET_EVENT_TODO_LIST_SUCCESS:
           return{
             ...state,
-            todoItems: [...state.todoItems, ...action.payload],
+            todoItems: action.payload,
             isLoading: false
           }
         case GET_EVENT_TODO_LIST_ERROR:
@@ -209,7 +209,7 @@ export const globalReducer = (state = initialState, action) => {
         case UPDATE_SHOPPING_ITEM_SUCCESS:
           return{
             ...state,
-            shoppingListItems: state.shoppingListItems.map( item => item.id === action.payload.id ? action.payload : item ),
+            shoppingListItems: state.shoppingListItems.filter( item => item.id === action.payload.id ? action.payload : item ),
             isLoading: false
           }
         case UPDATE_SHOPPING_ITEM_ERROR:

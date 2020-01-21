@@ -4,9 +4,14 @@ import { connect } from 'react-redux'
 import EventItem from './EventItem'
 import back from '../../assets/images/back.svg'
 import ProgressBar from '../ProgressBar'
-import { getEvents, getShoppingItems, updateShoppingItems } from '../../actions/eventActions'
-import { Icon } from 'semantic-ui-react'
-import FormikShoppingForm from '../Lists/ShoppingListForm'
+import { 
+    getEvents, 
+    getShoppingItems, 
+    updateShoppingItems, 
+    getEventTodoList,
+    updateToDoList } from '../../actions/eventActions'
+import { Icon, Button } from 'semantic-ui-react'
+import FormikShoppingForm from './EventItemForm'
 
 const ListContainer = props =>{
 
@@ -18,9 +23,11 @@ const ListContainer = props =>{
         events, 
         getEvents, 
         getShoppingItems ,
-        updateShoppingItems
+        updateShoppingItems,
+        getEventTodoList,
+        updateToDoList
     } = props
-
+    
     const location = useLocation()
     const history =  useHistory()
     const params = useParams()
@@ -44,9 +51,12 @@ const ListContainer = props =>{
 
       useEffect(() => {
 
-        if(!shoppingItems.length){
+        if(!shoppingItems.length && isShoppingRoute){
             
             getShoppingItems(eventId)
+
+        }else if(!todoItems.length && !isShoppingRoute){
+            getEventTodoList(eventId)
 
         }
 
@@ -69,13 +79,12 @@ const ListContainer = props =>{
     listType = listType.filter( item => item.event_id === eventId)
 
     // if route is for shopping accumulate total of all purchased items 
-    const listTotal = isShoppingRoute ? listType.reduce((acc, item, index) => {
+    const listTotal = isShoppingRoute && listType.reduce((acc, item, index) => {
         if(item.purchased){
             acc += item.cost
         }
         return acc
     }, 0)
-    : null
 
     const header = isShoppingRoute ? 'Shopping List' : "Todo List"
 
@@ -86,6 +95,7 @@ const ListContainer = props =>{
     } 
 
     const [ showForm, setShowForm] = useState(false)
+
 
     return (
         <div className = 'list-page-container'>
@@ -103,7 +113,8 @@ const ListContainer = props =>{
                 <div className = 'items'>
                     { listType.length && listType.map( item => (
                         <EventItem 
-                        updateItem = {updateShoppingItems}
+                        updateToDoList = { updateToDoList }
+                        updateItem = { updateShoppingItems }
                         key = {item.id}
                         itemType = { isShoppingRoute ? 'shopping' : 'todo' }
                         item = {item}
@@ -111,15 +122,28 @@ const ListContainer = props =>{
                     ))}     
                 </div>
             </div>
-            <button onClick = {() => updateCost()} id = 'update-button'>UPDATE LIST</button>
-            { targetEvent.length ? <ProgressBar event = {targetEvent[0]}/> : null}
             <div id = 'form_container'>
                 <p>Add {header} Item</p>
                 { showForm ? 
                     <Icon onClick = {() => setShowForm(false)} name = 'close'/>
                     : <Icon onClick = {() => setShowForm(true)} name = 'add'/>
                 }
-                { showForm && <FormikShoppingForm eventId = {eventId}/>}
+                { showForm && <FormikShoppingForm 
+                    eventId = {eventId} 
+                    formType = {isShoppingRoute ? 'shopping' : 'todo'}/>}
+            </div>
+{/*             <button onClick = {() => updateCost()} id = 'update-button'>UPDATE LIST</button>
+ */}            { targetEvent.length ? <ProgressBar event = {targetEvent[0]}/> : null}
+            <div className = 'container-lists'>
+                <h4>ORGANIZE YOUR LISTS</h4>
+                <div className = 'lists'>
+                    <Button 
+                    onClick = {() => history.push(`/shopping/${eventId}`)}
+                    >Shopping List</Button>
+                    <Button 
+                    onClick = {() => history.push(`/todo/${eventId}`)}
+                    >Todo List</Button>
+                </div>
             </div>
          </div>
     )
@@ -132,4 +156,9 @@ const mapStateToProps = state => {
         events: state.events
     }
 }
-export default connect(mapStateToProps, {getEvents, getShoppingItems, updateShoppingItems})(ListContainer)
+export default connect(mapStateToProps, {
+    getEvents, 
+    getShoppingItems, 
+    updateShoppingItems, 
+    getEventTodoList,
+    updateToDoList})(ListContainer)

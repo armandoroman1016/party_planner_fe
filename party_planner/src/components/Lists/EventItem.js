@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 import checked from '../../assets/images/checked.svg'
 import unchecked from '../../assets/images/unchecked.svg'
 import { Icon } from 'semantic-ui-react'
-import FormikShoppingForm from '../Lists/ShoppingListForm'
+import FormikShoppingForm from './EventItemForm'
 
 const ListItem = (props) => {
     
-    const { itemType, item, updateItem } = props
-
+    const { itemType, item, updateItem, updateToDoList } = props
+    
+    
     // boolean that will be used for comparison throughout the code of this component
     const isShopping = itemType === 'shopping'
 
@@ -26,13 +27,16 @@ const ListItem = (props) => {
             setRadioStatus(unchecked) 
 
             // update the item object
-            if(itemType ==='shopping'){
+            if(isShopping){
 
                 item.purchased = false
+                updateItem([item])
 
-            }else if(itemType === 'todo'){
+
+            }else if(!isShopping){
 
                 item.completed = false
+                updateToDoList([item])
 
             }
 
@@ -42,13 +46,15 @@ const ListItem = (props) => {
             setRadioStatus(checked)
             
             // update the item object
-            if(itemType ==='shopping'){
+            if(isShopping){
 
                 item.purchased = true
+                updateItem([item])
 
-            }else if(itemType === 'todo'){
+            }else if(!isShopping){
 
                 item.completed = true
+                updateToDoList([item])
 
             }
 
@@ -63,11 +69,12 @@ const ListItem = (props) => {
 
     const updateCost = () => {
 
-        item.cost = cost
+        item.cost = Number(cost)
 
         updateItem([item])
 
         setEdit(false)
+
     }
 
     return (
@@ -75,7 +82,7 @@ const ListItem = (props) => {
             <img src = {radioStatus} alt = 'radio-button' onClick = {() => handleUpdated(radioStatus)}/>
             <p>{item.name}</p>
             {!edit && <p>{item.cost? `$ ${item.cost}` : null}</p>}
-            { !edit && <Icon name = 'edit outline' onClick = {() => setEdit(true)}/>}
+            { !edit && isShopping ? <Icon name = 'edit outline' onClick = {() => setEdit(true)}/> : null}
             {isShopping && edit ? 
                 <div className = 'edit-item-cost'>
                     <input name = 'cost' value = {cost} placeholder = 'Item cost' onChange = {(e) => handleCostChange(e) }/>

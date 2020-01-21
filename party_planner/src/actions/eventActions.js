@@ -96,23 +96,23 @@ export const updateShoppingItems = (arr) => {
   
   for(let i = 0; i < arr.length; i++ ){
 
-
+    
     let valuesToSubmit = {
       id: arr[i].id,
       name: arr[i].name,
       notes: arr[i].notes,
       purchased: arr[i].purchased,
-      cost: arr[i].cost,
-      eventId: arr[i].eventId
+      cost: Number(arr[i].cost),
+      eventId: arr[i].event_id
     }
-    
+
     
     return dispatch => {
       dispatch({type: UPDATE_SHOPPING_ITEM_START})
       axiosWithAuth()
         .put(`${URL}/api/shopping/${arr[i].id}`, valuesToSubmit)
         .then( res =>{ 
-          dispatch({type: UPDATE_SHOPPING_ITEM_SUCCESS, payload: res.data})
+          dispatch({type: UPDATE_SHOPPING_ITEM_SUCCESS, payload: res.data.updated})
         })
         .catch( err => dispatch({type: UPDATE_SHOPPING_ITEM_ERROR, payload: err.response}))
    } 

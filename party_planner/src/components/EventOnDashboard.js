@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import TodoList from './Lists/ToDo'
-import { Link } from 'react-router-dom'
 import arrow from '../assets/images/arrow.svg'
-import { getShoppingItems} from '../actions'
+import { getShoppingItems, getEventTodoList} from '../actions'
 import EventMenu from './EventMenu'
 import ProgressBar from './ProgressBar'
 import { Button } from 'semantic-ui-react'
@@ -14,14 +12,24 @@ import { useHistory } from 'react-router-dom'
 const EventOnDashboard = (props) => {
 
   // destructuring of event
-  const { event, getShoppingItems } = props
+  const { event, getShoppingItems, todoItems, shoppingItems } = props
   const history = useHistory()
   
   useEffect(() => {
+    
+    if(!shoppingItems.length){
+      
+      getShoppingItems(event.id)
 
-    getShoppingItems(event.id)
+    }
 
-  },[])
+    if(!todoItems.length){
+
+      getEventTodoList(event.id)
+
+    }
+
+  },[shoppingItems, todoItems])
 
   // const colors = ['#FFF']
   const colors = ['#FFE9F9', '#F2FFE1', '#FFF0E5', '#EEE9FF', '#fff']
@@ -199,12 +207,23 @@ const EventOnDashboard = (props) => {
       <div className = 'container-lists'>
         <h4>ORGANIZE YOUR LISTS</h4>
         <div className = 'lists'>
-            <Button onClick = {() => history.push(`/shopping/${event.id}`)}>Shopping List</Button>
-          <TodoList id={event.id} />
+            <Button 
+            onClick = {() => history.push(`/shopping/${event.id}`)}
+            >Shopping List</Button>
+            <Button 
+            onClick = {() => history.push(`/todo/${event.id}`)}
+            >Todo List</Button>
         </div>
       </div>
     </div>
   )
 }
 
-export default connect(null, {getShoppingItems} )(EventOnDashboard);
+const mapStateToProps = state => {
+  return{
+    shoppingItems: state.shoppingListItems,
+    todoItems: state.todoItems,
+    events: state.events
+  }
+}
+export default connect(mapStateToProps, { getShoppingItems, getEventTodoList} )(EventOnDashboard);
