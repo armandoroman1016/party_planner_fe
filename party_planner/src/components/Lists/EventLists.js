@@ -11,7 +11,7 @@ import {
     getEventTodoList,
     updateToDoList } from '../../actions/eventActions'
 import { Icon, Button } from 'semantic-ui-react'
-import FormikShoppingForm from '../Lists/ShoppingListForm'
+import FormikShoppingForm from './EventItemForm'
 
 const ListContainer = props =>{
 
@@ -56,7 +56,6 @@ const ListContainer = props =>{
             getShoppingItems(eventId)
 
         }else if(!todoItems.length && !isShoppingRoute){
-            console.log('here')
             getEventTodoList(eventId)
 
         }

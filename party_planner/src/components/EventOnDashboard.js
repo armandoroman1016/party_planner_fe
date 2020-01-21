@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
-import TodoList from './Lists/ToDo'
-import { Link } from 'react-router-dom'
 import arrow from '../assets/images/arrow.svg'
 import { getShoppingItems, getEventTodoList} from '../actions'
 import EventMenu from './EventMenu'

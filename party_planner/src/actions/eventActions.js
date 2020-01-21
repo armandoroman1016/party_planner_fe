@@ -112,7 +112,6 @@ export const updateShoppingItems = (arr) => {
       axiosWithAuth()
         .put(`${URL}/api/shopping/${arr[i].id}`, valuesToSubmit)
         .then( res =>{ 
-          console.log('here', res)
           dispatch({type: UPDATE_SHOPPING_ITEM_SUCCESS, payload: res.data.updated})
         })
         .catch( err => dispatch({type: UPDATE_SHOPPING_ITEM_ERROR, payload: err.response}))

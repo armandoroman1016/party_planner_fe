@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import checked from '../../assets/images/checked.svg'
 import unchecked from '../../assets/images/unchecked.svg'
 import { Icon } from 'semantic-ui-react'
-import FormikShoppingForm from '../Lists/ShoppingListForm'
+import FormikShoppingForm from './EventItemForm'
 
 const ListItem = (props) => {
     
