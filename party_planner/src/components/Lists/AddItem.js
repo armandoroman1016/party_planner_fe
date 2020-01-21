@@ -10,24 +10,16 @@ import ClipLoader from "react-spinners/ClipLoader";
 const ShoppingListForm = props => {
 
 
-    const { eventId, loading } = props
+    const { modalPosition, eventId, loading } = props
 
     return(
         <div>
+        {modalPosition === 1 ?
         <div className = 'list-form-container'>
             <Form className='list-form'>
                  <h2>Add Item</h2>
                     {props.touched.item && props.errors.item && <p>{props.errors.item}</p>}
-                    <div className='ui input'>
-                        <label htmlFor = 'name'>Item Name</label>
-                        <Field type = 'text' name = 'item' placeholder = 'Item Name'/>
-                    </div>
-
-                    <div className='ui input'>
-                        <label htmlFor = 'cost'>Cost</label>
-                        <Field type = 'text' name = 'cost' placeholder = 'Cost'/>
-                    </div>
-                      
+                    <div className='ui input'><Field type = 'text' name = 'item' placeholder = 'Item Name'/></div>
                     <Button type = 'submit'>{loading ? 
                         <ClipLoader
                         size={15}
@@ -35,7 +27,7 @@ const ShoppingListForm = props => {
                         color={"#5877E5"}
                       /> : "ADD ITEM"}</Button>
             </Form>
-        </div>
+        </div> : null}
         </div>
     )
 }

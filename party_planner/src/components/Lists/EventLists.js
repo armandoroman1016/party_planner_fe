@@ -1,15 +1,25 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation, useHistory, useParams } from 'react-router-dom'
 import { connect } from 'react-redux'
 import EventItem from './EventItem'
 import back from '../../assets/images/back.svg'
 import ProgressBar from '../ProgressBar'
-import { getEvents } from '../../actions/eventActions'
+import { getEvents, getShoppingItems, updateShoppingItems } from '../../actions/eventActions'
+import { Icon } from 'semantic-ui-react'
+import FormikShoppingForm from '../Lists/ShoppingListForm'
 
 const ListContainer = props =>{
 
     // coming in from redux store
-    const { shoppingItems, todoItems, event, events, getEvents } = props
+    const { 
+        shoppingItems, 
+        todoItems, 
+        event, 
+        events, 
+        getEvents, 
+        getShoppingItems ,
+        updateShoppingItems
+    } = props
 
     const location = useLocation()
     const history =  useHistory()
@@ -31,6 +41,16 @@ const ListContainer = props =>{
         }
     
       }, [])
+
+      useEffect(() => {
+
+        if(!shoppingItems.length){
+            
+            getShoppingItems(eventId)
+
+        }
+
+      },[eventId])
 
     // initalizing list type
     let listType
@@ -59,6 +79,14 @@ const ListContainer = props =>{
 
     const header = isShoppingRoute ? 'Shopping List' : "Todo List"
 
+    const updateCost = () => {
+
+        updateShoppingItems(listType)
+
+    } 
+
+    const [ showForm, setShowForm] = useState(false)
+
     return (
         <div>
             <div id = 'header'>
@@ -74,14 +102,20 @@ const ListContainer = props =>{
                 : null}
                 { listType.length && listType.map( item => (
                     <EventItem 
+                    updateItem = {updateShoppingItems}
                     key = {item.id}
                     itemType = { isShoppingRoute ? 'shopping' : 'todo' }
                     item = {item}
                     />
                 ))}
             </div>
+            <button onClick = {() => updateCost()}>UPDATE LIST</button>
             { targetEvent.length ? <ProgressBar event = {targetEvent[0]}/> : null}
-
+            { showForm ? 
+                <Icon onClick = {() => setShowForm(false)} name = 'close'/>
+                : <Icon onClick = {() => setShowForm(true)} name = 'add'/>
+            }
+            { showForm && <FormikShoppingForm eventId = {eventId}/>}
          </div>
     )
 }
@@ -93,4 +127,4 @@ const mapStateToProps = state => {
         events: state.events
     }
 }
-export default connect(mapStateToProps, {getEvents})(ListContainer)
+export default connect(mapStateToProps, {getEvents, getShoppingItems, updateShoppingItems})(ListContainer)
