@@ -11,7 +11,7 @@ const ListItem = (props) => {
     // boolean that will be used for comparison throughout the code of this component
     const isShopping = itemType === 'shopping'
 
-    const [ cost, setCost ] = useState( isShopping ? item.cost : '')
+    const [ cost, setCost ] = useState( isShopping && item.cost ? item.cost : '')
     const [ edit, setEdit ] = useState( false )
 
     // useState hook to decide on which radio button to render
@@ -74,12 +74,12 @@ const ListItem = (props) => {
         <div className = 'item-container'>
             <img src = {radioStatus} alt = 'radio-button' onClick = {() => handleUpdated(radioStatus)}/>
             <p>{item.name}</p>
-            <p>{item.cost}</p>
+            {!edit && <p>{item.cost? `$ ${item.cost}` : null}</p>}
             { !edit && <Icon name = 'edit outline' onClick = {() => setEdit(true)}/>}
             {isShopping && edit ? 
-                <div>
-                    <input name = 'cost' value = {cost} placeholder = 'Enter item cost' onChange = {(e) => handleCostChange(e) }/>
-                    <button onClick = {() => updateCost()}>Confirm Cost</button>
+                <div className = 'edit-item-cost'>
+                    <input name = 'cost' value = {cost} placeholder = 'Item cost' onChange = {(e) => handleCostChange(e) }/>
+                    <button onClick = {() => updateCost()}>Confirm</button>
                 </div>
             : null}
             

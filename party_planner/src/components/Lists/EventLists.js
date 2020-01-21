@@ -88,11 +88,11 @@ const ListContainer = props =>{
     const [ showForm, setShowForm] = useState(false)
 
     return (
-        <div>
+        <div className = 'list-page-container'>
             <div id = 'header'>
-                <img src = {back} alt = 'back arrow'/>
+                <img src = {back} alt = 'back arrow' onClick = {() => history.push(`/dashboard/${localStorage.getItem('user_id')}`)}/>
                 <p>{header}</p>
-                { targetEvent.length ? <h3>{targetEvent[0].name}</h3> : null}
+                { targetEvent.length ? <h2>{targetEvent[0].name}</h2> : null}
             </div>
             <div className = 'items-container'>
                 { isShoppingRoute ? 
@@ -100,22 +100,27 @@ const ListContainer = props =>{
                         <p>Shopping List Subtotal: ${listTotal}</p>
                     </div>
                 : null}
-                { listType.length && listType.map( item => (
-                    <EventItem 
-                    updateItem = {updateShoppingItems}
-                    key = {item.id}
-                    itemType = { isShoppingRoute ? 'shopping' : 'todo' }
-                    item = {item}
-                    />
-                ))}
+                <div className = 'items'>
+                    { listType.length && listType.map( item => (
+                        <EventItem 
+                        updateItem = {updateShoppingItems}
+                        key = {item.id}
+                        itemType = { isShoppingRoute ? 'shopping' : 'todo' }
+                        item = {item}
+                        />
+                    ))}     
+                </div>
             </div>
-            <button onClick = {() => updateCost()}>UPDATE LIST</button>
+            <button onClick = {() => updateCost()} id = 'update-button'>UPDATE LIST</button>
             { targetEvent.length ? <ProgressBar event = {targetEvent[0]}/> : null}
-            { showForm ? 
-                <Icon onClick = {() => setShowForm(false)} name = 'close'/>
-                : <Icon onClick = {() => setShowForm(true)} name = 'add'/>
-            }
-            { showForm && <FormikShoppingForm eventId = {eventId}/>}
+            <div id = 'form_container'>
+                <p>Add {header} Item</p>
+                { showForm ? 
+                    <Icon onClick = {() => setShowForm(false)} name = 'close'/>
+                    : <Icon onClick = {() => setShowForm(true)} name = 'add'/>
+                }
+                { showForm && <FormikShoppingForm eventId = {eventId}/>}
+            </div>
          </div>
     )
 }

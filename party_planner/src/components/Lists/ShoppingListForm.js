@@ -13,30 +13,29 @@ const ShoppingListForm = props => {
     const { eventId, loading } = props
 
     return(
-        <div>
+    
         <div className = 'list-form-container'>
             <Form className='list-form'>
-                 <h2>Add Item</h2>
-                    {props.touched.item && props.errors.item && <p>{props.errors.item}</p>}
-                    <div className='ui input'>
-                        <label htmlFor = 'name'>Item Name</label>
-                        <Field type = 'text' name = 'item' placeholder = 'Item Name'/>
-                    </div>
-
-                    <div className='ui input'>
-                        <label htmlFor = 'cost'>Cost</label>
-                        <Field type = 'text' name = 'cost' placeholder = 'Cost'/>
-                    </div>
-                      
-                    <Button type = 'submit'>{loading ? 
-                        <ClipLoader
-                        size={15}
-                        //size={"150px"} this also works
-                        color={"#5877E5"}
-                      /> : "ADD ITEM"}</Button>
+                 <h2>Create Item</h2>
+                {props.touched.item && props.errors.item && <p>{props.errors.item}</p>}
+                <div className='ui input input-section'>
+                    <label htmlFor = 'name'>Name</label>
+                    <Field type = 'text' name = 'item' placeholder = 'Name'/>
+                </div>
+                <div className='ui input input-section'>
+                    <label htmlFor = 'cost'>Cost</label>
+                    <Field type = 'text' name = 'cost' placeholder = 'Cost'/>
+                </div>
+                  
+                <Button type = 'submit'>{loading ? 
+                    <ClipLoader
+                    size={15}
+                    //size={"150px"} this also works
+                    color={"#5877E5"}
+                  /> : "ADD ITEM"}</Button>
             </Form>
         </div>
-        </div>
+        
     )
 }
 
