@@ -18,8 +18,7 @@ const ListContainer = props =>{
     // coming in from redux store
     const { 
         shoppingItems, 
-        todoItems, 
-        event, 
+        todoItems,  
         events, 
         getEvents, 
         getShoppingItems ,

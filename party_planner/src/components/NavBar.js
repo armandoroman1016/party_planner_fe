@@ -7,15 +7,16 @@ const NavBar = props => {
 
   const { pathname } = props.location
 
+  const isAuthLocation = pathname.includes('login') || pathname.includes('register')
+
   return (
 
-    <Menu>
-      <NavLink to={`/dashboard/${localStorage.getItem('user_id')}`}>
-        <Menu.Item header name="Celebratr"/>
+    <div className = {isAuthLocation ? 'auth nav-bar' : 'nav-bar'}>
+      <NavLink to={`/dashboard/${localStorage.getItem('user_id')}`} className = 'celebratr'>
+        Celebratr
       </NavLink>
       
-      <Menu.Menu position= 'right'>
-
+      <div>
         {pathname === "/login" ?
             <NavLink to="/register"
               id= 'login-logout'   
@@ -25,7 +26,7 @@ const NavBar = props => {
                 localStorage.removeItem('user_id');
                 localStorage.removeItem("emailDisplay");
                 localStorage.removeItem('persist:globalReducer')
-              }}><h3>Register</h3></NavLink>
+              }}>Register</NavLink>
             : null
         }
 
@@ -38,7 +39,7 @@ const NavBar = props => {
             localStorage.removeItem('user_id');
             localStorage.removeItem("emailDisplay");
             localStorage.removeItem('persist:globalReducer')
-          }}><h3>Login</h3></NavLink>
+          }}>Login</NavLink>
         : null
     }
 
@@ -51,13 +52,11 @@ const NavBar = props => {
       localStorage.removeItem('user_id');
       localStorage.removeItem("emailDisplay");
       localStorage.removeItem('persist:globalReducer')
-    }}><h3>logout</h3></NavLink>
+    }}>logout</NavLink>
       : null
     }
-
-
-      </Menu.Menu>
-    </Menu>
+      </div>
+    </div>
   )
 }
 

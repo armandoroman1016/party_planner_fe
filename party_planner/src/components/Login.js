@@ -6,42 +6,58 @@ import { connect } from 'react-redux'
 import { handleSuccessfulLogin } from '../actions/LogInActions'
 import { getEvents } from '../actions/eventActions'
 import { Button } from 'semantic-ui-react'
-
+import useWindowSize from '../utils/UseWindowSize'
 import ClipLoader from "react-spinners/ClipLoader";
-
+import banderitasMobile from '../assets/images/banderitasMobile.svg'
+import confettiMobile from '../assets/images/confettiMobile.svg'
+import { Link } from 'react-router-dom'
 function Login(props) {
+
  const {touched, errors, isSubmitting} = props
- 
+ const windowSize = useWindowSize()
+
+ console.log(windowSize)
+
+ const banderitasImg = windowSize < 500 ? banderitasMobile : banderitasMobile
+ const confettiImg = windowSize < 500 ? confettiMobile : confettiMobile
+
  return(
-   <div>
-   <h1>Login</h1>
+   <div className = 'login-container content'>
+   <div className = 'banderitas-container'>
+      <img src = {banderitasImg} alt = 'banners'/>
+   </div>
+   <div className = 'confetti-container'>
+      <img src = {confettiImg} alt = 'confetti'/>
+   </div>
    <Form className="form">
+        <p className = 'header'>Sign in</p>
         <div className='ui input'>
-         <Field
-           placeholder="Enter your email"
-           name="email"
-           type="text"
-         />
-         </div>
-         <p>{touched.email && errors.email}</p>
-         <div className='ui input'>
-         <Field
-           placeholder="Password"
-           name="password"
-           type="password"
-         />
-         </div>
-         <p>{touched.password && errors.password}</p>
-         <Button color="blue" style = {{width: '7rem'}}>{
+          <label htmlFor = 'email'>Email</label>
+          <Field
+            name="email"
+            type="text"
+          />
+          <p>{touched.email && errors.email}</p>
+        </div>
+        <div className='ui input'>
+          <label htmlFor = 'email'>Password</label>
+          <Field
+            name="password"
+            type="password"
+          />
+          <p>{touched.password && errors.password}</p>
+        </div>
+         <Button color="blue">{
           !isSubmitting ? 
-          'LOGIN' 
+          'Sign in' 
           : <ClipLoader
           size={13}
           //size={"150px"} this also works
           color={"#fff"}
         /> }</Button>
          <br />
-         {props.status && <h3 style={{color: 'red'}}>Try again</h3>}
+         {props.status && <h3 style={{color: 'red'}}>Invalid password or email</h3>}
+         <p id = 'sign-up-link'>Need an account? <Link to = '/register'>Sign up here.</Link></p>
    </Form>
    </div>
  )

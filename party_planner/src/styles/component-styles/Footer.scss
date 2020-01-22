@@ -6,12 +6,11 @@ footer {
     color: #7992EA;
     bottom: 0;
     width: 100%;
-
+    margin-top: -.1rem;
 
     p{
         color: #7992EA;
-        font-size: 1.2rem;
-
+        font-size: 1rem;
     }
 
     .footer-content{
@@ -20,4 +19,13 @@ footer {
     }
 
 
+}
+
+.auth.footer{
+
+    background: #5877E6;
+
+    p{
+        color:#FFFFFF;
+    }
 }
