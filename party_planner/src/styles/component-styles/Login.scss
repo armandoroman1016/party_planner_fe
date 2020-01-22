@@ -1,0 +1,89 @@
+.login-container.content {
+    margin: -.1rem;
+    max-width: 100vw;
+    width: 100vw;
+    height: 100%;
+    position: relative;
+    background: #5877E6;
+    border-style: none;
+
+    .banderitas-container,
+    .confetti-container {
+        position: absolute;
+        width: 100%;
+    }
+
+    .banderitas-container {
+        top: -6rem;
+    }
+
+    .confetti-container {
+        top: -2rem;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    .form {
+        width: 100%;
+        margin: 14rem 0 3rem 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 5.8rem 3rem 3.8rem 3rem;
+        background: #F7F7F9;
+        border-radius: 40px;
+
+        .header {
+            text-align: center;
+            color: #B3B1C2;
+            font-size: 2.8rem;
+            font-family: 'Heebo', 'Times New Roman', Times, serif;
+            font-weight: bolder;
+        }
+
+        .ui.input{
+            display: flex;
+            flex-direction: column;
+            height:100%;
+            label{
+                font-family: 'Heebo', 'Times New Roman', Times, serif;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 23px;
+                color: #B3B1C2;
+            }
+            input{
+                border: none;
+                fill: none;
+                background: transparent;
+                border-bottom: 1px solid rgba(209, 206, 225, 0.8);
+                margin-bottom: 2.4rem;
+            }
+        }
+
+        button{
+            margin-top: 1.2rem;
+            width: 100%;
+            background: transparent;
+            border: 1px solid #5877E5;
+            border-radius: 20px;
+            color: #5877E5;
+            font-size: 18px;
+            font-family: 'Heebo', 'Times New Roman', Times, serif;
+
+        }
+
+        #sign-up-link{
+            text-align: center;
+            padding-top: 2rem;
+            font-size: 1.4rem;
+            color: #B3B1C2;
+            font-weight: bold;
+            a{
+                color: darken(#B3B1C2, 10%)
+            }
+        }
+    }
+}

@@ -11,14 +11,9 @@ const ShoppingListForm = props => {
 
 
     const { 
-        eventId, 
-        loading, 
-        values, 
+        loading,
         formType, 
-        addEventTodo
     } = props
-
-    
 
     return(
     

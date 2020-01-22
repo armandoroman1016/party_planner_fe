@@ -5,6 +5,7 @@
 
 html{
   font-size: 62.5%;
+  
 }
 
 .App {
@@ -49,6 +50,8 @@ html{
 @import './styles/component-styles/EventMenu.scss';
 @import './styles/component-styles/DeleteConfirm.scss';
 @import './styles/component-styles/EventLists.scss';
+@import './styles/component-styles/Login.scss';
+
 
 .hide{
   display: none ;
