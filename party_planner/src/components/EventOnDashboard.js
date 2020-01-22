@@ -171,25 +171,25 @@ const EventOnDashboard = (props) => {
       <div className = {show ? 'event-meta' : 'event-meta invisible'}>
         <div className = 'event-info-extra'>
           {event.theme ? 
-              <div >
+              <div className = 'data-container'>
                 <h4>THEME</h4>
                 <p>{event.theme}</p>
             </div>
             : null
         }
-          <div>
+          <div className = 'data-container'>
               <h4>LOCATION</h4>
               <p>{event.location}</p>
           </div>
-          <div>
+          <div className = 'data-container'>
               <h4>ADDRESS</h4>
               <p>{addressSections[0]}<br/>{addressSections[1]}, {addressSections[2]}</p>
           </div>
-          <div>
+          <div className = 'data-container'>
               <h4>GUEST COUNT</h4>
               <p>{event.adult_guests} Adults, {event.child_guests} Children</p>
           </div>
-          <div>
+          <div className = 'data-container'>
               <h4>BUDGET</h4>
               <p>$ {event.budget}</p>
           </div>

@@ -5,15 +5,12 @@
   h2{
     margin: 0;
 
-    @include desktop{
-      padding-left: 4rem;
-      font-size: 3.5rem;
-      text-align: left;
-      margin-left: 75px;
-      text-decoration-line: underline;
-      padding-top: 20px;
+    @include tablet{
+
     }
+
   }
+
   .no-events{
     text-align: center;
     margin: 3rem 0;
@@ -30,13 +27,21 @@
     align-items: center;
     background: rgb(255,255,255);
     background: linear-gradient(180deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 62%, rgba(239,239,239,1) 100%);
-    
+    @include tablet{
+      padding: 5rem;
+    }
+
     h2{
       margin-left: 5.53%;
       font-family: 'Heebo', 'Times New Roman', Times, serif;
       font-weight: bold;
       font-size: 1.8rem;
       color: #7992EA;
+
+      @include tablet{
+        margin: 0;
+      }
+
     }
 
     i.icon{
@@ -44,6 +49,9 @@
       font-size:2.67rem;
       transform: translateY(20%);
       color:  #6065D1;
+      @include tablet{
+        padding-right: 0;
+      }
     }
   }
   
@@ -51,91 +59,9 @@
     justify-content: flex-end;
     i.icon{
       margin-left: 1.2rem;
+      
     }
   }
   
 
-}//.events-container
-  
-.ui.modal.transition.visible.active.modalContainer {
-  width: 350px;
-
-  .content {
-    margin: 0;
-    background: rgb(219, 226, 238);
-  }
-
-  .description.add-event-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-
-    .form-header {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1rem;
-      width: 100%;
-      justify-content: center;
-
-      .arrow.left.icon.first-page{
-        text-align: left;
-        margin-right: auto;
-        font-size: 1.5rem;
-        cursor: pointer;
-
-        &:hover {
-          transform: scale(1.1)
-        }
-      }
-
-      .arrow.right.icon.second-page {
-        text-align: right;
-        margin-left: auto;
-        font-size: 1.5rem;
-        cursor: pointer;
-
-        &:hover {
-          transform: scale(1.1)
-        }
-      }
-    }
-
-    .form-inputs {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: left;
-
-      .add-event-label {
-        width: 100%;
-        text-align: left;
-        font-weight: bold;
-      }
-
-      .ui.input {
-        width: 275px;
-        padding: 1rem 0;
-
-        input {
-          padding: 1rem;
-        }
-      }
-      .ui.button.add-event-btn {
-        margin-top: 1rem;
-        width: 175px;
-        color: rgb(104, 75, 246);
-        background: none;
-        border: 2px solid rgb(104, 75, 246);
-        border-radius: 7px;
-      }
-    }
-  }
-}
-.hide{
-  display: none;
-}
-
-.new-event.add.no-gradient{
-  background: #fff;
 }

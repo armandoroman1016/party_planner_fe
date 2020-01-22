@@ -1,6 +1,9 @@
 .event-menu-container{
 
     width: 12vw;
+    @include tablet{
+        width: 12%;
+    }
     
     img{
         width: 100%
@@ -22,6 +25,14 @@
         flex-direction: column;
         border-radius: 3px;
         overflow: hidden;
+
+        @include tablet{
+
+            right:5rem;
+            width:25%;
+            height:90%;
+        }
+
         i.icon{
             align-self: flex-end;
             margin: 2rem 1.6rem 1rem 0;

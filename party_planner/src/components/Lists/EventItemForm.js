@@ -88,6 +88,7 @@ const FormikShoppingForm = withFormik({
 
         }
         
+        props.resetForm()
 
         }
 })(ShoppingListForm)

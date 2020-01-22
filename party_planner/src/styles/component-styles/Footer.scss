@@ -32,9 +32,13 @@ footer {
 .register.auth.footer{
 
     background: #F7F7F9;
-
+    @include desktop{
+        background: #5877E6;
+    }
     p{
         color: #B3B1C2;
-
+        @include desktop{
+            color: #FFFFFF
+        }
     }
 }

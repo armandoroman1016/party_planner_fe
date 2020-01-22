@@ -7,22 +7,34 @@
     background: #5877E6;
     border-style: none;
 
+    
+        img {
+            width: 100%;
+    
+        }
+    
     .banderitas-container,
     .confetti-container {
         position: absolute;
         width: 100%;
+
     }
 
     .banderitas-container {
         top: -6rem;
+
+        @include desktop{
+            top: -10rem;        
+        }
+
     }
 
     .confetti-container {
         top: -2rem;
-    }
-
-    img {
-        width: 100%;
+        @include desktop{
+            width: 95%; 
+            // top: -1rem;        
+            }
     }
 
     .form {
@@ -34,22 +46,33 @@
         padding: 5.8rem 3rem 3.8rem 3rem;
         background: #F7F7F9;
         border-radius: 40px;
-
+        z-index: 100;
+        @include desktop{
+            width: 34%; 
+            padding: 0;
+            margin:0;
+            margin-top: 10rem;
+            padding:11rem 10rem;
+        }
         .header {
             text-align: center;
             color: #B3B1C2;
             font-size: 2.8rem;
             font-family: 'Heebo', 'Times New Roman', Times, serif;
             font-weight: bolder;
+            @include desktop{
+                padding-bottom: 3rem;
+            }
         }
 
         .ui.input{
             display: flex;
             flex-direction: column;
             height:8rem;
+            overflow: hidden;
+
             label{
                 font-family: 'Heebo', 'Times New Roman', Times, serif;
-                font-weight: 500;
                 font-size: 16px;
                 line-height: 23px;
                 color: #B3B1C2;
@@ -65,14 +88,14 @@
                 transform: translate(35%, -575%);
                 opacity: 1;
                 font-size: 1rem;
-                transition: all .25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+                font-weight: bold;
+                transition: all .25s cubic-bezier(0.42, 0.86, 0.47, .16);
+                color: #E3696A
             }
 
             .error{
                 transform: translate(35%, -250%);
                 opacity: 0;
-                font-size: .1rem;
-                color: #E3696A
             }
         }
 
@@ -85,7 +108,9 @@
             color: #5877E5;
             font-size: 18px;
             font-family: 'Heebo', 'Times New Roman', Times, serif;
-
+            @include desktop{
+                margin-top: 3rem;
+            }
         }
 
         .register-btn{
@@ -112,6 +137,9 @@
     .form{
         border-radius: 40px 40px 0 0;
         margin-bottom: 0;
+        @include desktop{
+            border-radius: 40px;
+        }
     }
 
 }
