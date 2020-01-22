@@ -8,50 +8,63 @@ import { getEvents } from '../actions/eventActions'
 import {Button} from 'semantic-ui-react';
 
 import ClipLoader from "react-spinners/ClipLoader";
+import banderitasMobile from '../assets/images/banderitasMobile.svg'
+import confettiMobile from '../assets/images/confettiMobile.svg'
+import useWindowSize from '../utils/UseWindowSize'
 
 function RegisterShape(props) {
 
   const { touched, errors, status, isSubmitting} = props
 
+  const windowSize = useWindowSize()
+  const banderitasImg = windowSize < 500 ? banderitasMobile : banderitasMobile
+  const confettiImg = windowSize < 500 ? confettiMobile : confettiMobile
+
   return (
-    <div>
-      <h1>Register</h1>
-      <Form className="form">
+    <div className = 'login-container content'>
+      <div className = 'banderitas-container'>
+      <img src = {banderitasImg} alt = 'banners'/>
+    </div>
+    <div className = 'confetti-container'>
+      <img src = {confettiImg} alt = 'confetti'/>
+    </div>
+    <Form className="form">
+        <p className = 'header'>Sign up</p>
         <div className='ui input'>
+          <label htmlFor = 'firstName'>First Name</label>
           <Field
-           placeholder="First Name"
            name="firstName"
            type="text"
           />
+          <p>{touched.firstName && errors.firstName}</p>
         </div>
-        <p>{touched.firstName && errors.firstName}</p>
         <div className='ui input'>
+          <label htmlFor = 'lastName'>Last Name</label>
           <Field
-          placeholder="Last Name"
           name="lastName"
           type="text"
           />
+          <p>{touched.lastName && errors.lastName}</p>
         </div>
-        <p>{touched.lastName && errors.lastName}</p>
         <div className='ui input'>
+          <label htmlFor = 'email'>Email</label>
           <Field
-           placeholder="Enter your email"
            name="email"
            type="text"
           />
+          <p>{touched.email && errors.email}</p>
         </div>
-        <p>{touched.email && errors.email}</p>
         <div className='ui input'>
+          <label htmlFor = 'password'>Password</label>
           <Field
-           placeholder="Password"
            name="password"
            type="password"
           />
+          <p>{touched.password && errors.password}</p>
         </div>
-        <p>{touched.password && errors.password}</p>
-        <Button color="blue" style = {{width: '7rem'}}>{
+        <Button className = 'register-btn'>{
           !isSubmitting ? 
-          'REGISTER' 
+          'Sign up' 
           : <ClipLoader
           size={13}
           //size={"150px"} this also works
@@ -78,7 +91,6 @@ const Register = withFormik({
     password: Yup.string().min(8).required("Required, Min length of 8 characters"),
     firstName: Yup.string().required("Required"),
     lastName: Yup.string().required("Required"),
-
   }),
 
   //save token to local storage

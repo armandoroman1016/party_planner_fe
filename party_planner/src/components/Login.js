@@ -10,13 +10,12 @@ import useWindowSize from '../utils/UseWindowSize'
 import ClipLoader from "react-spinners/ClipLoader";
 import banderitasMobile from '../assets/images/banderitasMobile.svg'
 import confettiMobile from '../assets/images/confettiMobile.svg'
+
 import { Link } from 'react-router-dom'
 function Login(props) {
 
  const {touched, errors, isSubmitting} = props
  const windowSize = useWindowSize()
-
- console.log(windowSize)
 
  const banderitasImg = windowSize < 500 ? banderitasMobile : banderitasMobile
  const confettiImg = windowSize < 500 ? confettiMobile : confettiMobile
