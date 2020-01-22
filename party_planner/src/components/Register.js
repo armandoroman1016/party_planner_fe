@@ -6,7 +6,7 @@ import axios from "axios";
 import { connect } from 'react-redux'
 import { getEvents } from '../actions/eventActions'
 import {Button} from 'semantic-ui-react';
-
+import { Link } from 'react-router-dom'
 import ClipLoader from "react-spinners/ClipLoader";
 import banderitasMobile from '../assets/images/banderitasMobile.svg'
 import confettiMobile from '../assets/images/confettiMobile.svg'
@@ -72,6 +72,7 @@ function RegisterShape(props) {
         /> }</Button>
         <br />
         {status && <h3 style={{color: 'red'}}>Please try again, error during signup</h3>}
+        <p id = 'sign-up-link'>Already have an account? <Link to = '/login'>Sign in here.</Link></p>
       </Form>
     </div>
   )
