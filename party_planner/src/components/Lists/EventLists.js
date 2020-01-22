@@ -128,9 +128,14 @@ const ListContainer = props =>{
                     <Icon onClick = {() => setShowForm(false)} name = 'close'/>
                     : <Icon onClick = {() => setShowForm(true)} name = 'add'/>
                 }
-                { showForm && <FormikShoppingForm 
+                
+                <div className = { showForm ? 'list-form-container' : 'list-form-container invisible'}>
+                    <FormikShoppingForm 
+                    showForm = { showForm }
                     eventId = {eventId} 
-                    formType = {isShoppingRoute ? 'shopping' : 'todo'}/>}
+                    formType = {isShoppingRoute ? 'shopping' : 'todo'}/>
+                </div>
+                  
             </div>
 {/*             <button onClick = {() => updateCost()} id = 'update-button'>UPDATE LIST</button>
  */}            { targetEvent.length ? <ProgressBar event = {targetEvent[0]}/> : null}
