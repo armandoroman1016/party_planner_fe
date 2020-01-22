@@ -36,7 +36,9 @@ function Login(props) {
             name="email"
             type="text"
           />
-          <p>{touched.email && errors.email}</p>
+          <p
+          className = {touched.email && errors.email ? 'error show' : 'error'}
+          >{touched.email && errors.email}</p>
         </div>
         <div className='ui input'>
           <label htmlFor = 'email'>Password</label>
@@ -44,7 +46,9 @@ function Login(props) {
             name="password"
             type="password"
           />
-          <p>{touched.password && errors.password}</p>
+          <p
+          className = {touched.password && errors.password ? 'error show' : 'error'}
+          >{touched.password && errors.password}</p>
         </div>
          <Button>{
           !isSubmitting ? 
@@ -70,8 +74,8 @@ const FormikLogin = withFormik({
      };
    },
    validationSchema: Yup.object().shape({
-     email: Yup.string().required("Required"),
-     password: Yup.string().min(8).required("Required")
+     email: Yup.string().required("* Required"),
+     password: Yup.string().min(8).required("* Required")
    }),
    //save token to local storage
    handleSubmit(values, props) {
