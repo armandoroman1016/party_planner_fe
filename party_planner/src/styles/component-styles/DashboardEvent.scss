@@ -11,20 +11,33 @@
     justify-content: space-between;
     border-bottom: 1px solid lighten(#898A9E, 10%);
 
-    .event-info{
+    @include tablet {
+        padding: 0;
+        padding: 5rem 0;
+    }
+
+    .event-info {
         display: flex;
         width: 100vw;
         height: 20rem;
         justify-content: space-between;
         position: relative;
-        
+
+        @include tablet {
+            width: 100%;
+        }
 
         .event-left_side {
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             height: 100%;
-            width: 45%;
+            width: 50%;
+
+            @include tablet {
+                width: 45%;
+
+            }
 
             p {
                 color: #fff;
@@ -34,8 +47,16 @@
                 text-align: left;
                 padding-left: 1.2rem;
                 font-size: 1.6rem;
+
+                @include tablet {
+                    width: 95%;
+                    padding: 1.2rem 0;
+                    padding-left: 5rem;
+
+                }
+
             }
-    
+
             :nth-child(2) {
                 font-size: 1.2rem;
                 height: auto;
@@ -47,8 +68,12 @@
                 ;
                 font-size: 1.8rem;
                 color: #575764;
+
+                @include tablet {
+                    margin-left: 5rem;
+                }
             }
-    
+
             :nth-child(3) {
                 position: absolute;
                 top: 10rem;
@@ -56,10 +81,14 @@
                 margin-left: 1.2rem;
                 font-size: 1.8rem;
                 color: #575764;
+
+                @include tablet {
+                    margin-left: 5rem;
+                }
             }
-    
+
         }
-    
+
         .event-right_side {
             display: flex;
             align-items: flex-end;
@@ -67,7 +96,11 @@
             width: 50vw;
             height: 100%;
             margin-right: 1.2rem;
-    
+
+            @include tablet {
+                margin-right: 5rem;
+            }
+
             .calendar {
                 position: absolute;
                 top: 6.2rem;
@@ -80,22 +113,27 @@
                 flex-direction: column;
                 box-sizing: border-box;
                 filter: drop-shadow(0px 0px 12px rgba(0, 0, 0, 0.15));
-    
+
+                @include tablet {
+                    width: 25%;
+                    height: 10rem;
+                }
+
                 :nth-child(1) {
-                    color: #E3696A;                    ;
+                    color: #E3696A;
                     font-size: 1.8rem;
                     text-align: center;
                     margin: auto 0;
                     font-weight: bold;
                 }
-    
+
                 span {
                     width: 100%;
                     height: 1px;
                     border-bottom: 1px solid #E3696A;
                     ;
                 }
-    
+
                 :nth-child(3) {
                     color: #E3696A;
                     text-align: center;
@@ -105,53 +143,104 @@
                 }
             }
         }
-    .expand-arrow {
+
+        .expand-arrow {
             height: 2rem;
             width: 2rem;
             position: absolute;
             bottom: 1.2rem;
-            left:0;
-            right:0;
-            margin: .5rem auto;  
+            left: 0;
+            right: 0;
+            margin: .5rem auto;
 
+        }
     }
-    }
-    .event-meta{
+
+    .event-meta {
         text-align: left;
         margin-left: 1.2rem;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
         position: relative;
-        height:100%;
+        height: 100%;
         width: 100vw;
         opacity: 1;
-        transition: 
-        opacity .35s ease-in-out,
-        height .35s ease-in-out,
-        width .35s ease-in-out;
+        transform: translateX(0);
 
-        h4{
+        transition:
+            opacity .35s ease-in-out,
+            height .35s ease-in-out,
+            width .35s ease-in-out,
+            transform .35s ease-in-out;
+
+        @include tablet {
+            margin: 0;
+            flex-direction: row;
+            width: 100%;
+            transition:
+                opacity .45s cubic-bezier(0.41, .4, 0.93, 0.28),
+                height .45s cubic-bezier(0.41, .4, 0.93, 0.28),
+                transform .45s cubic-bezier(0.41, .4, 0.93, 0.28),
+                width .45s cubic-bezier(0.41, .4, 0.93, 0.28);
+
+        }
+
+        h4 {
             color: rgba(70, 76, 86, 0.55);
             font-size: 1.4rem;
             font-weight: 800;
         }
 
-        .event-info-extra{
+        .event-info-extra {
             margin-top: -3rem;
 
-            p{
+            @include tablet {
+                width: 100%;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                align-content: space-around;
+                align-items: baseline;
+            }
+
+            p {
                 font-size: 1.8rem;
                 margin-top: -.5rem;
                 padding-bottom: 1.2rem;
+
+                @include tablet {
+                    padding: 0;
+                    margin: 0;
+                }
             }
-            
-            :nth-child(1){
+
+            :nth-child(1) {
                 margin-top: 2rem;
+
+                @include tablet {
+                    margin: 0;
+                }
             }
-            :nth-last-child(1){
+
+            :nth-last-child(1) {
                 padding-bottom: 0;
                 margin-bottom: 2rem;
+
+                @include tablet {
+                    margin: 0;
+                }
+            }
+
+            .data-container {
+
+                @include tablet {
+                    margin: 0;
+                    padding: 0;
+                    padding: 3rem 5rem 2rem 5rem;
+                }
+
             }
 
             .expand-arrow {
@@ -161,46 +250,73 @@
                 bottom: -2rem;
                 margin: 0 auto 1.2rem auto;
 
+                @include tablet {
+                    position: absolute;
+                    left: 0;
+                    right: 0;
+                    bottom: 1rem;
+                }
             }
         }
 
 
     }
-    .progress-bar-container{
+
+    .progress-bar-container {
         border-top: 1px solid #D1CEE1;
         border-bottom: 1px solid #D1CEE1;
         padding: 1.6rem 1.2rem;
-        .progress-bar{
 
-            h4{
-                color: #B3B1C2; 
+        @include tablet {
+            padding: 3rem 5rem;
+        }
+
+        .progress-bar {
+
+
+            h4 {
+                color: #B3B1C2;
+                
+                @include tablet {
+                    padding-bottom: 1.2rem;                
+                }
             }
-            .budget-indicator{
+
+            .budget-indicator {
                 font-family: 'Heebo', 'Times New Roman', Times, serif;
                 font-weight: 800;
                 font-size: 12px;
-                display: flex; 
+                display: flex;
                 justify-content: flex-end;
-                transform: translateY(-155%); 
-                color: #6A6D72; 
+                transform: translateY(-155%);
+                color: #6A6D72;
                 margin-right: 20px
             }
 
         }
     }
+
     .container-lists {
-        
+
         height: 11rem;
         width: 100%;
         display: flex;
         flex-direction: column;
         justify-content: space-around;
 
+        @include tablet {
+            height: 10rem;
+            padding: 3rem 5rem;              
+        }
+
         h4 {
             text-align: left;
             margin: 1.2rem 0 0 1.2rem;
             font-size: 1.2rem;
             color: #B3B1C2;
+            @include tablet {
+                padding-top: 1.8rem;
+            }
         }
 
         .lists {
@@ -208,6 +324,12 @@
             width: 100%;
             display: flex;
             justify-content: space-around;
+
+            @include tablet {
+                padding-top: 2.4rem;
+                justify-content: space-between;
+            }
+
             button {
                 width: 44%;
                 border: 1px solid #6A6D72;
@@ -220,9 +342,15 @@
     }
 
 
-    .invisible{
+    .invisible {
         opacity: 0;
         height: 0px;
         width: 0px;
+
+        @include tablet {
+            opacity: .5;
+            width: 100%;
+            transform: translateX(-100%);
+        }
     }
 }

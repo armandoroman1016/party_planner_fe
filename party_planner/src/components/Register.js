@@ -8,8 +8,15 @@ import { getEvents } from '../actions/eventActions'
 import {Button} from 'semantic-ui-react';
 import { Link } from 'react-router-dom'
 import ClipLoader from "react-spinners/ClipLoader";
+
+// svgs for login
 import banderitasMobile from '../assets/images/banderitasMobile.svg'
+import banderitasDesktop from '../assets/images/banderitasDesktop.svg'
+
+// svgs for login
 import confettiMobile from '../assets/images/confettiMobile.svg'
+import confettiDesktop from '../assets/images/confettiDesktop.svg'
+
 import useWindowSize from '../utils/UseWindowSize'
 
 function RegisterShape(props) {
@@ -17,8 +24,8 @@ function RegisterShape(props) {
   const { touched, errors, status, isSubmitting} = props
 
   const windowSize = useWindowSize()
-  const banderitasImg = windowSize < 500 ? banderitasMobile : banderitasMobile
-  const confettiImg = windowSize < 500 ? confettiMobile : confettiMobile
+  const banderitasImg = windowSize > 500 ? banderitasMobile : banderitasDesktop
+  const confettiImg = windowSize < 500 ? confettiMobile : confettiDesktop
 
   return (
     <div className = 'login-container content register'>

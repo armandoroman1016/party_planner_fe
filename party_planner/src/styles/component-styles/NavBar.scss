@@ -7,9 +7,12 @@
   align-items: center;
   width: 100%;
   padding: 4rem 2rem;
-  // box-shadow: none;
-  // border: none;
   border-style:none;
+
+  @include tablet{
+    padding: 4rem 5rem ;
+  }
+
   a{
     font-family: 'Crete Round', 'Times New Roman', Times, serif;
     font-weight: 100;

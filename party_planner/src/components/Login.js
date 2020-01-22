@@ -1,24 +1,34 @@
 import React from "react";
+import useWindowSize from '../utils/UseWindowSize'
+
+// form validation
 import { withFormik, Form, Field } from "formik";
 import * as Yup from "yup";
 import axios from "axios";
+
 import { connect } from 'react-redux'
 import { handleSuccessfulLogin } from '../actions/LogInActions'
 import { getEvents } from '../actions/eventActions'
-import { Button } from 'semantic-ui-react'
-import useWindowSize from '../utils/UseWindowSize'
-import ClipLoader from "react-spinners/ClipLoader";
-import banderitasMobile from '../assets/images/banderitasMobile.svg'
-import confettiMobile from '../assets/images/confettiMobile.svg'
 
+// svgs for login
+import banderitasMobile from '../assets/images/banderitasMobile.svg'
+import banderitasDesktop from '../assets/images/banderitasDesktop.svg'
+
+// svgs for login
+import confettiMobile from '../assets/images/confettiMobile.svg'
+import confettiDesktop from '../assets/images/confettiDesktop.svg'
+
+import { Button } from 'semantic-ui-react'
+import ClipLoader from "react-spinners/ClipLoader";
 import { Link } from 'react-router-dom'
+
 function Login(props) {
 
  const {touched, errors, isSubmitting} = props
  const windowSize = useWindowSize()
 
- const banderitasImg = windowSize < 500 ? banderitasMobile : banderitasMobile
- const confettiImg = windowSize < 500 ? confettiMobile : confettiMobile
+ const banderitasImg = windowSize > 500 ? banderitasMobile : banderitasDesktop
+ const confettiImg = windowSize < 500 ? confettiMobile : confettiDesktop
 
  return(
    <div className = 'login-container content'>
@@ -54,9 +64,9 @@ function Login(props) {
           !isSubmitting ? 
           'Sign in' 
           : <ClipLoader
-          size={13}
+          size={16}
           //size={"150px"} this also works
-          color={"#fff"}
+          color={"#5877E5"}
         /> }</Button>
          <br />
          {props.status && <h3 style={{color: 'red'}}>Invalid password or email</h3>}
