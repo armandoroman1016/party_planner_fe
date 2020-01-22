@@ -36,7 +36,9 @@ function RegisterShape(props) {
            name="firstName"
            type="text"
           />
-          <p>{touched.firstName && errors.firstName}</p>
+          <p 
+          className = {touched.firstName && errors.firstName ? 'error show' : 'error'}
+          >{touched.firstName && errors.firstName}</p>
         </div>
         <div className='ui input'>
           <label htmlFor = 'lastName'>Last Name</label>
@@ -44,7 +46,9 @@ function RegisterShape(props) {
           name="lastName"
           type="text"
           />
-          <p>{touched.lastName && errors.lastName}</p>
+          <p
+          className = {touched.lastName && errors.lastName ? 'error show' : 'error'}
+          >{touched.lastName && errors.lastName}</p>
         </div>
         <div className='ui input'>
           <label htmlFor = 'email'>Email</label>
@@ -52,7 +56,9 @@ function RegisterShape(props) {
            name="email"
            type="text"
           />
-          <p>{touched.email && errors.email}</p>
+          <p
+          className = {touched.email && errors.email ? 'error show' : 'error'}
+          >{touched.email && errors.email}</p>
         </div>
         <div className='ui input'>
           <label htmlFor = 'password'>Password</label>
@@ -60,7 +66,9 @@ function RegisterShape(props) {
            name="password"
            type="password"
           />
-          <p>{touched.password && errors.password}</p>
+          <p
+          className = {touched.password && errors.password ? 'error show' : 'error'}
+          >{touched.password && errors.password}</p>
         </div>
         <Button className = 'register-btn'>{
           !isSubmitting ? 
@@ -88,10 +96,10 @@ const Register = withFormik({
     };
   },
   validationSchema: Yup.object().shape({
-    email: Yup.string().required("Required"),
-    password: Yup.string().min(8).required("Required, Min length of 8 characters"),
-    firstName: Yup.string().required("Required"),
-    lastName: Yup.string().required("Required"),
+    email: Yup.string().required("* Required"),
+    password: Yup.string().min(8).required("* Required, min length of 8 characters"),
+    firstName: Yup.string().required("* Required"),
+    lastName: Yup.string().required("* Required"),
   }),
 
   //save token to local storage
