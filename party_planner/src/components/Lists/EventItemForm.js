@@ -10,18 +10,24 @@ import ClipLoader from "react-spinners/ClipLoader";
 const ShoppingListForm = props => {
 
 
-    const { eventId, loading, values, formType, addEventTodo } = props
+    const { 
+        eventId, 
+        loading, 
+        values, 
+        formType, 
+        addEventTodo
+    } = props
 
     
 
     return(
     
-        <div className = 'list-form-container'>
+        <div>
             <Form className='list-form'>
                 {props.touched.item && props.errors.item && <p>{props.errors.item}</p>}
-                <div className='ui input input-section'>
+                <div className = { formType === 'todo' ? 'todo-form-input ui input input-section' : 'ui input input-section'}>
                     <label htmlFor = 'name'>Name *</label>
-                    <Field type = 'text' name = 'item' placeholder = 'Name'/>
+                    <Field type = 'text' name = 'item' placeholder = 'Name' />
                 </div>
                 {
                     formType === 'shopping' &&
@@ -31,7 +37,7 @@ const ShoppingListForm = props => {
                     </div>
                 }
                   
-                <Button type = 'submit' className = { formType !== 'shopping' ? 'todo-form-btn' : null}>{loading ? 
+                <Button type = 'submit' className = { formType === 'todo' ? 'todo-form-btn' : null}>{loading ? 
                     <ClipLoader
                     size={15}
                     //size={"150px"} this also works
