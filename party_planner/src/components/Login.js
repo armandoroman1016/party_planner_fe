@@ -46,7 +46,7 @@ function Login(props) {
           />
           <p>{touched.password && errors.password}</p>
         </div>
-         <Button color="blue">{
+         <Button>{
           !isSubmitting ? 
           'Sign in' 
           : <ClipLoader

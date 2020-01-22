@@ -21,7 +21,7 @@ function RegisterShape(props) {
   const confettiImg = windowSize < 500 ? confettiMobile : confettiMobile
 
   return (
-    <div className = 'login-container content'>
+    <div className = 'login-container content register'>
       <div className = 'banderitas-container'>
       <img src = {banderitasImg} alt = 'banners'/>
     </div>
