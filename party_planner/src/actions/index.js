@@ -19,10 +19,6 @@ export {
     GET_EVENTS_ERROR
 } from './eventActions'
 
-export { 
-    handleSuccessfulLogin,
-    LOGIN_SUCCESS
- } from './LogInActions'
 
 export {
   DELETING_EVENT,
