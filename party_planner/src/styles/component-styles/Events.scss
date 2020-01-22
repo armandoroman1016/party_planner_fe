@@ -31,6 +31,11 @@
       padding: 5rem;
     }
 
+    
+    @include desktop{
+      padding: 0 15rem 3rem 15rem;
+    }
+
     h2{
       margin-left: 5.53%;
       font-family: 'Heebo', 'Times New Roman', Times, serif;

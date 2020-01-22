@@ -16,6 +16,7 @@
         padding: 5rem 0;
     }
 
+
     .event-info {
         display: flex;
         width: 100vw;
@@ -26,6 +27,11 @@
         @include tablet {
             width: 100%;
         }
+
+        @include desktop{
+            height: 22rem;
+        }
+
 
         .event-left_side {
             display: flex;
@@ -55,6 +61,12 @@
 
                 }
 
+                @include desktop{
+                    width: 80%;
+                    padding-left: 15rem;
+                }
+        
+
             }
 
             :nth-child(2) {
@@ -72,6 +84,11 @@
                 @include tablet {
                     margin-left: 5rem;
                 }
+
+                @include desktop{
+                    margin-left: 15rem;
+                    top: 7rem
+                }
             }
 
             :nth-child(3) {
@@ -84,6 +101,11 @@
 
                 @include tablet {
                     margin-left: 5rem;
+                }
+
+                @include desktop{
+                    margin-left: 15rem;
+                    top:14rem;
                 }
             }
 
@@ -99,6 +121,10 @@
 
             @include tablet {
                 margin-right: 5rem;
+            }
+
+            @include desktop{
+                margin-right: 15rem;
             }
 
             .calendar {
@@ -118,6 +144,13 @@
                     width: 25%;
                     height: 10rem;
                 }
+
+                @include desktop{
+                    width: 20%;
+                    height: 12rem;
+                }
+
+
 
                 :nth-child(1) {
                     color: #E3696A;
@@ -167,7 +200,7 @@
         width: 100vw;
         opacity: 1;
         transform: translateX(0);
-
+        overflow: hidden;
         transition:
             opacity .35s ease-in-out,
             height .35s ease-in-out,
@@ -179,11 +212,10 @@
             flex-direction: row;
             width: 100%;
             transition:
-                opacity .45s cubic-bezier(0.41, .4, 0.93, 0.28),
-                height .45s cubic-bezier(0.41, .4, 0.93, 0.28),
-                transform .45s cubic-bezier(0.41, .4, 0.93, 0.28),
-                width .45s cubic-bezier(0.41, .4, 0.93, 0.28);
-
+                opacity .3s cubic-bezier(0.41, .4, 0.93, 0.28),
+                height .3s cubic-bezier(0.41, .4, 0.93, 0.28),
+                transform .3s cubic-bezier(0.41, .4, 0.93, 0.28),
+                width .3s cubic-bezier(0.41, .4, 0.93, 0.28);
         }
 
         h4 {
@@ -203,6 +235,13 @@
                 justify-content: space-between;
                 align-content: space-around;
                 align-items: baseline;
+            }
+
+            @include desktop {
+                
+                margin: 0;
+                padding: 0;
+                padding: 7.5rem 15rem 7.5rem 15rem;
             }
 
             p {
@@ -241,6 +280,11 @@
                     padding: 3rem 5rem 2rem 5rem;
                 }
 
+                @include desktop {
+                    margin: 0;
+                    padding: 0;
+                }
+
             }
 
             .expand-arrow {
@@ -269,6 +313,10 @@
 
         @include tablet {
             padding: 3rem 5rem;
+        }
+
+        @include desktop {
+            padding: 5rem 15rem;
         }
 
         .progress-bar {
@@ -309,6 +357,11 @@
             padding: 3rem 5rem;              
         }
 
+        
+        @include desktop {
+            padding: 5rem 15rem;
+        }
+
         h4 {
             text-align: left;
             margin: 1.2rem 0 0 1.2rem;
@@ -337,6 +390,11 @@
                 background-color: transparent;
                 font-size: 1.6rem;
                 color: #6A6D72;
+
+                
+                @include desktop {
+                    width: 25%;
+                }
             }
         }
     }
@@ -346,11 +404,10 @@
         opacity: 0;
         height: 0px;
         width: 0px;
+        transform: translateX(-100%);
 
         @include tablet {
-            opacity: .5;
             width: 100%;
-            transform: translateX(-100%);
         }
     }
 }

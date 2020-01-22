@@ -19,12 +19,27 @@
         color: #7992EA;
         font-size: 2.2rem;
         font-weight: 500;
+        @include tablet{
+            padding: 2.4rem 5rem;
+        }
+
+        @include desktop{
+            padding: 2.4rem 15rem;
+        }
     }
 
     form {
         display: flex;
         flex-direction: column;
         justify-content: space-around;
+        @include tablet{
+            padding: 0 5rem;
+        }
+
+        @include desktop{
+            padding: 3rem 50rem;
+        }
+
         .field{
             padding: 1.6rem 1.2rem;
             display: flex;
@@ -68,15 +83,39 @@
                 height: 100%;
                 margin-top:1.6rem;
                 margin: 0 auto;
+
+                @include tablet{
+                    width: 90%;
+                    justify-content: space-between;
+
+                }
+                
+                @include desktop{
+                    width: 95%;
+                }
+
                 .bgcolor{
                     width: 15%;
                     margin: 5%;
                     height: 4.5rem;
                     border: 1px solid rgba(0, 0, 0, 0.1);
                     border-radius: 8px;
-                    cursor: 'pointer';
+                    cursor: pointer;
+
+                    @include tablet{
+                        margin: 5% 0;
+                        width: 8%;
+                        height: 5rem;
+                    }
+
+                    @include desktop{
+                        margin: 5% 1%;
+                        width: 4.5rem;
+                        height: 4.5rem;
+                    }
                 }
             }
+            
         }
 
         #publicity{

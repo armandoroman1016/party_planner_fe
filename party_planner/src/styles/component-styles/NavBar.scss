@@ -13,6 +13,10 @@
     padding: 4rem 5rem ;
   }
 
+  @include desktop{
+    padding: 4rem 15rem ;
+  }
+
   a{
     font-family: 'Crete Round', 'Times New Roman', Times, serif;
     font-weight: 100;
