@@ -110,7 +110,7 @@ const ListContainer = props =>{
                     </div>
                 : null}
                 <div className = 'items'>
-                    { listType.length && listType.map( item => (
+                { listType.length ? listType.map( item => (
                         <EventItem 
                         updateToDoList = { updateToDoList }
                         updateItem = { updateShoppingItems }
@@ -118,7 +118,7 @@ const ListContainer = props =>{
                         itemType = { isShoppingRoute ? 'shopping' : 'todo' }
                         item = {item}
                         />
-                    ))}     
+                        )) : null}  
                 </div>
             </div>
             <div id = 'form_container'>

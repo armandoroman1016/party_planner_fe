@@ -89,8 +89,6 @@ const ListItem = (props) => {
                     <button onClick = {() => updateCost()}>Confirm</button>
                 </div>
             : null}
-            
-            
         </div>
 
     )
