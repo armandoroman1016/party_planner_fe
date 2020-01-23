@@ -7,7 +7,6 @@ import * as Yup from "yup";
 import axios from "axios";
 
 import { connect } from 'react-redux'
-import { handleSuccessfulLogin } from '../actions/LogInActions'
 import { getEvents } from '../actions/eventActions'
 
 // svgs for login

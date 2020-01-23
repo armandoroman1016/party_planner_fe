@@ -82,15 +82,13 @@ const ListItem = (props) => {
             <img src = {radioStatus} alt = 'radio-button' onClick = {() => handleUpdated(radioStatus)}/>
             <p>{item.name}</p>
             {!edit && <p>{item.cost? `$ ${item.cost}` : null}</p>}
-            { !edit && isShopping ? <Icon name = 'edit outline' onClick = {() => setEdit(true)}/> : null}
+            { !edit && isShopping ? <Icon name = 'dollar' onClick = {() => setEdit(true)}/> : null}
             {isShopping && edit ? 
                 <div className = 'edit-item-cost'>
                     <input name = 'cost' value = {cost} placeholder = 'Item cost' onChange = {(e) => handleCostChange(e) }/>
                     <button onClick = {() => updateCost()}>Confirm</button>
                 </div>
             : null}
-            
-            
         </div>
 
     )

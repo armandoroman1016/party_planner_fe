@@ -200,14 +200,14 @@
         width: 100vw;
         opacity: 1;
         transform: translateX(0);
-        overflow: hidden;
         transition:
-            opacity .35s ease-in-out,
-            height .35s ease-in-out,
-            width .35s ease-in-out,
-            transform .35s ease-in-out;
-
+        opacity .35s ease-in-out,
+        height .35s ease-in-out,
+        width .35s ease-in-out,
+        transform .35s ease-in-out;
+        
         @include tablet {
+            overflow: hidden;
             margin: 0;
             flex-direction: row;
             width: 100%;

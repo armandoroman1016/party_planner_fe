@@ -1,5 +1,4 @@
 import {
-    LOGIN_SUCCESS,
     GET_EVENTS_START,
     GET_EVENTS_SUCCESS,
     GET_EVENTS_ERROR,
@@ -45,11 +44,6 @@ const initialState = {
 
 export const globalReducer = (state = initialState, action) => {
     switch(action.type){
-        case LOGIN_SUCCESS:
-            return{
-                ...state,
-                userId: localStorage.getItem("user_id")
-            }
         case GET_EVENTS_START:
             return{
                 ...state, 
@@ -127,7 +121,7 @@ export const globalReducer = (state = initialState, action) => {
           return{
             ...state,
             isLoading: false,
-            shoppingListItems: action.payload
+            shoppingListItems: [...state.shoppingListItems, ...action.payload]
           }
         case GET_SHOPPING_ITEM_ERROR:
           return{

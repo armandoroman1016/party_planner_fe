@@ -139,8 +139,8 @@ const EventFormShape = props => {
 
     setValues({
       ...values,
-      address: loc,
-      latLng: latLngObj
+      address: loc
+      // latLng: latLngObj
     })
 
   }
@@ -266,7 +266,11 @@ const EventFormShape = props => {
 
             <div id = 'address' className = 'field'> 
               <label htmlFor = 'address'>ADDRESS *</label>
-              <PlacesAutofill setEventLocation = { setEventLocation } value = {values.address}/>
+              <PlacesAutofill 
+              setEventLocation = { setEventLocation } 
+              value = {values.address}
+              editedEvent = {editedEvent}
+              />
               {/* <Field name = 'address' type = 'text' placeholder = 'Ex: 123 Main St, Springfield, IL'/> */}
             </div>
                       

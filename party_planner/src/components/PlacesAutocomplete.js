@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PlacesAutocomplete, {
     geocodeByAddress,
     getLatLng
@@ -7,9 +7,19 @@ import PlacesAutocomplete, {
 
 const PlacesAutofill = ( props ) => {
 
-    const { setEventLocation } = props
+    const { setEventLocation, editedEvent } = props
 
     const [ address, setAddress ] = useState('')
+
+
+    useEffect(() => {
+
+      if(editedEvent){
+        setAddress(editedEvent[0].address)
+      }
+      
+    }, [editedEvent])
+
 
     const handleChange = (loc) => {
         
