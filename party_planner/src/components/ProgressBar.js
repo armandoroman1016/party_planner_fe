@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import styled from 'styled-components'
 
@@ -24,22 +24,17 @@ const Thumb = styled.div`
     
 const ProgressBar = props => {
 
-    const { event } = props 
+    const { event, shoppingListItems, entertainmentList } = props 
 
-    const purchasedShopping = props.shoppingListItems.filter( item => item.event_id === event.id && (item.purchased === true || item.purchased === 1))
-    const purchasedEntertainment = props.entertainmentList.filter( item => item.event_id === event.id)
+    const purchasedShopping = shoppingListItems.filter( item => item.event_id === event.id && (item.purchased === true || item.purchased === 1)) 
+    
     
     const totalShopping = purchasedShopping.reduce((acc, item, index) => {
         acc += item.cost;
         return acc
-    },0)
-    
-    const totalEntertainment = purchasedEntertainment.reduce((acc, item, index) =>{
-        acc += item.cost;
-        return acc
-    },0)
+    },0) 
 
-    const totalSpent = totalShopping + totalEntertainment
+    const totalSpent = totalShopping 
 
     let currentPercent = (totalSpent / event.budget) * 100
 

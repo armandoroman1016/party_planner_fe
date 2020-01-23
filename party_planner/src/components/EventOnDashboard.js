@@ -18,7 +18,7 @@ const EventOnDashboard = (props) => {
   useEffect(() => {
     
     if(!shoppingItems.length){
-      
+
       getShoppingItems(event.id)
 
     }
@@ -29,7 +29,7 @@ const EventOnDashboard = (props) => {
 
     }
 
-  },[shoppingItems, todoItems])
+  },[event])
 
   // const colors = ['#FFF']
   const colors = ['#FFE9F9', '#F2FFE1', '#FFF0E5', '#EEE9FF', '#fff']
@@ -202,7 +202,7 @@ const EventOnDashboard = (props) => {
         </div>
       </div>
       <div className = 'progress-bar-container'>
-        <ProgressBar event = {event}/>
+        <ProgressBar event = {event} shoppingListItems = {shoppingItems}/>
       </div>
       <div className = 'container-lists'>
         <h4>ORGANIZE YOUR LISTS</h4>
