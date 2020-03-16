@@ -89,7 +89,7 @@ const Events = (props) => {
         //size={"150px"} this also works
         color={"#5877E5"}
       />       
-        :  searching ? <h2 className = 'no-events'>No events found.</h2> 
+        :  searching ? <h2 className = 'no-events'>No events found for "{values}"</h2> 
         : <h2 className = 'no-events'>You have no events yet.</h2> }
       </div>
       {filtered.length >= 2 ?
