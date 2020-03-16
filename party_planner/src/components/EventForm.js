@@ -427,10 +427,12 @@ const EventForm = withFormik({
           theme: theme
         }
 
+        // no event id so user is creating an event
         if(!eventId && !isLoading){
 
           addEvent(packet , localStorage.getItem('user_id'))
           
+        // event id is in url so user is updating an event
         }else if(eventId && !isLoading){
 
           packet.hostId = localStorage.getItem('user_id')
