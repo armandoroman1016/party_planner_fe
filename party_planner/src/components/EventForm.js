@@ -427,21 +427,28 @@ const EventForm = withFormik({
           theme: theme
         }
 
+        const submitHelper = async (cb) => {
+
+          await cb
+
+          history.push(`/dashboard/${localStorage.getItem('user_id')}`)
+
+        } 
+
         // no event id so user is creating an event
         if(!eventId && !isLoading){
 
-          addEvent(packet , localStorage.getItem('user_id'))
+          submitHelper(addEvent(packet , localStorage.getItem('user_id')))
           
         // event id is in url so user is updating an event
         }else if(eventId && !isLoading){
 
           packet.hostId = localStorage.getItem('user_id')
           
-          updateEvent(packet, eventId)
+          submitHelper(updateEvent(packet, eventId))
 
         }
         
-        history.push(`/dashboard/${localStorage.getItem('user_id')}`)
     }
 
 })(EventFormShape)
