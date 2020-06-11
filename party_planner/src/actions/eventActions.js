@@ -1,180 +1,218 @@
-import { axiosWithAuth } from '../utils/AxiosWithAuth'
+import { axiosWithAuth } from "../utils/AxiosWithAuth";
 
+const URL = process.env.REACT_APP_API_URL || "http://localhost:5000";
 
-const URL = process.env.REACT_APP_API_URL || 'http://localhost:5000'
+export const GET_EVENTS_START = "GET_EVENTS_START";
+export const GET_EVENTS_SUCCESS = "GET_EVENTS_SUCCESS";
+export const GET_EVENTS_ERROR = "GET_EVENTS_ERROR";
 
-export const GET_EVENTS_START = "GET_EVENTS_START"
-export const GET_EVENTS_SUCCESS = "GET_EVENTS_SUCCESS"
-export const GET_EVENTS_ERROR = "GET_EVENTS_ERROR"
+export const DELETING_EVENT = "DELETING_EVENT";
+export const DELETE_EVENT_SUCCESS = "DELETE_EVENT_SUCCESS";
+export const DELETE_EVENT_FAILURE = "DELETE_EVENT_FAILURE";
 
-export const DELETING_EVENT = "DELETING_EVENT"
-export const DELETE_EVENT_SUCCESS = "DELETE_EVENT_SUCCESS"
-export const DELETE_EVENT_FAILURE = "DELETE_EVENT_FAILURE"
-
-export const UPDATING_EVENT = "UPDATING_EVENT"
-export const UPDATE_EVENT_SUCCESS = "UPDATE_EVENT_SUCCESS"
-export const UPDATE_EVENT_FAILURE = "UPDATE_EVENT_FAILURE"
-
-
-
+export const UPDATING_EVENT = "UPDATING_EVENT";
+export const UPDATE_EVENT_SUCCESS = "UPDATE_EVENT_SUCCESS";
+export const UPDATE_EVENT_FAILURE = "UPDATE_EVENT_FAILURE";
 
 // get full list of events
 
 export const getEvents = (userId) => {
-  return dispatch => {
-    dispatch({ type: GET_EVENTS_START })
-    axiosWithAuth()
-      .get(`${URL}/api/events/${userId}`)
-      .then(res => dispatch({ type: GET_EVENTS_SUCCESS, payload: res.data.events }))
-      .catch(err => dispatch({ type: GET_EVENTS_ERROR, payload: err.response }))
-  }
-}
+    return (dispatch) => {
+        dispatch({ type: GET_EVENTS_START });
+        axiosWithAuth()
+            .get(`${URL}/api/events/${userId}`)
+            .then((res) =>
+                dispatch({ type: GET_EVENTS_SUCCESS, payload: res.data.events })
+            )
+            .catch((err) =>
+                dispatch({ type: GET_EVENTS_ERROR, payload: err.response })
+            );
+    };
+};
 
 // delete event
 
 export const deleteEvent = (eventId) => {
-  return dispatch => {
-    dispatch({ type: DELETING_EVENT })
-    axiosWithAuth()
-      .delete(`${URL}/api/events/${eventId}`)
-      .then(res => dispatch({ type: DELETE_EVENT_SUCCESS, payload: eventId }))
-      .catch(err => dispatch({ type: DELETE_EVENT_FAILURE, payload: err.response }))
-  }
-}
+    return (dispatch) => {
+        dispatch({ type: DELETING_EVENT });
+        axiosWithAuth()
+            .delete(`${URL}/api/events/${eventId}`)
+            .then((res) =>
+                dispatch({ type: DELETE_EVENT_SUCCESS, payload: eventId })
+            )
+            .catch((err) =>
+                dispatch({ type: DELETE_EVENT_FAILURE, payload: err.response })
+            );
+    };
+};
 
 // update event
 
 export const updateEvent = (event, id) => {
-  return dispatch => {
-    dispatch({ type: UPDATING_EVENT })
-    axiosWithAuth()
-      .put(`${URL}/api/events/${id}`, event)
-      .then(res => {
-        dispatch({ type: UPDATE_EVENT_SUCCESS, payload: res.data })
-      })
-      .catch(err => {
-        dispatch({ type: UPDATE_EVENT_FAILURE, payload: err.response})
-      })
-  }
-}
+    return (dispatch) => {
+        dispatch({ type: UPDATING_EVENT });
+        axiosWithAuth()
+            .put(`${URL}/api/events/${id}`, event)
+            .then((res) => {
+                dispatch({ type: UPDATE_EVENT_SUCCESS, payload: res.data });
+            })
+            .catch((err) => {
+                dispatch({ type: UPDATE_EVENT_FAILURE, payload: err.response });
+            });
+    };
+};
 
 // ! CRUD for shopping list items
 
-export const ADD_SHOPPING_ITEM_START = "ADD_SHOPPING_ITEM_START"
-export const ADD_SHOPPING_ITEM_SUCCESS = "ADD_SHOPPING_ITEM_SUCCESS"
-export const ADD_SHOPPING_ITEM_ERROR = "ADD_SHOPPING_ITEM_ERROR"
+export const ADD_SHOPPING_ITEM_START = "ADD_SHOPPING_ITEM_START";
+export const ADD_SHOPPING_ITEM_SUCCESS = "ADD_SHOPPING_ITEM_SUCCESS";
+export const ADD_SHOPPING_ITEM_ERROR = "ADD_SHOPPING_ITEM_ERROR";
 
 export const addShoppingItem = (eventId, values) => {
-  return dispatch => {
-    dispatch({type: ADD_SHOPPING_ITEM_START})
-      axiosWithAuth()
-      .post(`${URL}/api/shopping/${eventId}`, values)
-      .then( res => dispatch({type: ADD_SHOPPING_ITEM_SUCCESS, payload: res.data}))
-      .catch( err => console.log('errOnPostItem', err))
-  }
-}
+    return (dispatch) => {
+        dispatch({ type: ADD_SHOPPING_ITEM_START });
+        axiosWithAuth()
+            .post(`${URL}/api/shopping/${eventId}`, values)
+            .then((res) =>
+                dispatch({ type: ADD_SHOPPING_ITEM_SUCCESS, payload: res.data })
+            )
+            .catch((err) => console.log("errOnPostItem", err));
+    };
+};
 
-export const GET_SHOPPING_ITEM_START = "GET_SHOPPING_ITEM_START"
-export const GET_SHOPPING_ITEM_SUCCESS = "GET_SHOPPING_ITEM_SUCCESS"
-export const GET_SHOPPING_ITEM_ERROR = "GET_SHOPPING_ITEM_ERROR"
+export const GET_SHOPPING_ITEM_START = "GET_SHOPPING_ITEM_START";
+export const GET_SHOPPING_ITEM_SUCCESS = "GET_SHOPPING_ITEM_SUCCESS";
+export const GET_SHOPPING_ITEM_ERROR = "GET_SHOPPING_ITEM_ERROR";
 
 export const getShoppingItems = (eventId) => {
-  return dispatch => {
-    dispatch({type: GET_SHOPPING_ITEM_START})
-    axiosWithAuth()
-    .get(`${URL}/api/shopping/${eventId}`)
-    .then( res => dispatch({type: GET_SHOPPING_ITEM_SUCCESS, payload: res.data.items}))
-    .catch( err => dispatch({type: GET_SHOPPING_ITEM_ERROR, payload: err.response}))
-  }
-}
+    return (dispatch) => {
+        dispatch({ type: GET_SHOPPING_ITEM_START });
+        axiosWithAuth()
+            .get(`${URL}/api/shopping/${eventId}`)
+            .then((res) =>
+                dispatch({
+                    type: GET_SHOPPING_ITEM_SUCCESS,
+                    payload: res.data.items,
+                })
+            )
+            .catch((err) =>
+                dispatch({
+                    type: GET_SHOPPING_ITEM_ERROR,
+                    payload: err.response,
+                })
+            );
+    };
+};
 
-export const UPDATE_SHOPPING_ITEM_START = "UPDATE_SHOPPING_ITEM_START"
-export const UPDATE_SHOPPING_ITEM_SUCCESS = "UPDATE_SHOPPING_ITEM_SUCCESS"
-export const UPDATE_SHOPPING_ITEM_ERROR = "UPDATE_SHOPPING_ITEM_ERROR"
+export const UPDATE_SHOPPING_ITEM_START = "UPDATE_SHOPPING_ITEM_START";
+export const UPDATE_SHOPPING_ITEM_SUCCESS = "UPDATE_SHOPPING_ITEM_SUCCESS";
+export const UPDATE_SHOPPING_ITEM_ERROR = "UPDATE_SHOPPING_ITEM_ERROR";
 
 export const updateShoppingItems = (arr) => {
-  
-  for(let i = 0; i < arr.length; i++ ){
+    for (let i = 0; i < arr.length; i++) {
+        let valuesToSubmit = {
+            id: arr[i].id,
+            name: arr[i].name,
+            notes: arr[i].notes,
+            purchased: arr[i].purchased,
+            cost: Number(arr[i].cost),
+            eventId: arr[i].event_id,
+        };
 
-    
-    let valuesToSubmit = {
-      id: arr[i].id,
-      name: arr[i].name,
-      notes: arr[i].notes,
-      purchased: arr[i].purchased,
-      cost: Number(arr[i].cost),
-      eventId: arr[i].event_id
+        return (dispatch) => {
+            dispatch({ type: UPDATE_SHOPPING_ITEM_START });
+            axiosWithAuth()
+                .put(`${URL}/api/shopping/${arr[i].id}`, valuesToSubmit)
+                .then((res) => {
+                    dispatch({
+                        type: UPDATE_SHOPPING_ITEM_SUCCESS,
+                        payload: res.data.updated,
+                    });
+                })
+                .catch((err) =>
+                    dispatch({
+                        type: UPDATE_SHOPPING_ITEM_ERROR,
+                        payload: err.response,
+                    })
+                );
+        };
     }
+};
 
-    
-    return dispatch => {
-      dispatch({type: UPDATE_SHOPPING_ITEM_START})
-      axiosWithAuth()
-        .put(`${URL}/api/shopping/${arr[i].id}`, valuesToSubmit)
-        .then( res =>{ 
-          dispatch({type: UPDATE_SHOPPING_ITEM_SUCCESS, payload: res.data.updated})
-        })
-        .catch( err => dispatch({type: UPDATE_SHOPPING_ITEM_ERROR, payload: err.response}))
-   } 
-  }
-}
+export const ADD_EVENT_TODO_START = "ADD_EVENT_TODO_START";
+export const ADD_EVENT_TODO_SUCCESS = "ADD_EVENT_TODO_SUCCESS";
+export const ADD_EVENT_TODO_ERROR = "ADD_EVENT_TODO_ERROR";
 
-export const ADD_EVENT_TODO_START = "ADD_EVENT_TODO_START"
-export const ADD_EVENT_TODO_SUCCESS = "ADD_EVENT_TODO_SUCCESS"
-export const ADD_EVENT_TODO_ERROR = "ADD_EVENT_TODO_ERROR"
+export const addEventTodo = (eventId, values) => {
+    return (dispatch) => {
+        dispatch({ type: ADD_EVENT_TODO_START });
+        axiosWithAuth()
+            .post(`${URL}/api/todo/${eventId}`, values)
+            .then((res) =>
+                dispatch({ type: ADD_EVENT_TODO_SUCCESS, payload: res.data })
+            )
+            .catch((err) =>
+                dispatch({ type: ADD_EVENT_TODO_ERROR, payload: err.response })
+            );
+    };
+};
 
-export const addEventTodo = ( eventId, values ) => {
-  return dispatch =>{
-    dispatch({type: ADD_EVENT_TODO_START})
-    axiosWithAuth()
-      .post(`${URL}/api/todo/${eventId}`, values)
-      .then( res => dispatch({type: ADD_EVENT_TODO_SUCCESS, payload: res.data}))
-      .catch( err => dispatch({type: ADD_EVENT_TODO_ERROR, payload: err.response}))
-  }
-}
-
-export const GET_EVENT_TODO_LIST_START = "GET_EVENT_TODO_LIST_START"
-export const GET_EVENT_TODO_LIST_SUCCESS = "GET_EVENT_TODO_LIST_SUCCESS"
-export const GET_EVENT_TODO_LIST_ERROR = "GET_EVENT_TODO_LIST_ERROR"
+export const GET_EVENT_TODO_LIST_START = "GET_EVENT_TODO_LIST_START";
+export const GET_EVENT_TODO_LIST_SUCCESS = "GET_EVENT_TODO_LIST_SUCCESS";
+export const GET_EVENT_TODO_LIST_ERROR = "GET_EVENT_TODO_LIST_ERROR";
 
 export const getEventTodoList = (eventId) => {
-  return dispatch =>{
-    dispatch({type: GET_EVENT_TODO_LIST_START})
-    axiosWithAuth()
-      .get(`${URL}/api/todo/${eventId}`)
-      .then( res => dispatch({type: GET_EVENT_TODO_LIST_SUCCESS, payload: res.data}))
-      .catch( err => dispatch({type: GET_EVENT_TODO_LIST_ERROR, payload: err.response}))
-  }
-}
+    return (dispatch) => {
+        dispatch({ type: GET_EVENT_TODO_LIST_START });
+        axiosWithAuth()
+            .get(`${URL}/api/todo/${eventId}`)
+            .then((res) =>
+                dispatch({
+                    type: GET_EVENT_TODO_LIST_SUCCESS,
+                    payload: res.data,
+                })
+            )
+            .catch((err) =>
+                dispatch({
+                    type: GET_EVENT_TODO_LIST_ERROR,
+                    payload: err.response,
+                })
+            );
+    };
+};
 
-export const UPDATE_EVENT_TODO_LIST_START = "UPDATE_EVENT_TODO_LIST_START"
-export const UPDATE_EVENT_TODO_LIST_SUCCESS = "UPDATE_EVENT_TODO_LIST_SUCCESS"
-export const UPDATE_EVENT_TODO_LIST_ERROR = "UPDATE_EVENT_TODO_LIST_ERROR"
+export const UPDATE_EVENT_TODO_LIST_START = "UPDATE_EVENT_TODO_LIST_START";
+export const UPDATE_EVENT_TODO_LIST_SUCCESS = "UPDATE_EVENT_TODO_LIST_SUCCESS";
+export const UPDATE_EVENT_TODO_LIST_ERROR = "UPDATE_EVENT_TODO_LIST_ERROR";
 
-export const updateToDoList = ( arr ) => {
-  for(let i = 0; i < arr.length; i++ ){
-    let valuesToSubmit = {
-      name: arr[i].name,
-      completed: arr[i].completed,
-      eventId: arr[i].event_id,
-      notes: arr[i].notes
+export const updateToDoList = (arr) => {
+    for (let i = 0; i < arr.length; i++) {
+        let valuesToSubmit = {
+            name: arr[i].name,
+            completed: arr[i].completed,
+            eventId: arr[i].event_id,
+            notes: arr[i].notes,
+        };
+        return (dispatch) => {
+            dispatch({ type: UPDATE_EVENT_TODO_LIST_START });
+            axiosWithAuth()
+                .put(`${URL}/api/todo/${arr[i].id}`, valuesToSubmit)
+                .then((res) =>
+                    dispatch({
+                        type: UPDATE_EVENT_TODO_LIST_SUCCESS,
+                        payload: res.data,
+                    })
+                )
+                .catch((err) => console.log(err));
+        };
     }
-    return dispatch => {
-      dispatch({type: UPDATE_EVENT_TODO_LIST_START})
-      axiosWithAuth()
-        .put(`${URL}/api/todo/${arr[i].id}`, valuesToSubmit)
-        .then( res => dispatch({type: UPDATE_EVENT_TODO_LIST_SUCCESS, payload: res.data}))
-        .catch( err => console.log(err))
-   } 
-  }
-}
+};
 
 // ! Entertainment CRUD
 
 // export const ADD_EVENT_ENTERTAINMENT_START = "ADD_EVENT_ENTERTAINMENT_START"
 // export const ADD_EVENT_ENTERTAINMENT_SUCCESS = "ADD_EVENT_ENTERTAINMENT_SUCCESS"
 // export const ADD_EVENT_ENTERTAINMENT_ERROR = "ADD_EVENT_ENTERTAINMENT_ERROR"
-
 
 // export const addEntertainment = (values) => {
 //   return dispatch => {
@@ -219,7 +257,7 @@ export const updateToDoList = ( arr ) => {
 //         .put(`${URL}/api/entertainment/${arr[i].id}`, JSON.stringify(valuesToSubmit))
 //         .then( res => dispatch({type: UPDATE_ENTERTAINMENT_ITEMS_SUCCESS, payload: res.data}))
 //         .catch( err => dispatch({type: UPDATE_ENTERTAINMENT_ITEMS_ERROR, payload: err.response}))
-//    } 
+//    }
 //   }
 
 // }
