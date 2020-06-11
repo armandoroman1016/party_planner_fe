@@ -1,1 +1,1 @@
-export { globalReducer } from './GlobalReducer'
+export { globalReducer } from "./GlobalReducer";
