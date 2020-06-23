@@ -1,40 +1,38 @@
 .login-container.content {
-    margin: -.1rem;
+    
     max-width: 100vw;
     width: 100vw;
-    height: 100%;
+    
     position: relative;
-    background: #5877E6;
+    background: #5877e6;
     border-style: none;
+  
+    img {
+        width: 100%;
+    }
 
-    
-        img {
-            width: 100%;
-    
-        }
-    
     .banderitas-container,
     .confetti-container {
         position: absolute;
         width: 100%;
-
     }
 
     .banderitas-container {
         top: -6rem;
 
-        @include desktop{
-            top: -10rem;        
+        @include desktop {
+            top: -9rem;
         }
-
     }
 
     .confetti-container {
         top: -2rem;
-        @include desktop{
-            width: 95%; 
-            // top: -1rem;        
-            }
+
+        @include desktop {
+            width: 92%;
+            // z-index: 10000;
+            // top: -1rem;
+        }
     }
 
     .form {
@@ -44,102 +42,167 @@
         flex-direction: column;
         justify-content: space-between;
         padding: 5.8rem 3rem 3.8rem 3rem;
-        background: #F7F7F9;
+        background: #f7f7f9;
         border-radius: 40px;
         z-index: 100;
-        @include desktop{
-            width: 34%; 
+        position: relative;
+        // position: relative;
+        @include desktop {
+            width: 492px;
+            height: 600px;
             padding: 0;
-            margin:0;
-            margin-top: 10rem;
-            padding:11rem 10rem;
+            margin: 0;
+            margin-top: 90px;
+            padding: 50px 40px;
+            justify-content: space-evenly;
+
+            // z-index: 0;
         }
+
         .header {
             text-align: center;
-            color: #B3B1C2;
+            color: #b3b1c2;
             font-size: 2.8rem;
-            font-family: 'Heebo', 'Times New Roman', Times, serif;
+            font-family: "Heebo", "Times New Roman", Times, serif;
             font-weight: bolder;
-            @include desktop{
-                padding-bottom: 3rem;
+
+            @include desktop {
+                padding-top: 10px;
+                font-size: 2.8rem;
             }
         }
 
-        .ui.input{
+        .ui.input {
             display: flex;
             flex-direction: column;
-            height:8rem;
+            height: 8rem;
             overflow: hidden;
 
-            label{
-                font-family: 'Heebo', 'Times New Roman', Times, serif;
+            label {
+                font-family: "Heebo", "Times New Roman", Times, serif;
                 font-size: 16px;
                 line-height: 23px;
-                color: #B3B1C2;
+                color: #b3b1c2;
             }
-            input{
+
+            input {
                 border: none;
                 fill: none;
                 background: transparent;
-                border-bottom: 1px solid rgba(209, 206, 225, 0.8);
+                border-bottom: 1.2px solid rgba(209, 206, 225, 0.8);
                 margin-bottom: 2.4rem;
-            }
-            .error.show{
-                transform: translate(35%, -575%);
-                opacity: 1;
-                font-size: 1rem;
-                font-weight: bold;
-                transition: all .25s cubic-bezier(0.42, 0.86, 0.47, .16);
-                color: #E3696A
-            }
+                transition: border-bottom 0.25s ease-in-out;
 
-            .error{
-                transform: translate(35%, -250%);
-                opacity: 0;
+                &:focus {
+                    border-bottom: 1.6px solid $primary-blue1;
+                }
             }
         }
 
-        button{
+        button {
             margin-top: 1.2rem;
             width: 100%;
             background: transparent;
-            border: 1px solid #5877E5;
+            border: 1px solid #5877e5;
             border-radius: 20px;
-            color: #5877E5;
+            color: #5877e5;
             font-size: 18px;
-            font-family: 'Heebo', 'Times New Roman', Times, serif;
-            @include desktop{
+            font-family: "Heebo", "Times New Roman", Times, serif;
+            transition: color 0.25s ease-in, background 0.25s ease-in;
+
+            &:hover {
+                color: #fff;
+                background: #5877e5;
+            }
+
+            @include desktop {
                 margin-top: 3rem;
             }
         }
 
-        .register-btn{
-            background: #5877E5;
-            color: #F7F7F9;
+        .register-btn {
+            background: #5877e5;
+            color: #f7f7f9;
 
+            &:hover {
+                color: #5877e5;
+                background: #f7f7f9;
+            }
         }
 
-        #sign-up-link{
+        #sign-up-link {
             text-align: center;
-            padding-top: 2rem;
+            margin-top: 2rem;
             font-size: 1.4rem;
-            color: #B3B1C2;
+            color: #b3b1c2;
             font-weight: bold;
-            a{
-                color: darken(#B3B1C2, 10%)
+
+            a {
+                color: darken(#b3b1c2, 10%);
             }
         }
     }
 }
 
-.login-container.content.register{
-    
-    .form{
+.login-container.content.register {
+    .form {
         border-radius: 40px 40px 0 0;
         margin-bottom: 0;
-        @include desktop{
+
+        @include desktop {
             border-radius: 40px;
         }
     }
+}
 
+.error.show {
+    transform: translate(0%, -7.6rem);
+    text-align: right;
+    opacity: 1;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: all 0.25s cubic-bezier(0.42, 0.86, 0.47, 0.16);
+    color: #e3696a;
+}
+
+.error {
+    transform: translate(0%, -250%);
+    opacity: 0;
+}
+
+.error.generic {
+    transform: translate(0, 0);
+    position: absolute;
+    left: 30%;
+    bottom: 6.6rem;
+    opacity: 1;
+    text-align: center;
+    color: #e3696a;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin: 0;
+    padding: 0;
+    margin: 1.2rem;
+    height: auto;
+
+    bottom: 5.4rem;
+    left: 30%;
+
+    @include desktop{
+            
+        bottom: 10.6rem;
+        left: 35%;
+    }
+}
+
+.login-container.content.register {
+    .error.generic {
+        bottom: 6.5rem;
+        left: 30%;
+
+        @include desktop{
+            bottom: 7.2rem;
+            left: 35%;
+        }
+    }
 }

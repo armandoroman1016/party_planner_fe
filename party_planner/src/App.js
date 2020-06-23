@@ -6,7 +6,6 @@ import PrivateRoute from "./utils/PrivateRoute";
 
 // CSS
 import "semantic-ui-css/semantic.min.css";
-import "./App.scss";
 
 // Components
 import NavBar from "./components/NavBar";

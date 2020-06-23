@@ -26,6 +26,7 @@ function RegisterShape(prop) {
         windowSize > 500 ? banderitasMobile : banderitasDesktop;
     const confettiImg = windowSize < 500 ? confettiMobile : confettiDesktop;
 
+    console.log(errors);
     return (
         <div className="login-container content register">
             <div className="banderitas-container">
@@ -95,10 +96,14 @@ function RegisterShape(prop) {
                         <ClipLoader
                             size={13}
                             //size={"150px"} this also works
-                            color={"#fff"}
+                            color={"#061224"}
                         />
                     )}
                 </Button>
+                {errors.generic && (
+                    <p className="error generic">{errors.generic}</p>
+                )}
+                <br />
                 <br />
                 {status && (
                     <h3 style={{ color: "red" }}>
@@ -155,7 +160,20 @@ const Register = withFormik({
             })
             .catch((error) => {
                 props.setSubmitting(false);
-                console.log(error);
+
+                const response = error.response;
+
+                const errors = {};
+                if (response.status === 403) {
+                    errors["email"] = response.data.message;
+                } else if (response.status === 400) {
+                    errors["missing_field"] = response.data.message;
+                } else if (response.status === 500) {
+                    errors["generic"] = response.data.message;
+                }
+                errors["generic"] = "This is a test message";
+
+                props.setErrors(errors);
             });
     },
 })(RegisterShape);

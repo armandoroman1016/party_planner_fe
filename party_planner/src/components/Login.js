@@ -72,14 +72,14 @@ function Login(prop) {
                         <ClipLoader
                             size={16}
                             //size={"150px"} this also works
-                            color={"#5877E5"}
+                            color={"#061224"}
                         />
                     )}
                 </Button>
-                <br />
-                {status && (
-                    <h3 style={{ color: "red" }}>Invalid password or email</h3>
+                {errors.generic && (
+                    <p className="error generic">{errors.generic}</p>
                 )}
+                <br />
                 <p id="sign-up-link">
                     Need an account? <Link to="/register">Sign up here.</Link>
                 </p>
@@ -120,7 +120,19 @@ const FormikLogin = withFormik({
             })
             .catch((error) => {
                 props.setSubmitting(false);
-                props.setStatus(error.response.data.message);
+
+                const { response } = error;
+
+                const errors = {};
+                if (response.status === 406) {
+                    errors["password"] = response.data.message;
+                    errors["email"] = response.data.message;
+                } else if (response.status === 400) {
+                    errors["generic"] = response.status.message;
+                }
+                errors["generic"] = "This is a test message";
+
+                props.setErrors(errors);
             });
     },
 })(Login);
