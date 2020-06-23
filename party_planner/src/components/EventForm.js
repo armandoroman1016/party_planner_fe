@@ -397,7 +397,6 @@ const EventForm = withFormik({
     }),
 
     handleSubmit(values, prop) {
-        console.log(prop);
         const { addEvent, isLoading, history, match, updateEvent } = prop.props;
 
         const eventId = match.params.eventId;
