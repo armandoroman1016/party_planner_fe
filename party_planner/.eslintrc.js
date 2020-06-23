@@ -26,7 +26,12 @@ module.exports = {
         "react-hooks/exhaustive-deps": "warn",
         "react/jsx-uses-react": "error",
         "react/jsx-uses-vars": "error",
-        "prettier/prettier": "error"
+        "prettier/prettier": "error",
+        "react/prop-types": [0, {}],
+        "react/no-unescaped-entities": ["error", {"forbid": [{
+            char: "'",
+            alternatives: ['&apos;']
+          }]}],
     },
     "settings": {
         "react": {
