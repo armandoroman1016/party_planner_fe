@@ -2,10 +2,10 @@ import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { Icon } from "semantic-ui-react";
 import { getEvents } from "../actions/eventActions";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 // Event clickable component
 import EventOnDashboard from "./EventOnDashboard";
-
+import UserTutorial from "./UserTutorial";
 import { Link } from "react-router-dom";
 
 // Another way to import. This is recommended to reduce bundle size
@@ -26,6 +26,7 @@ const Events = (prop) => {
     const [values, setValues] = useState("");
     const [searching, setSearching] = useState(false);
 
+    const history = useHistory();
     useEffect(() => {
         setFiltered(events);
     }, [events.length]);
@@ -48,13 +49,25 @@ const Events = (prop) => {
         }
     };
 
+    console.log(history);
     return (
         <div className="events-content">
             <div className="new-event">
                 <h2>My Events</h2>
-                <Link to="/create-event">
-                    <Icon name="add circle" />
+                <Link
+                    to="/create-event"
+                    className={history.location.state ? "addTutorial" : ""}
+                >
+                    <Icon
+                        name="add circle"
+                        style={{
+                            color: history.location.state
+                                ? "#69e0a5"
+                                : "#6065D1",
+                        }}
+                    />
                 </Link>
+                <UserTutorial actionType="firstEvent" />
             </div>
 
             <div className="search-bar">

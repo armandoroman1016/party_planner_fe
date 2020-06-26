@@ -61,7 +61,7 @@ const ListItem = (prop) => {
     };
 
     return (
-        <div className="item-container">
+        <div className="item-container" aria-live="polite">
             <img
                 src={radioStatus}
                 alt="radio-button"

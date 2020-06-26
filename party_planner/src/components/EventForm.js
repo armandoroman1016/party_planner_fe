@@ -158,7 +158,7 @@ const EventFormShape = (prop) => {
                 </div>
 
                 <div className="time field">
-                    <label>START TIME *</label>
+                    <label htmlFor="startHour">START TIME *</label>
                     <div>
                         <Field name="startHour" as="select">
                             <option value="hr">HR</option>
@@ -300,7 +300,9 @@ const EventFormShape = (prop) => {
                         name="publicity"
                         checked={values.publicity}
                     />
-                    <label className="checkbox-container">PUBLIC</label>
+                    <label className="checkbox-container" htmlFor="publicity">
+                        PUBLIC
+                    </label>
                 </div>
 
                 <div id="bg-color" className="field">
@@ -308,7 +310,7 @@ const EventFormShape = (prop) => {
                     <div>
                         {backgroundColors.length
                             ? backgroundColors.map((color) => (
-                                  <div
+                                  <button
                                       style={{
                                           background: color,
                                           border:

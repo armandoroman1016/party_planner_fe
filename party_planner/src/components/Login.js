@@ -130,7 +130,6 @@ const FormikLogin = withFormik({
                 } else if (response.status === 400) {
                     errors["generic"] = response.status.message;
                 }
-                errors["generic"] = "This is a test message";
 
                 props.setErrors(errors);
             });

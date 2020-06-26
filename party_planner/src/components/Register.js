@@ -26,7 +26,6 @@ function RegisterShape(prop) {
         windowSize > 500 ? banderitasMobile : banderitasDesktop;
     const confettiImg = windowSize < 500 ? confettiMobile : confettiDesktop;
 
-    console.log(errors);
     return (
         <div className="login-container content register">
             <div className="banderitas-container">
@@ -156,7 +155,11 @@ const Register = withFormik({
                 localStorage.setItem("user_id", res.data.user.id);
                 localStorage.setItem("token", res.data.token);
                 props.props.getEvents();
-                props.props.history.push(`/dashboard/${res.data.user.id}`);
+                props.props.history.location.state = "new_user";
+                props.props.history.push(
+                    `/dashboard/${res.data.user.id}`,
+                    "newUser"
+                );
             })
             .catch((error) => {
                 props.setSubmitting(false);
@@ -171,7 +174,6 @@ const Register = withFormik({
                 } else if (response.status === 500) {
                     errors["generic"] = response.data.message;
                 }
-                errors["generic"] = "This is a test message";
 
                 props.setErrors(errors);
             });

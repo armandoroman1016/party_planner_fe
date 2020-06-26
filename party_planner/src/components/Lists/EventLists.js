@@ -94,7 +94,7 @@ const ListContainer = (prop) => {
     const [showForm, setShowForm] = useState(false);
 
     return (
-        <div className="list-page-container">
+        <div className="list-page-container" aria-live="polite">
             <div id="header">
                 <img
                     src={back}
